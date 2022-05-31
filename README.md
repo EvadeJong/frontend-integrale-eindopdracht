@@ -42,7 +42,7 @@
    Open http://localhost:3000 to view the page in the browser.
 
 ## 4. Testing
-   The unit tests are located in the project directory src/__test__.
-   To run the tests, run the following command in the terminal:
+The unit tests are located in the project directory src/__test__.
+To run the tests, run the following command in the terminal:
 
-   npm run test
+npm run test
