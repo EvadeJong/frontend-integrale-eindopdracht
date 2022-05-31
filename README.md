@@ -27,7 +27,7 @@
 ## 3. Starting the application
    To install the application on your local machine, navigate to https://github.com/EvadeJong/integrale-eindopdracht-frontend.
    Select the green 'code' button, and copy the SSH, HTTPS or Github CLI url.
-   Import the application in Webstorm via tab 'Git' --> Clone (or tab 'VCS' --> Get from version control). 
+   Import the application in Webstorm via tab 'Git' --> Clone (or tab 'VCS' --> Get from version control).
    Use the copied url, and select a directory in which you would like to place the application.
 
    Once imported, install the node_modules by running the following commands in the terminal:
