@@ -1,70 +1,48 @@
-# Getting Started with Create React App
+#Webapp 'Giggles'
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+##Table of contents
+1. Introduction
+2. Issue and solution
+3. Starting the application
+4. Testing
 
-## Available Scripts
 
-In the project directory, you can run:
+##1. Introduction
+   This project is the result of the final assignment for module frontend, 
+   with the goal of demonstrating that I have sufficient skills in HTML, CSS, JavaScript and React.
 
-### `npm start`
+   The project was set up with the npx command Create React App.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+##2. Description of the issue, and it's solution
+   The best way to solve a problem is to see the humor, and just have a good laugh.
+   With all the misery concering Corona, the news reports about The Voice of Holland and the recent 
+   war in Ukraine (to point out a few depressing news items), people need some light-hearted entertainment.
+   Humor can help in difficult situations, for example as an icebreaker or to relieve sadness. 
+   An additional effect of humor is laughter, which in turn triggers the production of chemicals in our brain that act as an antidepressant.
+   I have made an app that can generate funny (and bad) jokes to put a smile on the reader's face. 
+   Jokes may also be offered, with the aim of making other users laugh. 
+   The app uses the JokeAPI backend to GET en POST jokes.
+   The purpose of the web app is to make people happy, to make them smile and to forget about any worries for a while.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+##3. Starting the application
+   To install the application on your local machine, navigate to https://github.com/EvadeJong/integrale-eindopdracht-frontend.
+   Select the green 'code' button, and copy the SSH, HTTPS or Github CLI url.
+   Import the application in Webstorm via tab 'Git' --> Clone (or tab 'VCS' --> Get from version control). 
+   Use the copied url, and select a directory in which you would like to place the application.
 
-### `npm test`
+   Once imported, install the node_modules by running the following commands in the terminal:
+   npm install
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   Once the install of  node_modules is completed, run the following command in the terminal:
+   npm run build
 
-### `npm run build`
+   You start the application by using:
+   npm start
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   Open http://localhost:3000 to view the page in the browser.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+##4. Testing
+   The unit tests are located in the project directory src/__test__.
+   To run the tests, run the following command in the terminal:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+   npm run test
