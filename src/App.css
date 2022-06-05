@@ -1,5 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&family=EB+Garamond&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
+:root {
+    --Bright-orange: E67A3D;
+    --Orange: FFAD30;
+    --Yellow: F4E15E;
+    --Pink: F7B2AD;
+    --Light-blue: BFD7EA;
+}
+
+font-family: 'Carter One', cursive;
+font-family: 'EB Garamond', serif;
