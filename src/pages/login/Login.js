@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useHistory } from 'react-router-dom'
 
 function Login({login, getter, setter}){
@@ -8,6 +8,10 @@ function Login({login, getter, setter}){
         setter(!getter);
         console.log({login})
     }
+
+    useEffect (() =>{
+        document.documentElement.style.setProperty('--dynamic-background-color', '#BFD7EA')
+    }, []);
 
     return(
         <>
