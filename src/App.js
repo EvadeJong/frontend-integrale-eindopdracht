@@ -16,6 +16,7 @@ import SubmitJoke from './pages/submitJoke/SubmitJoke.js'
 //components
 import PrivateRoute from './components/privateRoute/PrivateRoute.js'
 import Header from './components/header/Header.js'
+import Footer from './components/footer/Footer.js'
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
                 <SubmitJoke />
             </PrivateRoute>
         </Switch>
+          <Footer />
       </>
   );
 }
