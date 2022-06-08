@@ -13,6 +13,8 @@
 
    The project was set up with the npx command Create React App.
 
+
+
 ## 2. Description of the issue, and it's solution
    The best way to solve a problem is to see the humor, and just have a good laugh.
    With all the misery concering Corona, the news reports about The Voice of Holland and the recent 
