@@ -1,19 +1,22 @@
-Webapp 'Giggles'
+# Webapp 'Giggles'
 
-Table of contents
+## Table of contents
+
 1. Introduction
 2. Issue and solution
 3. Starting the application
 4. Testing
 
+## 1. Introduction
 
-1. Introduction
    This project is the result of the final assignment for module frontend, 
    with the goal of demonstrating that I have sufficient skills in HTML, CSS, JavaScript and React.
 
    The project was set up with the npx command Create React App.
 
-2. Description of the issue, and it's solution
+   ![most important page](https://github.com/EvadeJong/integrale-eindopdracht-frontend/blob/main/src/assets/Giggler%20page.png?raw=trues)
+
+## 2. Description of the issue, and it's solution
    The best way to solve a problem is to see the humor, and just have a good laugh.
    With all the misery concering Corona, the news reports about The Voice of Holland and the recent 
    war in Ukraine (to point out a few depressing news items), people need some light-hearted entertainment.
@@ -24,10 +27,10 @@ Table of contents
    The app uses the JokeAPI backend to GET en POST jokes.
    The purpose of the web app is to make people happy, to make them smile and to forget about any worries for a while.
 
-3. Starting the application
+## 3. Starting the application
    To install the application on your local machine, navigate to https://github.com/EvadeJong/integrale-eindopdracht-frontend.
    Select the green 'code' button, and copy the SSH, HTTPS or Github CLI url.
-   Import the application in Webstorm via tab 'Git' --> Clone (or tab 'VCS' --> Get from version control). 
+   Import the application in Webstorm via tab 'Git' --> Clone (or tab 'VCS' --> Get from version control).
    Use the copied url, and select a directory in which you would like to place the application.
 
    Once imported, install the node_modules by running the following commands in the terminal:
@@ -41,8 +44,9 @@ Table of contents
 
    Open http://localhost:3000 to view the page in the browser.
 
-5. Testing
+## 4. Testing
    The unit tests are located in the project directory src/__test__.
    To run the tests, run the following command in the terminal:
 
    npm run test
+
