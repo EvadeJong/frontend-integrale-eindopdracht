@@ -8,8 +8,8 @@ function Home(){
     }, []);
 
     return(
-        <main className="main">
-            <div>
+        <main className="page-outer-container">
+            <div className="page-inner-container">
                 <p>Dit is de home pagina</p>
             </div>
         </main>

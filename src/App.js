@@ -12,7 +12,6 @@ import Login from './pages/login/Login.js';
 import Profile from './pages/profile/Profile.js';
 import RequestJoke from './pages/requestJoke/RequestJoke.js'
 import SubmitJoke from './pages/submitJoke/SubmitJoke.js'
-
 //components
 import PrivateRoute from './components/privateRoute/PrivateRoute.js'
 import Header from './components/header/Header.js'

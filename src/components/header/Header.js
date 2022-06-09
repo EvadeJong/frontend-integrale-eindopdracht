@@ -7,8 +7,8 @@ import {ReactComponent as Giggles} from "../../assets/Giggles.svg";
 function Header() {
 
     return (
-        <header className="site-header">
-            <div className="site-header__wrapper">
+        <header className="header-outer-container">
+            <div className="header-inner-container">
                 <Lips />
                 <Giggles />
                 <nav>

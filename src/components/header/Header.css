@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Carter+One');
 
-.site-header {
+.header-outer-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-direction: row;
     font-family: 'Carter One';
 }
-.site-header__wrapper {
+.header-inner-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -15,6 +15,9 @@
 }
 
 nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     list-style-type: none;
     margin: 0;
     padding: 0;

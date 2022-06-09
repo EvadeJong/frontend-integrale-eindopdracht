@@ -1,3 +1,15 @@
-.main {
+main {
     height:80vh;
+}
+.page-outer-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+
+}
+.page-inner-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-basis: 1200px;
 }
