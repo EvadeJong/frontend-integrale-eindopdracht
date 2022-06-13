@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './Login.module.css';
+import Button from '../../components/button/Button'
 
 function Login({login, getter, setter}){
 
@@ -18,7 +19,8 @@ function Login({login, getter, setter}){
         <>
             <div>Dit is de login pagina</div>
             <h2>{login === true ? "Je bent ingelogd" : "Je bent nog niet ingelogd"}</h2>
-            <button type="button" onClick={loginButton}>Login</button>
+
+            <Button onClick={loginButton} text={'Login'} />
         </>
     )
 }
