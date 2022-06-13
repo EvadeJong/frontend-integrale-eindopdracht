@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styles from './Home.css';
+import styles from './Home.module.css';
 
 function Home(){
 
@@ -8,9 +8,9 @@ function Home(){
     }, []);
 
     return(
-        <main className="page-outer-container">
-            <div className="page-inner-container">
-                <p>Dit is de home pagina</p>
+        <main className={styles.pageOuterContainer}>
+            <div className={styles.pageInnerContainer}>
+                Dit is de home pagina
             </div>
         </main>
     )

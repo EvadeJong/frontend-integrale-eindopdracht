@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import styles from './Login.module.css';
 
 function Login({login, getter, setter}){
 

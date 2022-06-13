@@ -2,6 +2,11 @@
 
 :root{
   --dynamic-background-color: #F4E15E;
+  --Bright-orange: #E67A3D;
+  --Orange: #FFAD30;
+  --Yellow: #F4E15E;
+  --Pink: #F7B2AD;
+  --Light-blue: #BFD7EA;
 }
 
 * {

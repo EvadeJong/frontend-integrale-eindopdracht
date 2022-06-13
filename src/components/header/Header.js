@@ -1,14 +1,14 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import styles from './Header.css';
+import styles from './Header.module.css';
 import {ReactComponent as Lips} from "../../assets/Lippen.svg";
 import {ReactComponent as Giggles} from "../../assets/Giggles.svg";
 
 function Header() {
 
     return (
-        <header className="header-outer-container">
-            <div className="header-inner-container">
+        <header className={styles.headerOuterContainer}>
+            <div className={styles.headerInnerContainer}>
                 <Lips />
                 <Giggles />
                 <nav>

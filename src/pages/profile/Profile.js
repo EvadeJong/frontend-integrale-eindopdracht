@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import styles from './Profile.module.css'
 
 function Profile(){
 
