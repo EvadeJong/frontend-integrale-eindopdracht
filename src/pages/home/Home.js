@@ -15,7 +15,7 @@ function Home(){
 
     return(
         <main className={styles.pageOuterContainer}>
-            <Icecream />
+            <Icecream className={styles.icecreamSvg}/>
             <div className={styles.pageInnerContainer}>
 
                 <h1>Welcome</h1>

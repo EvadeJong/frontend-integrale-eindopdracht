@@ -19,3 +19,7 @@ h1 {
     font-family: 'Carter One';
     padding-bottom: 50px;
 }
+
+.icecreamSvg{
+    align-self: flex-end;
+}
