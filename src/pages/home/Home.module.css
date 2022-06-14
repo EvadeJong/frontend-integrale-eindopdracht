@@ -3,14 +3,19 @@
     display: flex;
     justify-content: center;
     flex-direction: row;
-
 }
 
 .pageInnerContainer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: flex-start;
+    align-items: center;
     flex-basis: 1400px;
     padding: 50px;
+}
+
+h1 {
+    font-size: 60px;
+    font-family: 'Carter One';
+    padding-bottom: 50px;
 }
