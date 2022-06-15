@@ -35,19 +35,15 @@ function App() {
             <Route exact path='/Login'>
                 <Login />
             </Route>
-            {isAuth &&
-                <Switch>
-                    <Route exact path='/Profile'>
-                        {isAuth ? <Profile /> : <Home />}
-                    </Route>
-                    <Route exact path='/RequestJoke'>
-                        {isAuth ? <RequestJoke /> : <Redirect to="/" />}
-                    </Route>
-                    <Route exact path='/submitJoke'>
-                        {isAuth ? <SubmitJoke /> : <Redirect to="/" />}
-                    </Route>
-                </Switch>
-            }
+            <Route exact path='/Profile'>
+                {isAuth ? <Profile /> : <Home />}
+            </Route>
+            <Route exact path='/RequestJoke'>
+                {isAuth ? <RequestJoke /> : <Redirect to="/" />}
+            </Route>
+            <Route exact path='/submitJoke'>
+                {isAuth ? <SubmitJoke /> : <Redirect to="/" />}
+            </Route>
         </Switch>
           <Footer />
       </>
