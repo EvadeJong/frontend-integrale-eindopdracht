@@ -1,6 +1,7 @@
 import React, { createContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import jwtDecode from "jwt-decode";
+import axios from "axios";
 
 export const AuthContext = createContext({});
 
@@ -8,48 +9,53 @@ function AuthContextProvider({ children }) {
 
     const [auth, toggleAuth] = useState({
         isAuth: false,
-        user: null,
+        user: {
+            username: '',
+        },
     });
 
     const history = useHistory();
 
     function login(token) {
-        console.log(token);
-
-        const decodedToken = jwtDecode(token);
-        console.log(decodedToken);
-
+        //const decodedToken = jwtDecode(token);
         //encoded token in de localstorage plaatsen
         localStorage.setItem('token', token);
-
-        //haal meer gebruikerdata op uit de backend
-        //async function getData(){
-        //      try{
-        //          const response = await axios.get('');
-        //             login(response);
-        //         }catch (e) {
-        //             console.error(e);
-        //         }
-
-
-        //decoded data gebruiken in de context
-        toggleAuth({
-            isAuth: true,
-            user: {
-                username: decodedToken.sub,
-                email: decodedToken.email,
-            },
-        });
-        console.log(decodedToken.sub);
-        history.push('/profile');
+        getData(token);
     }
 
     function logout() {
         console.log('Gebruiker is uitgelogd!');
+        localStorage.removeItem('token');
         toggleAuth({
             isAuth: false,
-            user: null,
+            user: {
+                username: '',
+            },
         });
+        history.push('/');
+    }
+
+    async function getData(token){
+        try{
+            const data = await axios.get('https://frontend-educational-backend.herokuapp.com/api/user', {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            console.log(data);
+
+            //decoded data gebruiken in de context
+            toggleAuth({
+                isAuth: true,
+                user: {
+                    username: data.data.username,
+                },
+            });
+        }catch (e) {
+            console.error(e);
+        }
+
         history.push('/');
     }
 

@@ -3,25 +3,11 @@ import styles from './Login.module.css';
 import Button from '../../components/button/Button'
 import {AuthContext} from "../../context/AuthContext";
 import axios from 'axios';
+import LoginForm from "../../components/forms/LoginForm";
 
 function Login() {
 
     const {login} = useContext(AuthContext);
-
-    async function signInRequest() {
-        try{
-            const result = await axios.post(' https://frontend-educational-backend.herokuapp.com/api/auth/signin',
-                {
-                    "username": "Eva",
-                    "password" : "123456",
-                }
-            )
-            console.log(result.data.accessToken);
-            login(result.data.accessToken);
-         } catch(e){
-             console.error(e);
-         }
-    }
 
     async function signUpRequest() {
         try{
@@ -48,8 +34,8 @@ function Login() {
             <span>
                 <div>
                     <h1>Dit is de login pagina</h1>
-                    <h2>{login === true ? `Hoi! Je bent ingelogd` : "Je bent nog niet ingelogd"}</h2>
-                    <Button onClick={signInRequest} text={'Sign in'}/>
+                    <LoginForm />
+
                 </div>
             </span>
                 <span>

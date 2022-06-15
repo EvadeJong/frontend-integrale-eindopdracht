@@ -38,13 +38,13 @@ function App() {
             {isAuth &&
                 <Switch>
                     <Route exact path='/Profile'>
-                        {isAuth ? <Profile/> : <Home />}
+                        {isAuth ? <Profile /> : <Home />}
                     </Route>
                     <Route exact path='/RequestJoke'>
-                        {isAuth ? <RequestJoke /> : <Home />}
+                        {isAuth ? <RequestJoke /> : <Redirect to="/" />}
                     </Route>
                     <Route exact path='/submitJoke'>
-                        {isAuth ? <SubmitJoke /> : <Home />}
+                        {isAuth ? <SubmitJoke /> : <Redirect to="/" />}
                     </Route>
                 </Switch>
             }
