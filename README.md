@@ -1,13 +1,14 @@
 # Webapp 'Giggles'
 
 ## Table of contents
+
 1. Introduction
 2. Issue and solution
 3. Starting the application
 4. Testing
 
-
 ## 1. Introduction
+
    This project is the result of the final assignment for module frontend, 
    with the goal of demonstrating that I have sufficient skills in HTML, CSS, JavaScript and React.
 
@@ -44,7 +45,8 @@
    Open http://localhost:3000 to view the page in the browser.
 
 ## 4. Testing
-The unit tests are located in the project directory src/__test__.
-To run the tests, run the following command in the terminal:
+   The unit tests are located in the project directory src/__test__.
+   To run the tests, run the following command in the terminal:
 
-npm run test
+   npm run test
+

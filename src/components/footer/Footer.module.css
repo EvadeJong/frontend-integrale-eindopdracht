@@ -1,0 +1,18 @@
+
+.footerOuterContainer {
+    height:5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    font-family: 'Carter One';
+
+}
+
+.footerInnerContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 1400px;
+}

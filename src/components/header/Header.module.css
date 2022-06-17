@@ -1,4 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Carter+One');
+
+.headerOuterContainer {
+    height:20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    font-family: 'Carter One';
+}
+.headerInnerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-basis: 1400px;
+}
+
 nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -22,10 +42,6 @@ nav ul li a {
 
 nav ul li a:hover {
     background-color: hsl(70, 62%, 50%);
-}
-
-.right {
-    float: right;
 }
 
 .active-link {

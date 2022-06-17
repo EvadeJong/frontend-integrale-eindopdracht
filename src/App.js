@@ -1,8 +1,8 @@
 //3d party packages
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import {
-  Switch,
-  Route,
+    Switch,
+    Route, Redirect,
 } from 'react-router-dom';
 
 //pages
@@ -12,18 +12,19 @@ import Login from './pages/login/Login.js';
 import Profile from './pages/profile/Profile.js';
 import RequestJoke from './pages/requestJoke/RequestJoke.js'
 import SubmitJoke from './pages/submitJoke/SubmitJoke.js'
-import Navigation from './components/navigation/Navigation.js';
 
 //components
-import PrivateRoute from './components/privateRoute/PrivateRoute.js'
+import Header from './components/header/Header.js'
+import Footer from './components/footer/Footer.js'
+import {AuthContext} from "./context/AuthContext";
 
 
 function App() {
-  const [ isAuthenticated, toggleIsAuthenticated ] = useState(false);
-
+  const { isAuth } = useContext(AuthContext);
+  console.log(isAuth)
   return (
       <>
-        <Navigation />
+        <Header />
         <Switch>
           <Route exact path='/'>
             <Home />
@@ -31,19 +32,24 @@ function App() {
           <Route exact path='/Contact'>
             <Contact />
           </Route>
-            <Route exact path='/Login' >
-                <Login login={isAuthenticated} getter={isAuthenticated} setter={toggleIsAuthenticated}/>
+            <Route exact path='/Login'>
+                <Login />
             </Route>
-            <PrivateRoute exact path='/Profile' login={isAuthenticated}>
-                <Profile />
-            </PrivateRoute>
-            <PrivateRoute exact path='/RequestJoke' login={isAuthenticated}>
-                <RequestJoke />
-            </PrivateRoute>
-            <PrivateRoute exact path='/submitJoke' login={isAuthenticated}>
-                <SubmitJoke />
-            </PrivateRoute>
+            {isAuth &&
+                <Switch>
+                    <Route exact path='/Profile'>
+                        {isAuth ? <Profile/> : <Home />}
+                    </Route>
+                    <Route exact path='/RequestJoke'>
+                        {isAuth ? <RequestJoke /> : <Home />}
+                    </Route>
+                    <Route exact path='/submitJoke'>
+                        {isAuth ? <SubmitJoke /> : <Home />}
+                    </Route>
+                </Switch>
+            }
         </Switch>
+          <Footer />
       </>
   );
 }
