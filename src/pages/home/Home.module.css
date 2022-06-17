@@ -20,6 +20,11 @@ h1 {
     padding-bottom: 50px;
 }
 
+h2{
+    display: inline-block;
+    width: 75vh;
+    height: 100vh;
+}
 .icecreamSvg{
     align-self: flex-end;
 }

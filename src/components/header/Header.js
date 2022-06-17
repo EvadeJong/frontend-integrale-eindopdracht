@@ -6,7 +6,7 @@ import {ReactComponent as Giggles} from "../../assets/Giggles.svg";
 import {AuthContext} from "../../context/AuthContext";
 
 function Header() {
-    const { isAuth } = useContext(AuthContext);
+    const { isAuth, logout } = useContext(AuthContext);
     return (
         <header className={styles.headerOuterContainer}>
             <div className={styles.headerInnerContainer}>
@@ -23,15 +23,20 @@ function Header() {
                                     <li key='submitJoke'>
                                         <NavLink to='/submitJoke' exact activeClassName={styles['active-link']}>Joker</NavLink>
                                     </li>
+                                    <li key='logout'>
+                                        <NavLink to='/' onClick={logout} activeClassName={styles['active-link']}>Logout</NavLink>
+                                    </li>
                                 </ul>
                             </>
                         }
                             <li key='home'>
                                 <NavLink to='/' exact activeClassName={styles['active-link']}>Home</NavLink>
                             </li>
+                        {!isAuth &&
                             <li key='login'>
                                 <NavLink to='/login' activeClassName={styles['active-link']}>Login</NavLink>
                             </li>
+                        }
                         </ul>
                 </nav>
             </div>
