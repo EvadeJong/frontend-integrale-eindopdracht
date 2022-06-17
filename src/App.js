@@ -25,26 +25,26 @@ function App() {
   return (
       <>
         <Header />
-        <Switch>
-          <Route exact path='/'>
-            <Home />
-          </Route>
-          <Route exact path='/Contact'>
-            <Contact />
-          </Route>
-            <Route exact path='/Login'>
-                <Login />
-            </Route>
-            <Route exact path='/Profile'>
-                {isAuth ? <Profile /> : <Home />}
-            </Route>
-            <Route exact path='/RequestJoke'>
-                {isAuth ? <RequestJoke /> : <Redirect to="/" />}
-            </Route>
-            <Route exact path='/submitJoke'>
-                {isAuth ? <SubmitJoke /> : <Redirect to="/" />}
-            </Route>
-        </Switch>
+            <Switch>
+              <Route exact path='/'>
+                <Home />
+              </Route>
+              <Route exact path='/Contact'>
+                <Contact />
+              </Route>
+                <Route exact path='/Login'>
+                    <Login />
+                </Route>
+                <Route exact path='/Profile'>
+                    {isAuth ? <Profile /> : <Home />}
+                </Route>
+                <Route exact path='/RequestJoke'>
+                    {isAuth ? <RequestJoke /> : <Redirect to="/" />}
+                </Route>
+                <Route exact path='/submitJoke'>
+                    {isAuth ? <SubmitJoke /> : <Redirect to="/" />}
+                </Route>
+              </Switch>
           <Footer />
       </>
   );
