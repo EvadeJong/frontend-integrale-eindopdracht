@@ -20,11 +20,15 @@ h1 {
     padding-bottom: 50px;
 }
 
-h2{
+section {
+    font-size: 30px;
+    width: 30em;
+    margin: 0.5em;
+    white-space: normal;
+    vertical-align: top;
     display: inline-block;
-    width: 75vh;
-    height: 100vh;
 }
+
 .icecreamSvg{
-    align-self: flex-end;
+    align-self: flex-start;
 }

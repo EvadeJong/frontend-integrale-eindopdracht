@@ -9,6 +9,10 @@ function Login() {
 
     const {login} = useContext(AuthContext);
 
+    useEffect(() => {
+        document.documentElement.style.setProperty('--dynamic-background-color', '#BFD7EA')
+    }, []);
+
     async function signUpRequest() {
         try{
             const result = await axios.post(' https://frontend-educational-backend.herokuapp.com/api/auth/signup', {
@@ -18,16 +22,13 @@ function Login() {
                 "password" : "123456",
             }
             )
-            console.log(result);
-            // login(result.data.accessToken);
+            login(result.data.accessToken);
         } catch(e){
             console.error(e);
         }
 
     }
-        useEffect(() => {
-            document.documentElement.style.setProperty('--dynamic-background-color', '#BFD7EA')
-        }, []);
+
 
         return (
             <main>
@@ -41,7 +42,7 @@ function Login() {
                 <span>
                 <div>
                     <h1>Dit is de register pagina</h1>
-                    <Button onClick={signUpRequest} text={'Sign up'}/>
+                    <Button type="submit" text="Register" onClick={signUpRequest}/>
                 </div>
             </span>
             </main>
