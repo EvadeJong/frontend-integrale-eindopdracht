@@ -3,9 +3,12 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
 import Button from "../button/Button";
+import './Form.css'
 
 function LoginForm(){
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        mode: "onBlur",
+        });
     const { login } = useContext(AuthContext);
 
     const [username, setUsername] = useState('');
@@ -30,7 +33,7 @@ function LoginForm(){
         <form onSubmit={handleSubmit(signInRequest)}>
             <fieldset>
                 <legend>
-                    Please log in
+                    <h2>Login</h2>
                 </legend>
                 <label htmlFor="username">
                     Username:
@@ -44,7 +47,7 @@ function LoginForm(){
                     }
                     onChange={(e) => setUsername(e.target.value)}
                 />
-                    {errors.username && <p>{errors.username.message}</p>}
+                    {errors.username && <p className='error'>{errors.username.message}</p>}
                 </label>
 
                 <label htmlFor="password">
@@ -63,8 +66,9 @@ function LoginForm(){
                         )}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    {errors.password && <p>{errors.password.message}</p>}
+                    {errors.password && <p className='error'>{errors.password.message}</p>}
                 </label>
+
                 <Button type="submit" text="Login"/>
             </fieldset>
         </form>
