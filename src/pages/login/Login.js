@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import styles from './Login.css';
+import { pageInnerContainer } from './Login.css';
 import Button from '../../components/button/Button'
 import {AuthContext} from "../../context/AuthContext";
 import axios from 'axios';
@@ -35,21 +35,23 @@ function Login() {
             <>
                 <Header />
                 <main>
-                    <section className="pageOuterContainer">
-                        <div className="pageInnerContainer">
-                           <span>
-                              <div>
-                                <h1>Dit is de login pagina</h1>
+                    <section className='pageOuterContainer'>
+                        <div className='pageInnerContaine'>
+                            <span className='seperator'>
+                              <div className='loginpage-left'>
+                                <h2>Login</h2>
                                 <LoginForm />
                               </div>
-                           </span>
-                           <span>
-                              <div>
-                                 <h1>Dit is de register pagina</h1>
-                                 <Button type="submit" text="Register" onClick={signUpRequest}/>
+
+                              <div className='seperator-line'>
                               </div>
-                           </span>
-                        </div>
+
+                              <div className='registerpage-right'>
+                                 <h2>Register</h2>
+                                 <Button type='submit' text='Register' onClick={signUpRequest}/>
+                              </div>
+                            </span>
+                         </div>
                     </section>
                 </main>
             </>

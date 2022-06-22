@@ -1,15 +1,33 @@
-section {
-    font-size: 30px;
-    width: 30em;
-    white-space: normal;
-    vertical-align: top;
-    display: inline-block;
+h1 {
+    align-content: center;
+}
+h4 {
+    line-height: 6;
+}
+.pageInnerContainer{
+    justify-content: center;
+    align-items: center;
+}
+.Welcome{
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    width: 25em;
+
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 80px 0 0 0;
+    padding: 40px;
 }
 
-.icecreamSvg{
-    align-self: flex-start;
+.homepage-lower {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    width: 800px;
 }
+.homepage-lower .registerButton {
+    margin-left: 255px;
+}
+

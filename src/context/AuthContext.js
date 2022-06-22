@@ -13,15 +13,15 @@ function AuthContextProvider({ children }) {
         user: {
             username: '',
         },
-        status: 'done',
+        status: 'pending',
     });
 
     useEffect(() => {
         const token = localStorage.getItem('token');
+        console.log(token);
         if(token) {
             const tokenIsValid = jwtValidator(jwtDecode(token));
             if (tokenIsValid) {
-                //TODO deze asynchrone functie wordt meermaals gebruikt: uit de useeffect halen en de login functie, en daar alleen aanroepen
                 getUserData(token);
             }
         }else {
@@ -30,8 +30,7 @@ function AuthContextProvider({ children }) {
                 status: 'done',
             });
         }
-    }
-    ,[]);
+    },[]);
 
     async function getUserData(token) {
         try {

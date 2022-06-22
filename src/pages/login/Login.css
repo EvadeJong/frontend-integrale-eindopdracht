@@ -1,0 +1,19 @@
+.seperator {
+    display: flex;
+    flex-direction: row;
+    width: 1000px;
+    justify-content: space-between;
+}
+.loginpage-left{
+    width: 45vh;
+}
+
+.registerpage-right{
+    width: 45vh;
+}
+
+.seperator-line {
+    border-left: 6px solid #7495f8;
+    height: 300px;
+    box-shadow: 5px 5px 5px #888888;
+}

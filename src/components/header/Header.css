@@ -3,17 +3,27 @@
 header{
     font-family: 'Carter One';
     text-align: center;
+    height: 20vh;
 }
-.header-content{
-    padding: 30px 0;
+.header-images {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    width: 1200px;
 }
-
+.header-images .giggles {
+    justify-content: center;
+    margin-left: 255px;
+}
 
 nav{
     width: 100%;
     display: flex;
+    oder: 2;
     flex-direction: row;
     justify-content: flex-end;
+    align-self: flex-end;
 }
 
 ul {
@@ -22,7 +32,7 @@ ul {
     justify-content: space-between;
     padding: 0;
     list-style: none;
-    flex-basis: 175px;
+    flex-basis: 150px;
 }
 
 ul li {

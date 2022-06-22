@@ -10,37 +10,43 @@ function Header() {
     return (
         <header className="pageOuterContainer">
             <div className="pageInnerContainer">
-                <div className="header-content">
-                    <Lips />
-                    <Giggles />
-                </div>
-                <nav>
-                    <ul>
-                        { isAuth &&
-                            <>
-                                <ul>
-                                    <li key='requestJoke'>
-                                        <NavLink to='/requestJoke' exact activeClassName={styles['active-link']}>Giggler</NavLink>
-                                    </li>
-                                    <li key='submitJoke'>
-                                        <NavLink to='/submitJoke' exact activeClassName={styles['active-link']}>Joker</NavLink>
-                                    </li>
-                                    <li key='logout'>
-                                        <NavLink to='/' onClick={logout} activeClassName={styles['active-link']}>Logout</NavLink>
-                                    </li>
-                                </ul>
-                            </>
-                        }
+                <div className='header-images'>
+                    <div className='lips'>
+                        <Lips />
+                    </div>
+                    <div className='giggles'>
+                        <Giggles />
+                    </div>
+                    <nav>
+                        <ul>
+                            { isAuth &&
+                                <>
+                                    <ul>
+                                        <li key='requestJoke'>
+                                            <NavLink to='/requestJoke' exact activeClassName={styles['active-link']}>Giggler</NavLink>
+                                        </li>
+                                        <li key='submitJoke'>
+                                            <NavLink to='/submitJoke' exact activeClassName={styles['active-link']}>Joker</NavLink>
+                                        </li>
+                                        <li key='logout'>
+                                            <NavLink to='/' onClick={logout} activeClassName={styles['active-link']}>Logout</NavLink>
+                                        </li>
+                                    </ul>
+                                </>
+                            }
                             <li key='home'>
                                 <NavLink to='/' exact activeClassName={styles['active-link']}>Home</NavLink>
                             </li>
-                        {!isAuth &&
-                            <li key='login'>
-                                <NavLink to='/login' activeClassName={styles['active-link']}>Login</NavLink>
-                            </li>
-                        }
+                            {!isAuth &&
+                                <li key='login'>
+                                    <NavLink to='/login' activeClassName={styles['active-link']}>Login</NavLink>
+                                </li>
+                            }
                         </ul>
-                </nav>
+                    </nav>
+                </div>
+
+
             </div>
         </header>
 
