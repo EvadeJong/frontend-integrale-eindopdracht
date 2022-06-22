@@ -1,7 +1,8 @@
 import React, {useContext, useEffect} from 'react';
-import styles from './Profile.module.css'
+import styles from './Profile.css'
 import Button from "../../components/button/Button";
 import {AuthContext} from "../../context/AuthContext";
+import Header from "../../components/header/Header";
 
 function Profile(){
 
@@ -15,13 +16,18 @@ function Profile(){
     }, []);
 
     return(
-        <main>
-            <div>
-                <h1>Hoi {username}</h1>
-                <p>Dit is de profiel pagina</p>
-                <Button onClick={updateProfileButton} text={'Update profile'} />
-            </div>
-        </main>
+        <>
+            <Header />
+            <main>
+                <section className="pageOuterContainer">
+                    <div className="pageInnerContainer">
+                        <h1>Hoi {username}</h1>
+                        <p>Dit is de profiel pagina</p>
+                        <Button onClick={updateProfileButton} text={'Update profile'} />
+                    </div>
+                </section>
+            </main>
+        </>
     )
 }
 

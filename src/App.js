@@ -13,19 +13,19 @@ import Profile from './pages/profile/Profile.js';
 import RequestJoke from './pages/requestJoke/RequestJoke.js'
 import SubmitJoke from './pages/submitJoke/SubmitJoke.js'
 
-//components
-import Header from './components/header/Header.js'
-import Footer from './components/footer/Footer.js'
-import {AuthContext} from "./context/AuthContext";
+//css
+import './App.css';
 
+//components
+import Footer from './components/footer/Footer.js'
+import {AuthContext} from './context/AuthContext';
 
 function App() {
   const { isAuth } = useContext(AuthContext);
 
   return (
       <>
-        <Header />
-            <Switch>
+          <Switch>
               <Route exact path='/'>
                 <Home />
               </Route>

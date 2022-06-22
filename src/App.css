@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&family=EB+Garamond&display=swap');
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --dynamic-background-color: #F4E15E;
+    --Bright-orange: #E67A3D;
+    --Orange: #FFAD30;
+    --Yellow: #F4E15E;
+    --Pink: #F7B2AD;
+    --Light-blue: #BFD7EA;
+}
+
+html, body, #root, #root>div {
+    height: 100vh;
+    background-color: var(--dynamic-background-color);
+}
+main{
+    height: 60vh;
+}
+
+h1 {
+    font-size: 60px;
+    font-family: 'Carter One', sans-serif;
+    padding-bottom: 50px;
+}
+
+h2, h3, h4, h5, h6 {
+    font-family: 'EB Garamond', sans-serif;
+}
+
+h2 {
+    font-size: 45px;
+}
+
+h3 {
+    font-size: 25px;
+}
+
+.pageOuterContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.pageInnerContainer {
+    display: flex;
+    flex-basis: 1200px;
+    flex-shrink: 1;
+    flex-grow: 0;
+    margin: 0 20px;
+    flex-direction: column;
+    justify-content: center;
+}

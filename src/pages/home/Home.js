@@ -1,9 +1,10 @@
 import React, { useEffect, useContext } from 'react';
-import styles from './Home.module.css';
+import styles from './Home.css';
 import Button from "../../components/button/Button";
 import { useHistory } from "react-router-dom";
 import {ReactComponent as Icecream} from "../../assets/Icecream.svg";
 import {AuthContext} from "../../context/AuthContext";
+import Header from "../../components/header/Header";
 
 function Home(){
     const { isAuth, user: {username}} = useContext(AuthContext);
@@ -14,11 +15,14 @@ function Home(){
     }, []);
 
     return(
-        <main className={styles.pageOuterContainer}>
-
-            <div className={styles.pageInnerContainer}>
+        <>
+            <Header />
+            <main>
+            <section className="pageOuterContainer">
+                <div className="pageInnerContainer">
                 {isAuth ?
                     <>
+                        <main>
                         <h1>Welcome {username}</h1>
                         <section>
                             Nice to see you again! Are you ready to piss your pants while laughing out loud?
@@ -26,9 +30,11 @@ function Home(){
                         <section>
                             (Don’t worry, we won’t tell)
                         </section>
+                        </main>
                     </>
                     :
                     <>
+                        <main>
                         <h1>Welcome</h1>
 
                         <section>
@@ -39,10 +45,13 @@ function Home(){
 
                         <Button onClick={() => history.push('/login')}  text={'Register'} />
                         <Icecream className={styles.icecreamSvg}/>
+                        </main>
                     </>
                 }
             </div>
-        </main>
+            </section>
+            </main>
+        </>
     )
 }
 

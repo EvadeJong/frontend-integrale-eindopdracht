@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import Button from "../../components/button/Button";
+import Header from "../../components/header/Header";
 
 function SubmitJoke(){
 
@@ -12,12 +13,17 @@ function SubmitJoke(){
     }, []);
 
     return(
-        <main>
-            <div>
-                <p>Dit is de SubmitJoke pagina</p>
-                <Button onClick={submitJokeButton} text={"Submit joke"} />
-            </div>
-        </main>
+        <>
+            <Header />
+            <main>
+                <section className="pageOuterContainer">
+                    <div className="pageInnerContainer">
+                        <p>Dit is de SubmitJoke pagina</p>
+                        <Button onClick={submitJokeButton} text={"Submit joke"} />
+                    </div>
+                </section>
+            </main>
+        </>
     )
 }
 

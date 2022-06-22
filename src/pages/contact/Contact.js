@@ -1,6 +1,7 @@
 import React, {useEffect}  from 'react';
-import styles from './Contact.module.css';
+import styles from './Contact.css';
 import Button from "../../components/button/Button";
+import Header from "../../components/header/Header";
 
 
 function Contact(){
@@ -14,12 +15,17 @@ function Contact(){
     }, []);
 
     return(
-        <main>
-            <div>
-                <p>Dit is de contact pagina</p>
-                <Button onClick={submitButton} text={'Submit'} />
-            </div>
-        </main>
+        <>
+            <Header />
+            <main>
+                <section className="pageOuterContainer">
+                    <div className="pageInnerContainer">
+                        <p>Dit is de contact pagina</p>
+                        <Button onClick={submitButton} text={'Submit'} />
+                    </div>
+                </section>
+            </main>
+        </>
     )
 }
 

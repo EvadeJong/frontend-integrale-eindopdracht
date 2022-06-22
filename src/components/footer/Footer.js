@@ -1,11 +1,11 @@
 import React from 'react';
-import styles from './Footer.module.css';
+import styles from './Footer.css';
 
 function Footer() {
 
     return (
-        <footer className={styles.footerOuterContainer}>
-            <div className={styles.footerInnerContainer}>
+        <footer className="pageOuterContainer">
+            <div className="pageInnerContainer">
                 Neem contact op!
             </div>
         </footer>

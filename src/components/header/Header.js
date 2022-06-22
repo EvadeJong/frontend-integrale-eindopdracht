@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {NavLink} from 'react-router-dom';
-import styles from './Header.module.css';
+import styles from './Header.css';
 import {ReactComponent as Lips} from "../../assets/Lippen.svg";
 import {ReactComponent as Giggles} from "../../assets/Giggles.svg";
 import {AuthContext} from "../../context/AuthContext";
@@ -8,10 +8,12 @@ import {AuthContext} from "../../context/AuthContext";
 function Header() {
     const { isAuth, logout } = useContext(AuthContext);
     return (
-        <header className={styles.headerOuterContainer}>
-            <div className={styles.headerInnerContainer}>
-                <Lips />
-                <Giggles />
+        <header className="pageOuterContainer">
+            <div className="pageInnerContainer">
+                <div className="header-content">
+                    <Lips />
+                    <Giggles />
+                </div>
                 <nav>
                     <ul>
                         { isAuth &&

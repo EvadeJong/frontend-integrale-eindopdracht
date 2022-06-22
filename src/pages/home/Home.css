@@ -1,0 +1,15 @@
+section {
+    font-size: 30px;
+    width: 30em;
+    white-space: normal;
+    vertical-align: top;
+    display: inline-block;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 80px 0 0 0;
+}
+
+.icecreamSvg{
+    align-self: flex-start;
+}

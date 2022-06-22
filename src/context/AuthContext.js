@@ -13,7 +13,7 @@ function AuthContextProvider({ children }) {
         user: {
             username: '',
         },
-        status: 'pending',
+        status: 'done',
     });
 
     useEffect(() => {

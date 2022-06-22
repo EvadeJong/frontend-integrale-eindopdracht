@@ -1,9 +1,10 @@
 import React, {useContext, useEffect} from 'react';
-import styles from './Login.module.css';
+import styles from './Login.css';
 import Button from '../../components/button/Button'
 import {AuthContext} from "../../context/AuthContext";
 import axios from 'axios';
 import LoginForm from "../../components/forms/LoginForm";
+import Header from "../../components/header/Header";
 
 function Login() {
 
@@ -31,21 +32,27 @@ function Login() {
 
 
         return (
-            <main>
-            <span>
-                <div>
-                    <h1>Dit is de login pagina</h1>
-                    <LoginForm />
-
-                </div>
-            </span>
-                <span>
-                <div>
-                    <h1>Dit is de register pagina</h1>
-                    <Button type="submit" text="Register" onClick={signUpRequest}/>
-                </div>
-            </span>
-            </main>
+            <>
+                <Header />
+                <main>
+                    <section className="pageOuterContainer">
+                        <div className="pageInnerContainer">
+                           <span>
+                              <div>
+                                <h1>Dit is de login pagina</h1>
+                                <LoginForm />
+                              </div>
+                           </span>
+                           <span>
+                              <div>
+                                 <h1>Dit is de register pagina</h1>
+                                 <Button type="submit" text="Register" onClick={signUpRequest}/>
+                              </div>
+                           </span>
+                        </div>
+                    </section>
+                </main>
+            </>
         )
     }
 
