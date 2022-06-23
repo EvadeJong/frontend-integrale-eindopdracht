@@ -16,6 +16,7 @@ function SubmitJoke(){
             <main>
                 <section className="pageOuterContainer">
                     <div className="pageInnerContainer">
+                        <h1>So you think you are funny?</h1>
                         <SubmitJokeForm />
                     </div>
                 </section>

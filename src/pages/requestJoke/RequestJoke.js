@@ -1,13 +1,27 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import './RequestJoke.css'
-import Button from "../../components/button/Button";
-import Header from "../../components/header/Header";
-import Footer from "../../components/footer/Footer";
+import Button from '../../components/button/Button';
+import Header from '../../components/header/Header';
+import Footer from '../../components/footer/Footer';
+import {AuthContext} from '../../context/AuthContext';
+import { chickenJokesArray } from '../../assets/ChickenJokesArray';
 
 function RequestJoke(){
+    const { isAuth, user: {username}} = useContext(AuthContext);
+    const [isChickenButtonClicked, setIsChickenButtonClicked] = useState(false);
+    const [index, setIndex] = useState(0)
+    const [chickenPunchline, setChickenPunchline] = useState('');
 
     function getPunchlineButton(){
-        console.log('You hit the punchline button')
+        setIsChickenButtonClicked(true);
+
+        if(index < chickenJokesArray.length -1){
+            setChickenPunchline(chickenJokesArray[index]);
+            setIndex(index +1);
+        }else{
+            setChickenPunchline(chickenJokesArray[index]);
+            setIndex(0);
+        }
     }
 
     useEffect (() =>{
@@ -20,8 +34,29 @@ function RequestJoke(){
             <main>
                 <section className="pageOuterContainer">
                     <div className="pageInnerContainer">
-                        <p>Dit is de RequestJoke pagina</p>
-                        <Button onClick={getPunchlineButton} text={"I don't know! Why?"} />
+                        {isChickenButtonClicked ?
+                            <>
+                                <h1>Why did the chicken cross the road?</h1>
+                                <div className='chickenJoke'>
+                                    <h3>{chickenPunchline}</h3>
+                                    <div>
+                                        <Button onClick={getPunchlineButton} text={"Haha! Give me an other one"} />
+                                        <Button onClick={getPunchlineButton} text={"Mwah, give me a real joke"} />
+                                    </div>
+                                </div>
+                            </>
+                            :
+                            <>
+                                <div className='jokeHeadline'>
+                                    <h1>How about a joke, {username}</h1>
+                                    <h4>The joker, 2019</h4>
+                                </div>
+                                <div className='chickenJoke'>
+                                    <h3>Why did the chicken cross the road?</h3>
+                                    <Button onClick={getPunchlineButton} text={"I don't know! Why?"} />
+                                </div>
+                            </>
+                        }
                     </div>
                 </section>
             </main>

@@ -20,7 +20,7 @@ h3 {
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-between;
-    width: 500px;
+    width: 480px;
 }
 select, textarea {
     width: 250px;

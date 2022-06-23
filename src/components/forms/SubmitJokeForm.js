@@ -39,8 +39,6 @@ function SubmitJokeForm(){
     return(
 
         <>
-            <h2>So you think you are funny?</h2>
-
             <form className='submitJokeForm' onSubmit={handleSubmit(submitJokeRequest)}>
                 {isRequestSuccessful ?
                     <h3>Thank you for submitting your joke!</h3>

@@ -1,0 +1,17 @@
+.jokeHeadline h1{
+    padding-bottom: 0px;
+}
+
+.jokeHeadline h4 {
+    text-align: right;
+    line-height: 1;
+}
+.chickenJoke {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+}
+.chickenJoke h3 {
+    line-height: 8;
+}
