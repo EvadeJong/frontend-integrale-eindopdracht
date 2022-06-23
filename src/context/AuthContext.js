@@ -100,7 +100,7 @@ function AuthContextProvider({ children }) {
         <AuthContext.Provider value={contextData}>
             {auth.status === 'done' && children}
             {auth.status === 'pending' && <p>Loading...</p>}
-            {auth.status === 'error' && <p>An error has occurred, please refresh the page.</p>}
+            {auth.status === 'error' && <p className='error'>An error has occurred, please refresh the page.</p>}
         </AuthContext.Provider>
     );
 }
