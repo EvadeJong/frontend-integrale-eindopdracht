@@ -2,6 +2,7 @@ import React, {useEffect}  from 'react';
 import styles from './Contact.css';
 import Button from "../../components/button/Button";
 import Header from "../../components/header/Header";
+import Footer from "../../components/footer/Footer";
 
 
 function Contact(){
@@ -25,6 +26,7 @@ function Contact(){
                     </div>
                 </section>
             </main>
+            <Footer text='Something amazing is about to happen'/>
         </>
     )
 }

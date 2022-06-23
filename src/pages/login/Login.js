@@ -4,6 +4,7 @@ import './Login.css';
 import LoginForm from "../../components/forms/LoginForm";
 import Header from "../../components/header/Header";
 import RegisterForm from "../../components/forms/RegisterForm";
+import Footer from "../../components/footer/Footer";
 
 function Login() {
 
@@ -34,6 +35,7 @@ function Login() {
                          </div>
                     </section>
                 </main>
+                <Footer text='Contact us!'/>
             </>
         )
     }

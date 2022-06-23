@@ -1,9 +1,7 @@
-h1 {
-    align-content: center;
-}
 h4 {
     line-height: 6;
 }
+
 .pageInnerContainer{
     justify-content: center;
     align-items: center;
@@ -13,7 +11,6 @@ h4 {
     align-items: center;
     font-size: 25px;
     width: 25em;
-
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
@@ -23,9 +20,9 @@ h4 {
 .homepage-lower {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-direction: row;
-    width: 800px;
+    width: 1000px;
 }
 .homepage-lower .registerButton {
     margin-left: 255px;

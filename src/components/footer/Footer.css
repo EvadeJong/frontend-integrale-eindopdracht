@@ -1,5 +1,34 @@
 footer{
     font-family: 'Carter One';
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0;
+    list-style: none;
+    flex-basis: 150px;
+}
+
+ul li {
+    float: left;
+}
+
+ul li a {
+    display: block;
+    color: black;
     text-align: center;
-    height: 10vh;
+    padding: 15px 15px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+}
+
+.active-link {
+    text-decoration: underline;
 }

@@ -3,6 +3,7 @@ import styles from './Profile.css'
 import Button from "../../components/button/Button";
 import {AuthContext} from "../../context/AuthContext";
 import Header from "../../components/header/Header";
+import Footer from "../../components/footer/Footer";
 
 function Profile(){
 
@@ -27,6 +28,7 @@ function Profile(){
                     </div>
                 </section>
             </main>
+            <Footer text='Contact us!'/>
         </>
     )
 }

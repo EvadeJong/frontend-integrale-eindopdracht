@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import {ReactComponent as Icecream} from "../../assets/Icecream.svg";
 import {AuthContext} from "../../context/AuthContext";
 import Header from "../../components/header/Header";
+import Footer from "../../components/footer/Footer";
 
 function Home(){
     const { isAuth, user: {username}} = useContext(AuthContext);
@@ -51,6 +52,7 @@ function Home(){
                 </div>
             </section>
             </main>
+            <Footer text='Contact us!'/>
         </>
     )
 }

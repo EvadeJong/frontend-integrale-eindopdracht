@@ -17,7 +17,6 @@ import SubmitJoke from './pages/submitJoke/SubmitJoke.js'
 import './App.css';
 
 //components
-import Footer from './components/footer/Footer.js'
 import {AuthContext} from './context/AuthContext';
 
 function App() {
@@ -45,7 +44,6 @@ function App() {
                     {isAuth ? <SubmitJoke /> : <Redirect to="/" />}
                 </Route>
               </Switch>
-          <Footer />
       </>
   );
 }

@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import Button from "../../components/button/Button";
 import Header from "../../components/header/Header";
+import Footer from "../../components/footer/Footer";
 
 function SubmitJoke(){
 
@@ -23,6 +24,7 @@ function SubmitJoke(){
                     </div>
                 </section>
             </main>
+            <Footer text='Contact us!'/>
         </>
     )
 }
