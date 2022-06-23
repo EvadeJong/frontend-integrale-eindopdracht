@@ -1,30 +1,27 @@
 import React, {useContext, useEffect, useState} from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import {AuthContext} from "../../context/AuthContext";
 import Button from "../button/Button";
 import './RequestJokeForm.css'
+import { useHistory } from "react-router-dom";
 
 function RequestJokeForm(){
     const { register, handleSubmit, formState: { errors } } = useForm({
-        mode: "onBlur",
         defaultValues: {
-            jokeAboutSelector: '',
-            jokeConsistOfSelector: '',
-            jokeIsSelector: '',
-            textfieldJoke: ''
+            getJokeAboutSelector: '',
+            getJokeShouldntBeSelector: '',
+            getNumberOfJokesSelector: '',
         }
     });
-
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
+    const history = useHistory();
 
-
-    async function submitJokeRequest(data) {
-
+    async function requestJokeRequest(data) {
         try {
             console.log(data);
-
+            setIsRequestSuccessful(true);
         } catch (e) {
+            setIsRequestSuccessful(false);
             if (e.response.status === 400){
                 console.error(e.message);
                 console.log('The server cannot or will not process the request due to something that is perceived to be a client error (for example, malformed request syntax, invalid request message framing, or deceptive request routing).')
@@ -36,38 +33,41 @@ function RequestJokeForm(){
             }
         }}
 
+        function newRequest() {
+            setIsRequestSuccessful(false);
+        }
+
     return(
 
         <>
-            <form className='submitJokeForm' onSubmit={handleSubmit(submitJokeRequest)}>
+            <form className='requestJokeForm' onSubmit={handleSubmit(requestJokeRequest)}>
                 {isRequestSuccessful ?
-                    <h3>Thank you for submitting your joke!</h3>
+                    <>
+                        <h3>Joke requested succesfully</h3>
+                        <Button type="submit" text="I want another joke" onClick={ newRequest }/>
+                    </>
                     :
                     <>
-                        <h3>Let's find out!</h3>
-                        <label className='outer' htmlFor='jokeAboutSelector'>
-                            My joke is about:
-                            <select className='inner' {...register('jokeAboutSelector')}>
+                        <div className='requestPageHeader'>
+                            <h3>So you don’t think our chicken jokes are funny?</h3>
+                            <h3>Maybe we can find something else for you.</h3>
+                            <h4>Tell us what will make you laugh </h4>
+                        </div>
+                        <label className='outer' htmlFor='getJokeAboutSelector'>
+                            I want a:
+                            <select className='inner' {...register('getJokeAboutSelector')}>
                                 <option value="">Select...</option>
-                                <option value='programming'>Programming</option>
-                                <option value='dark'>Dark</option>
-                                <option value='pun'>Pun</option>
-                                <option value='spooky'>Spooky</option>
-                                <option value='christmas'>Christmas</option>
-                                <option value='misc'>Misc</option>
+                                <option value='programming'>programming joke</option>
+                                <option value='dark'>dark joke</option>
+                                <option value='pun'>pun joke</option>
+                                <option value='spooky'>spooky joke</option>
+                                <option value='christmas'>christmas joke</option>
+                                <option value='misc'>misc joke</option>
                             </select>
                         </label>
-                        <label className='outer' htmlFor='jokeConsistOfSelector'>
-                            And consists of:
-                            <select className='inner' {...register("jokeConsistOfSelector")}>
-                                <option value="">Select...</option>
-                                <option value="one-part">One part</option>
-                                <option value="two-part">Two parts</option>
-                            </select>
-                        </label>
-                        <label className='outer' htmlFor='jokeIsSelector'>
-                            I consider my joke to be:
-                            <select className='inner' {...register("jokeIsSelector")}>
+                        <label className='outer' htmlFor='getJokeShouldntBeSelector'>
+                            It should not be:
+                            <select className='inner' {...register("getJokeShouldntBeSelector")}>
                                 <option value="">Select...</option>
                                 <option value='nsfw'>Nsfw</option>
                                 <option value='religious'>Religious</option>
@@ -77,11 +77,15 @@ function RequestJokeForm(){
                                 <option value='explicit'>Explicit</option>
                             </select>
                         </label>
-                        <label className='outer' htmlFor='textfieldJoke'>
-                            The actual joke is:
-                            <textarea className='inner' {...register("textfieldJoke")}></textarea>
+                        <label className='outer' htmlFor='getNumberOfJokesSelector'>
+                            <select className='long-selectbox' {...register("getNumberOfJokesSelector")}>
+                                <option value="">Select...</option>
+                                <option value='1'>Give me one good laugh!</option>
+                                <option value='3'>Give me a couple laughs!</option>
+                                <option value='5'>Feeling like pissing myself, give me a lot!</option>
+                            </select>
                         </label>
-                        <Button type="submit" text="Submit Joke"/>
+                        <Button type="submit" text="Request Joke"/>
                     </>
                 }
             </form>

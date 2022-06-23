@@ -5,10 +5,12 @@ import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 import {AuthContext} from '../../context/AuthContext';
 import { chickenJokesArray } from '../../assets/ChickenJokesArray';
+import RequestJokeForm from "../../components/forms/RequestJokeForm";
 
 function RequestJoke(){
     const { isAuth, user: {username}} = useContext(AuthContext);
     const [isChickenButtonClicked, setIsChickenButtonClicked] = useState(false);
+    const [isRealJokeButtonClicked, setIsRealJokeButtonClicked] = useState(false);
     const [index, setIndex] = useState(0)
     const [chickenPunchline, setChickenPunchline] = useState('');
 
@@ -24,6 +26,10 @@ function RequestJoke(){
         }
     }
 
+    function getRealJokeButton(){
+        setIsRealJokeButtonClicked(true);
+    }
+
     useEffect (() =>{
         document.documentElement.style.setProperty('--dynamic-background-color', '#BFD7EA')
     }, []);
@@ -34,18 +40,19 @@ function RequestJoke(){
             <main>
                 <section className="pageOuterContainer">
                     <div className="pageInnerContainer">
-                        {isChickenButtonClicked ?
+                        {isChickenButtonClicked && !isRealJokeButtonClicked &&
                             <>
                                 <h1>Why did the chicken cross the road?</h1>
                                 <div className='chickenJoke'>
                                     <h3>{chickenPunchline}</h3>
                                     <div>
-                                        <Button onClick={getPunchlineButton} text={"Haha! Give me an other one"} />
-                                        <Button onClick={getPunchlineButton} text={"Mwah, give me a real joke"} />
+                                        <Button onClick={getPunchlineButton} text={"Haha! Give me an other one"}/>
+                                        <Button onClick={getRealJokeButton} text={"Mwah, give me a real joke"}/>
                                     </div>
                                 </div>
                             </>
-                            :
+                        }
+                        {!isChickenButtonClicked &&
                             <>
                                 <div className='jokeHeadline'>
                                     <h1>How about a joke, {username}</h1>
@@ -56,6 +63,9 @@ function RequestJoke(){
                                     <Button onClick={getPunchlineButton} text={"I don't know! Why?"} />
                                 </div>
                             </>
+                        }
+                        {isRealJokeButtonClicked &&
+                            <RequestJokeForm/>
                         }
                     </div>
                 </section>

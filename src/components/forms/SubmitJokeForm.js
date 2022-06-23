@@ -1,13 +1,11 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useState} from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import {AuthContext} from "../../context/AuthContext";
 import Button from "../button/Button";
 import './SubmitJokeForm.css'
 
 function SubmitJokeForm(){
     const { register, handleSubmit, formState: { errors } } = useForm({
-        mode: "onBlur",
         defaultValues: {
             jokeAboutSelector: '',
             jokeConsistOfSelector: '',
@@ -17,14 +15,16 @@ function SubmitJokeForm(){
     });
 
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
-
+    const [submittedJoke, setSubmittedJoke] =useState('');
 
     async function submitJokeRequest(data) {
 
         try {
-           console.log(data);
-
+            setSubmittedJoke(data);
+            console.log(submittedJoke);
+            setIsRequestSuccessful(true);
         } catch (e) {
+            setIsRequestSuccessful(false);
             if (e.response.status === 400){
                 console.error(e.message);
                 console.log('The server cannot or will not process the request due to something that is perceived to be a client error (for example, malformed request syntax, invalid request message framing, or deceptive request routing).')
@@ -35,13 +35,17 @@ function SubmitJokeForm(){
                 console.error(e);
             }
         }}
-
+    function newRequest() {
+        setIsRequestSuccessful(false);
+    }
     return(
-
         <>
             <form className='submitJokeForm' onSubmit={handleSubmit(submitJokeRequest)}>
                 {isRequestSuccessful ?
-                    <h3>Thank you for submitting your joke!</h3>
+                    <>
+                        <h3>Thank you for submitting your joke!</h3>
+                        <Button type="submit" text="I want to submit another joke" onClick={ newRequest }/>
+                    </>
                     :
                     <>
                         <h3>Let's find out!</h3>

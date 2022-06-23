@@ -1,8 +1,5 @@
-h2 {
-    padding-bottom: 40px;
-}
 h3 {
-    padding-bottom: 20px;
+    line-height: 1;
 }
 
 .input {
@@ -20,14 +17,16 @@ h3 {
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-between;
-    width: 480px;
+    width: 500px;
 }
-select, textarea {
-    width: 250px;
+.requestPageHeader{
+    padding-top: 40px;
 }
-
-textarea {
-    height: 200px;
+select {
+    width: 300px;
+}
+.long-selectbox {
+    width: 1000px;
 }
 
 .error {

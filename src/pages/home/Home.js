@@ -26,6 +26,8 @@ function Home(){
                             <h1>Welcome {username}</h1>
                             <h3>
                                 Nice to see you again! Are you ready to piss your pants while laughing out loud?
+                                Click on menu tab 'Giggler' if you want to see some great jokes.
+                                Do you have a joke yourself? Submit it using the 'Joker' tab.
                             </h3>
                             <h4>
                                 (Don’t worry, we won’t tell)

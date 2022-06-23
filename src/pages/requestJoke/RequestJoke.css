@@ -1,7 +1,3 @@
-.jokeHeadline h1{
-    padding-bottom: 0px;
-}
-
 .jokeHeadline h4 {
     text-align: right;
     line-height: 1;
@@ -13,5 +9,5 @@
     justify-content:center;
 }
 .chickenJoke h3 {
-    line-height: 8;
+    line-height: 6;
 }
