@@ -2,12 +2,9 @@ import React, {useEffect} from 'react';
 import Button from "../../components/button/Button";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
+import SubmitJokeForm from "../../components/forms/SubmitJokeForm";
 
 function SubmitJoke(){
-
-    function submitJokeButton(){
-        console.log('You submitted a joke')
-    }
 
     useEffect (() =>{
         document.documentElement.style.setProperty('--dynamic-background-color', '#E67A3D')
@@ -19,8 +16,7 @@ function SubmitJoke(){
             <main>
                 <section className="pageOuterContainer">
                     <div className="pageInnerContainer">
-                        <p>Dit is de SubmitJoke pagina</p>
-                        <Button onClick={submitJokeButton} text={"Submit joke"} />
+                        <SubmitJokeForm />
                     </div>
                 </section>
             </main>

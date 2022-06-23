@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
 import Button from "../button/Button";
-import './Form.css'
+import './LoginForm.css'
 
 function RegisterForm(){
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -46,7 +46,7 @@ function RegisterForm(){
        }}
 
     return(
-        <form onSubmit={handleSubmit(signUpRequest)}>
+        <form className='loginForm' onSubmit={handleSubmit(signUpRequest)}>
             <fieldset>
                 <legend>
                     <h2>Register</h2>
