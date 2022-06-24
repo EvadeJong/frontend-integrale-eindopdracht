@@ -37,6 +37,7 @@ function LoginForm(){
                 </legend>
                 <label htmlFor='username'>
                     Username:
+                </label>
                 <input
                     type='text'
                     id='username'
@@ -48,10 +49,9 @@ function LoginForm(){
                     onChange={(e) => setUsername(e.target.value)}
                 />
                     {errors.username && <p className='error'>{errors.username.message}</p>}
-                </label>
-
                 <label htmlFor='password'>
                     Password:
+                </label>
                     <input
                         type='password'
                         id='password'
@@ -67,8 +67,6 @@ function LoginForm(){
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     {errors.password && <p className='error'>{errors.password.message}</p>}
-                </label>
-
                 <Button type='submit' text= 'Login'/>
             </fieldset>
         </form>

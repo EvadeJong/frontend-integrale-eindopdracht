@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
@@ -7,12 +7,18 @@ import './ContactForm.css'
 
 function ContactForm(){
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { login } = useContext(AuthContext);
-
+    const { isAuth, user: {username, email}} = useContext(AuthContext);
     const [contactName, setContactName] = useState('');
     const [contactEmail, setContactEmail] = useState('');
     const [contactMessage, setContactMessage] = useState('');
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
+
+    useEffect(() => {
+        if(isAuth){
+            setContactName(username);
+            setContactEmail(email);
+        }
+    }, [])
 
     async function sendContactForm() {
         console.log('Form is send');
@@ -21,6 +27,7 @@ function ContactForm(){
         console.log(`Message: ${contactMessage}`);
         setIsRequestSuccessful(true);
     }
+
 
     return(
         <>
@@ -32,22 +39,24 @@ function ContactForm(){
                    <h2>You are not a joke to us!</h2>
                    <h3>Please reach out if you need help or have any suggestions.</h3>
                    <label htmlFor='contactname'>
-                            Name:
-                            <input
-                                type='text'
-                                id='contactname'
-                                {...register('contactname',
-                                    {
+                       Name:
+                   </label>
+                   <input
+                        type='text'
+                        id='contactname'
+                            {...register('contactname',
+                                {
                                         required: 'Name can not be empty',
-                                    })
-                                }
-                                onChange={(e) => setContactName(e.target.value)}
-                            />
-                            {errors.contactname && <p className='error'>{errors.contactname.message}</p>}
-                        </label>
+                                       })
+                            }
+                        onChange={(e) => setContactName(e.target.value)}
+                   />
+                       {errors.contactname && <p className='error'>{errors.contactname.message}</p>}
+
                    <label htmlFor="contactemail">
                             Email:
-                            <input
+                   </label>
+                   <input
                                 type="email"
                                 id="contactemail"
                                 {...register("contactemail",
@@ -62,10 +71,10 @@ function ContactForm(){
                                 onChange={(e) => setContactEmail(e.target.value)}
                             />
                             {errors.contactemail && <p className='error'>{errors.contactemail.message}</p>}
-                        </label>
                    <label className='contacttextfield' htmlFor='contacttextfield'>
                        Message:
-                       <textarea className='contacttextfield'
+                   </label>
+                   <textarea className='contacttextfield'
                                  id='contacttextfield'
                                  {...register("contacttextfield",
                                      {
@@ -75,7 +84,6 @@ function ContactForm(){
                                  onChange={(e) => setContactMessage(e.target.value)}>
                        </textarea>
                        {errors.contacttextfield && <p className='error'>{errors.contacttextfield.message}</p>}
-                   </label>
                    <Button type='submit' text= 'Send message'/>
                 </form>
             }

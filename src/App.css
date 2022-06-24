@@ -15,20 +15,20 @@
 }
 
 html, body, #root, #root>div {
-    height: 100vh;
+    min-height: 100vh;
     background-color: var(--dynamic-background-color);
 }
 
 header{
-    height: 20vh;
+    min-height: 20vh;
 }
 
 main{
-    height: 70vh;
+    min-height: 70vh;
 }
 
 footer {
-    height: 10vh;
+    min-height: 10vh;
 }
 
 h1 {
@@ -64,11 +64,10 @@ select{
 }
 
 label {
-    line-height: 2;
+    line-height: 1;
     text-align: left;
-    display: block;
-    margin-bottom: 13px;
-    margin-top: 20px;
+    margin-bottom: 15px;
+    margin-top: 15px;
     font-size: 20px;
 }
 

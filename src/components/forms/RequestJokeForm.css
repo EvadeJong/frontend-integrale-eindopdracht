@@ -3,11 +3,10 @@ h3 {
 }
 
 .outerRequestJoke {
+    min-width: 400px;
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
     justify-content: space-between;
-    width: 600px;
+    align-items: center;
 }
 
 .requestPageHeader{

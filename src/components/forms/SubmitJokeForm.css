@@ -7,11 +7,10 @@ h3 {
 }
 
 .outerSubmitJoke {
+    min-width: 500px;
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
     justify-content: space-between;
-    width: 500px;
+    align-items: center;
 }
 
 .submitjoketextfield {
