@@ -53,7 +53,7 @@ function RequestJokeForm(){
                         <h3>Maybe we can find something else for you. Tell us what will make you laugh</h3>
                         <div className='outerRequestJoke'>
                             <label className='outerRequestJoke' htmlFor='getJokeAboutSelector'>
-                                I want the subject of the joke to be:
+                                I want a joke about:
                             </label>
                             <select {...register('getJokeAboutSelector')}>
                                     <option value=''>Select...</option>

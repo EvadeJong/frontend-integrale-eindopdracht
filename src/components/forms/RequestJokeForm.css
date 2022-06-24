@@ -3,7 +3,7 @@ h3 {
 }
 
 .outerRequestJoke {
-    min-width: 400px;
+    width:500px;
     display: flex;
     justify-content: space-between;
     align-items: center;

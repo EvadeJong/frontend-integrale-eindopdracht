@@ -81,7 +81,7 @@ function SubmitJokeForm() {
                             <label htmlFor='jokeIsSelector'>
                                 I consider my joke to be:
                             </label>
-                            <select className='innerSubmitJoke' {...register('jokeIsSelector')}>
+                            <select {...register('jokeIsSelector')}>
                                 <option value=''>Select...</option>
                                 <option value='any'>Any</option>
                                 <option value='nsfw'>Nsfw</option>

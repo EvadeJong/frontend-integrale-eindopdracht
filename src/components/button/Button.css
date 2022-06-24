@@ -16,7 +16,7 @@
     padding: 8px .8em;
     position: relative;
     text-align: center;
-    width: 200px;
+    min-width: 200px;
 }
 
 .button:hover,
