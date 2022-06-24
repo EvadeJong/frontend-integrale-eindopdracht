@@ -18,13 +18,12 @@ function AuthContextProvider({ children }) {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        console.log(token);
         if(token) {
             const tokenIsValid = jwtValidator(jwtDecode(token));
             if (tokenIsValid) {
                 getUserData(token);
             }
-        }else {
+        }else{
             toggleAuth({
                 ...auth,
                 status: 'done',

@@ -1,27 +1,27 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Button from "../button/Button";
 import './SubmitJokeForm.css'
 
 function SubmitJokeForm(){
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        defaultValues: {
+
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
+    const [submittedJoke, setSubmittedJoke] = useState('');
+
+    useEffect(() => {
+        reset({
             jokeAboutSelector: '',
             jokeConsistOfSelector: '',
             jokeIsSelector: '',
-            textfieldJoke: ''
-        }
-    });
-
-    const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
-    const [submittedJoke, setSubmittedJoke] =useState('');
+            textfieldJoke: '',
+        })
+    }, [isRequestSuccessful])
 
     async function submitJokeRequest(data) {
-
         try {
-            setSubmittedJoke(data);
-            console.log(submittedJoke);
+            console.log(data);
             setIsRequestSuccessful(true);
         } catch (e) {
             setIsRequestSuccessful(false);
@@ -36,59 +36,73 @@ function SubmitJokeForm(){
             }
         }}
     function newRequest() {
+
         setIsRequestSuccessful(false);
     }
     return(
         <>
-            <form className='submitJokeForm' onSubmit={handleSubmit(submitJokeRequest)}>
+
                 {isRequestSuccessful ?
                     <>
                         <h3>Thank you for submitting your joke!</h3>
-                        <Button type="submit" text="I want to submit another joke" onClick={ newRequest }/>
+                        <Button type='submit' text='I want to submit another joke' onClick={ newRequest }/>
                     </>
                     :
                     <>
                         <h3>Let's find out!</h3>
-                        <label className='outer' htmlFor='jokeAboutSelector'>
-                            My joke is about:
-                            <select className='inner' {...register('jokeAboutSelector')}>
-                                <option value="">Select...</option>
-                                <option value='programming'>Programming</option>
-                                <option value='dark'>Dark</option>
-                                <option value='pun'>Pun</option>
-                                <option value='spooky'>Spooky</option>
-                                <option value='christmas'>Christmas</option>
-                                <option value='misc'>Misc</option>
+                        <form className='submitJokeForm' onSubmit={handleSubmit(submitJokeRequest)}>
+                            <label className='outerSubmitJoke' htmlFor='jokeAboutSelector'>
+                                The subject of my joke is:
+                                <select className='innerSubmitJoke' {...register('jokeAboutSelector')}>
+                                    <option value=''>Select...</option>
+                                    <option value='any'>Any</option>
+                                    <option value='programming'>Programming</option>
+                                    <option value='dark'>Dark</option>
+                                    <option value='pun'>Pun</option>
+                                    <option value='spooky'>Spooky</option>
+                                    <option value='christmas'>Christmas</option>
+                                    <option value='misc'>Misc</option>
+                                </select>
+                            </label>
+                            <label className='outerSubmitJoke' htmlFor='jokeConsistOfSelector'>
+                            And consists of:
+                            <select className='innerSubmitJoke' {...register('jokeConsistOfSelector')}>
+                                <option value=''>Select...</option>
+                                <option value='one-part'>One part</option>
+                                <option value='two-part'>Two parts</option>
                             </select>
-                        </label>
-                        <label className='outer' htmlFor='jokeConsistOfSelector'>
-                        And consists of:
-                        <select className='inner' {...register("jokeConsistOfSelector")}>
-                            <option value="">Select...</option>
-                            <option value="one-part">One part</option>
-                            <option value="two-part">Two parts</option>
-                        </select>
-                        </label>
-                        <label className='outer' htmlFor='jokeIsSelector'>
-                        I consider my joke to be:
-                        <select className='inner' {...register("jokeIsSelector")}>
-                            <option value="">Select...</option>
-                            <option value='nsfw'>Nsfw</option>
-                            <option value='religious'>Religious</option>
-                            <option value='political'>Political</option>
-                            <option value='racist'>Racist</option>
-                            <option value='sexist'>Sexist</option>
-                            <option value='explicit'>Explicit</option>
-                        </select>
-                        </label>
-                        <label className='outer' htmlFor='textfieldJoke'>
-                            The actual joke is:
-                        <textarea className='inner' {...register("textfieldJoke")}></textarea>
-                        </label>
-                        <Button type="submit" text="Submit Joke"/>
+                            </label>
+                            <label className='outerSubmitJoke' htmlFor='jokeIsSelector'>
+                            I consider my joke to be:
+                            <select className='innerSubmitJoke' {...register('jokeIsSelector')}>
+                                <option value=''>Select...</option>
+                                <option value='any'>Any</option>
+                                <option value='nsfw'>Nsfw</option>
+                                <option value='religious'>Religious</option>
+                                <option value='political'>Political</option>
+                                <option value='racist'>Racist</option>
+                                <option value='sexist'>Sexist</option>
+                                <option value='explicit'>Explicit</option>
+                            </select>
+                            </label>
+                            <label className='outerSubmitJoke' htmlFor='textfieldJoke'>
+                                The actual joke is:
+                                <textarea className='submitjoketextfield'
+                                      id='submitjoketextfield'
+                                      {...register("submitjoketextfield",
+                                          {
+                                              required:  "Message can not be empty",
+                                          },
+                                      )}
+                                      onChange={(e) => setSubmittedJoke(e.target.value)}>
+                                </textarea>
+                                {errors.submitjoketextfield && <p className='error'>{errors.submitjoketextfield.message}</p>}
+                            </label>
+                            <Button type='submit' text='Submit Joke'/>
+                        </form>
                     </>
                 }
-            </form>
+
         </>
     )
 }

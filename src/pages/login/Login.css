@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: row;
     width: 1000px;
-
     justify-content: space-evenly;
 }
 .loginpage-left{
@@ -15,6 +14,6 @@
 
 .seperator-line {
     border-left: 6px solid #90bde0;
-    height: 450px;
+    height: 550px;
     box-shadow: 5px 5px 5px #88888845;
 }

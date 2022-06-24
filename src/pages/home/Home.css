@@ -2,10 +2,6 @@ h4 {
     line-height: 6;
 }
 
-.pageInnerContainer{
-    justify-content: center;
-    align-items: center;
-}
 .Welcome{
     display: flex;
     align-items: center;

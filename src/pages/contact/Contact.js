@@ -3,6 +3,7 @@ import styles from './Contact.css';
 import Button from "../../components/button/Button";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
+import ContactForm from "../../components/forms/ContactForm";
 
 
 function Contact(){
@@ -21,8 +22,7 @@ function Contact(){
             <main>
                 <section className="pageOuterContainer">
                     <div className="pageInnerContainer">
-                        <p>Dit is de contact pagina</p>
-                        <Button onClick={submitButton} text={'Submit'} />
+                        <ContactForm />
                     </div>
                 </section>
             </main>
