@@ -1,15 +1,12 @@
-import React, {useContext, useEffect, useState} from "react";
-import {useForm} from "react-hook-form";
-import axios from "axios";
-import {AuthContext} from "../../context/AuthContext";
-import Button from "../button/Button";
+import React, {useState} from 'react';
+import {useForm} from 'react-hook-form';
+import axios from 'axios';
+
+import Button from '../button/Button';
 import './LoginForm.css'
 
 function RegisterForm() {
-    const {register, handleSubmit, formState: {errors}} = useForm({
-        mode: "onBlur",
-    });
-    const {login} = useContext(AuthContext);
+    const {register, handleSubmit, formState: {errors}} = useForm();
 
     const [registerUsername, setRegisterUsername] = useState('');
     const [registerEmail, setRegisterEmail] = useState('');
@@ -24,6 +21,9 @@ function RegisterForm() {
                 "username": registerUsername,
                 "email": registerEmail,
                 "password": registerPassword,
+                "roles": [
+                    "user"
+                ]
             })
             console.log(registerUsername);
             console.log(registerEmail);

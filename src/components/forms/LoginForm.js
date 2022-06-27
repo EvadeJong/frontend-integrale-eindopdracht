@@ -57,10 +57,10 @@ function LoginForm(){
                         id='password'
                         {...register('password',
                             {
-                                required: 'Password can not be empty',
+                                required: "You must specify a password",
                                 minLength: {
-                                    value: 5,
-                                    message: 'Email must be at least 5 characters'
+                                    value: 8,
+                                    message: "Password must have at least 8 characters"
                                 }
                             }
                         )}

@@ -4,20 +4,14 @@ import Button from "../../components/button/Button";
 import {AuthContext} from "../../context/AuthContext";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
-import {useForm} from "react-hook-form";
+import UpdatePasswordForm from "../../components/forms/UpdatePasswordForm";
+import UpdateEmailForm from "../../components/forms/UpdateEmailForm";
 
 function Profile() {
 
-    const {user: {username, email, password}} = useContext(AuthContext);
-    const [isDisabled, toggleIsDisabled] = useState(true)
-    function changeProfileRequest() {
-        toggleIsDisabled(false);
-        console.log('Profile is updated')
-    }
-
-    const {register, handleSubmit, formState: {errors}} = useForm({
-        mode: 'onBlur',
-    });
+    const {user: {username, email}} = useContext(AuthContext);
+    const [changeEmailRequest, toggleChangeEmailRequest] = useState(false);
+    const [changePasswordRequest, toggleChangePasswordRequest] = useState(false);
 
     useEffect(() => {
         document.documentElement.style.setProperty('--dynamic-background-color', '#F4E15E')
@@ -30,84 +24,56 @@ function Profile() {
                 <section className="pageOuterContainer">
                     <div className="pageInnerContainer">
                         <h1>Hi {username}</h1>
-                        {isDisabled ?
-                            <>
-                            <h3>You can inspect your personal data here</h3>
-                            <form className='profileForm' onSubmit={handleSubmit(changeProfileRequest)}>
+                        <h3>You can change your personal data here</h3>
+                        {changeEmailRequest === false && changePasswordRequest === false &&
+                            <form className='currentProfileInfo'>
                                 <div className='outerProfileGroup'>
                                     <label htmlFor='profileUsername'>
                                         Username:
                                     </label>
                                     <input
                                         type='text'
-                                        id='profileUsername'
+                                        id='username'
+                                        defaultValue={username}
                                         disabled
-                                        value={username}
                                     />
                                 </div>
                                 <div className='outerProfileGroup'>
-                                    <label htmlFor='profileEmail'>
-                                        E-mail:
+                                    <label htmlFor='profileUsername'>
+                                        Email:
                                     </label>
                                     <input
-                                        type='email'
-                                        id='profileEmail'
+                                        type='text'
+                                        id='email'
+                                        defaultValue={email}
                                         disabled
-                                        value={email}
                                     />
                                 </div>
                                 <div className='outerProfileGroup'>
-                                    <label htmlFor='profilePassword'>
+                                    <label htmlFor='profileUsername'>
                                         Password:
                                     </label>
                                     <input
                                         type='password'
-                                        id='profilePassword'
+                                        id='password'
+                                        defaultValue='********'
                                         disabled
-                                        value='*********'
                                     />
                                 </div>
-                                <Button type='submit' text={'Update profile'}/>
+                                <Button type='button' text='Update password'
+                                        onClick={() => toggleChangePasswordRequest(!changePasswordRequest)}></Button>
+                                <Button type='button' text='Update email'
+                                        onClick={() => toggleChangeEmailRequest(!changeEmailRequest)}></Button>
                             </form>
-                            </>
-                            :
-                            <>
-                                <h3>You can change your personal data here</h3>
-                                <form className='profileForm' onSubmit={handleSubmit(changeProfileRequest)}>
-                                    <div className='outerProfileGroup'>
-                                        <label htmlFor='profileUsername'>
-                                            Username:
-                                        </label>
-                                        <input
-                                            type='text'
-                                            id='profileUsername'
-                                            value={username}
-                                        />
-                                    </div>
-                                    <div className='outerProfileGroup'>
-                                        <label htmlFor='profileEmail'>
-                                            E-mail:
-                                        </label>
-                                        <input
-                                            type='email'
-                                            id='profileEmail'
-                                            value={email}
-                                        />
-                                    </div>
-                                    <div className='outerProfileGroup'>
-                                        <label htmlFor='profilePassword'>
-                                            Password:
-                                        </label>
-                                        <input
-                                            type='password'
-                                            id='profilePassword'
-                                            value='*********'
-                                        />
-                                    </div>
-                                    <Button type='submit' text={'Save changes'}/>
-                                </form>
-                            </>
                         }
+                        {changePasswordRequest &&
+                            <UpdatePasswordForm/>
+                        }
+                        {changeEmailRequest &&
+
+                            <UpdateEmailForm/>
+                        }
+
                     </div>
                 </section>
             </main>

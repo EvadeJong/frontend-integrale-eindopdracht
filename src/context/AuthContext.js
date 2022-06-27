@@ -39,7 +39,6 @@ function AuthContextProvider({ children }) {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            console.log(data);
             toggleAuth({
                 ...auth,
                 isAuth: true,
@@ -71,12 +70,10 @@ function AuthContextProvider({ children }) {
 
     function login(token) {
         //const decodedToken = jwtDecode(token);
-
         //encoded token in de localstorage plaatsen
         localStorage.setItem('token', token);
         getUserData(token);
         history.push('/');
-
     }
 
     function logout() {

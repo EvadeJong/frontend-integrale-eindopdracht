@@ -21,7 +21,10 @@ function Header() {
                 </div>
                 <nav>
                     <ul>
-                        { isAuth &&
+                        <li key='home'>
+                            <NavLink to='/' exact activeClassName='active-link'>Home</NavLink>
+                        </li>
+                        { isAuth ?
                             <>
                                 <ul>
                                     <li key='requestJoke'>
@@ -30,16 +33,15 @@ function Header() {
                                     <li key='submitJoke'>
                                         <NavLink to='/submitJoke' exact activeClassName='active-link'>Joker</NavLink>
                                     </li>
+                                    <li key='profile'>
+                                        <NavLink to='/profile' exact activeClassName='active-link'>Profile</NavLink>
+                                    </li>
                                     <li key='logout'>
                                         <NavLink to='/' onClick={logout} exact activeClassName='active-link'>Logout</NavLink>
                                     </li>
                                 </ul>
                             </>
-                        }
-                        <li key='home'>
-                            <NavLink to='/' exact activeClassName='active-link'>Home</NavLink>
-                        </li>
-                        {!isAuth &&
+                            :
                             <li key='login'>
                                 <NavLink to='/login' exact activeClassName='active-link'>Login</NavLink>
                             </li>
