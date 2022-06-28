@@ -22,6 +22,12 @@ function AuthContextProvider({ children }) {
             const tokenIsValid = jwtValidator(jwtDecode(token));
             if (tokenIsValid) {
                 getUserData(token);
+            } else{
+                localStorage.removeItem('token');
+                toggleAuth({
+                    ...auth,
+                    status: 'done',
+                })
             }
         }else{
             toggleAuth({

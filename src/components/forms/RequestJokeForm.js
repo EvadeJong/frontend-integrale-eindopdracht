@@ -5,6 +5,7 @@ import Button from "../button/Button";
 import './RequestJokeForm.css'
 
 function RequestJokeForm(){
+
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
 
@@ -14,6 +15,10 @@ function RequestJokeForm(){
     const [getJokeFlagSelector, setGetJokeFlagSelector] = useState('');
 
     const [singleJoke, setSingleJoke] = useState('');
+    const [twoPartSetup, setTwoPartSetup] = useState('')
+    const [twoPartDelivery, setTwoPartDelivery] = useState('');
+    const [isTwoPart, setIsTwoPart] = useState(false);
+    const [areMultipleJokes, setAreMultipleJokes] = useState(false);
 
     useEffect(() => {
         reset({
@@ -32,18 +37,29 @@ function RequestJokeForm(){
             const numberOfJokes = getNumberOfJokesSelector;
 
             const result = await axios.get (`https://v2.jokeapi.dev/joke/${category}?format=json&?blacklistFlags=${flag}&lang=en&type=${jokeType}&amount=${numberOfJokes}`)
+            console.log(result);
+            if (jokeType === 'twopart'){
+                if (numberOfJokes === '1') {
+                    setIsTwoPart(true);
+                    setTwoPartSetup(result.data.setup);
+                    setTwoPartDelivery(result.data.delivery);
+                }else{
+                    setAreMultipleJokes(true);
 
-            if (jokeType === 'twopart') {
-                console.log(result.data.setup);
-                console.log(result.data.delivery);
+                }
             }
             if (jokeType === 'single') {
-                console.log(result.data.joke);
+                if (numberOfJokes === '1') {
+                setIsTwoPart(false);
                 setSingleJoke(result.data.joke);
-                console.log(singleJoke);
+                }else{
+                    setAreMultipleJokes(true);
+                }
             }
+
             setIsRequestSuccessful(true);
-        } catch (e) {
+        }
+        catch (e) {
             setIsRequestSuccessful(false);
             if (e.response.status === 400){
                 console.error(e.message);
@@ -57,14 +73,36 @@ function RequestJokeForm(){
         }}
 
         function newRequest() {
+            setSingleJoke('');
+            setTwoPartSetup('');
+            setTwoPartDelivery('');
+            setAreMultipleJokes(false);
+
             setIsRequestSuccessful(false);
+
         }
 
     return(
         <>
             {isRequestSuccessful ?
                 <>
-                    <h3>Joke requested successfully</h3>
+                    {!isTwoPart && !areMultipleJokes &&
+                        <h3>{singleJoke}</h3>
+                    }
+                    {!isTwoPart && areMultipleJokes &&
+                        <h3>Multiple jokes were requested</h3>
+                    }
+
+                    {isTwoPart && !areMultipleJokes &&
+                        <article>
+                            <h3>{twoPartSetup}</h3>
+                            <h3>{twoPartDelivery}</h3>
+                        </article>
+                    }
+                    {isTwoPart && areMultipleJokes &&
+                        <h3>Multiple jokes were requested</h3>
+                    }
+
                     <Button type='submit' text='I want another joke' onClick={ newRequest }/>
                 </>
                 :
@@ -117,26 +155,33 @@ function RequestJokeForm(){
                             </label>
                             <select {...register("getJokeTypeSelector",
                                 {
-                                    required: "You must specify a joke type",}
-                                    )}
-                                onChange={(e) => setGetJokeTypeSelector(e.target.value)}>
+                                    required: "You must specify a joke type",
+                                })}
+                                onChange={(e) => setGetJokeTypeSelector(e.target.value)}
+                            >
                                 <option value="">Select...</option>
                                 <option value='single'>Single part</option>
                                 <option value='twopart'>Two part</option>
                             </select>
+                            {errors.getJokeTypeSelector && <p className='error'>{errors.getJokeTypeSelector.message}</p>}
                         </div>
                         <div className='outerRequestJoke'>
                                 <label htmlFor='getNumberOfJokesSelector'>
                                     Give me:
                                 </label>
                                 <select
-                                    {...register('getNumberOfJokesSelector')}
-                                    onChange={(e) => setGetNumberOfJokesSelector(e.target.value)}>
+                                    {...register('getNumberOfJokesSelector',
+                                        {
+                                            required: "You must specify the number of jokes",
+                                        })}
+                                    onChange={(e) => setGetNumberOfJokesSelector(e.target.value)}
+                                >
                                     <option value=''>Select...</option>
                                     <option value='1'>one good laugh!</option>
                                     <option value='3'>a couple laughs!</option>
-                                    <option value='5'>a lot of jokes, wanna ROFL!</option>
+                                    <option value='5'>lots of jokes, wanna ROFL!</option>
                                 </select>
+                            {errors.getNumberOfJokesSelector && <p className='error'>{errors.getNumberOfJokesSelector.message}</p>}
                             </div>
                         <Button type='submit' text='Request Joke'/>
                     </form>
