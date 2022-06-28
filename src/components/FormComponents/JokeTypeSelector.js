@@ -5,7 +5,7 @@ function JokeTypeSelector(){
     const JokeTypeArray = [
         {field: '', value:'Select...'},
         {field: 'single', value: 'Single part'},
-        {field: 'twopart', value: 'Two part'},
+        {field: 'twopart', value: 'Two parts'},
     ]
 
     return(

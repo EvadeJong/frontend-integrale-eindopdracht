@@ -5,24 +5,25 @@ import Button from "../button/Button";
 import './SubmitJokeForm.css'
 import Label from "../FormComponents/Label";
 import JokeFlagSelector from "../FormComponents/JokeFlagSelector";
+import JokeAboutSelector from "../FormComponents/JokeAboutSelector";
+import JokeTypeSelector from "../FormComponents/JokeTypeSelector";
 
 function SubmitJokeForm() {
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm();
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
     const [submittedJoke, setSubmittedJoke] = useState('');
+    const [submittedDelivery, setSubmittedDelivery] = useState('');
 
     const [jokeAboutSelector, setJokeAboutSelector] = useState('');
-    const [jokeTypeSelector, setGetJokeTypeSelector] = useState('');
-    const [numberOfJokesSelector, setGetNumberOfJokesSelector] = useState('');
-    const [jokeFlagSelector, setGetJokeFlagSelector] = useState('');
-
+    const [jokeTypeSelector, setJokeTypeSelector] = useState('');
+    const [jokeFlagSelector, setJokeFlagSelector] = useState('');
+    const [isTwoPart, setIsTwoPart] = useState(false);
 
     useEffect(() => {
         reset({
             jokeAboutSelector: '',
             jokeFlagSelector: '',
-            numberOfJokesSelector: '',
             jokeTypeSelector: '',
         })
     }, [isRequestSuccessful])
@@ -32,9 +33,17 @@ function SubmitJokeForm() {
             const category = jokeAboutSelector;
             const flag = jokeFlagSelector;
             const jokeType = jokeTypeSelector;
-            const numberOfJokes = numberOfJokesSelector;
-            console.log(data);
-            console.log(category, flag, jokeType, numberOfJokes);
+
+            console.log(jokeType);
+
+            if (jokeType === 'twopart') {
+                setIsTwoPart(true);
+                console.log(category, flag, jokeType, submittedJoke, submittedDelivery)
+            } else {
+                setIsTwoPart(false);
+                console.log(category, flag, jokeType, submittedJoke)
+            }
+
             setIsRequestSuccessful(true);
         } catch (e) {
             setIsRequestSuccessful(false);
@@ -77,41 +86,37 @@ function SubmitJokeForm() {
                                 The subject of my joke is:
                             </label>
                             <select {...register('jokeAboutSelector',
-                                    {
-                                        required: "You must specify a subject",
-                                        })}
+                                {
+                                    required: "You must specify a subject",
+                                })}
                                     onChange={(e) => setJokeAboutSelector(e.target.value)}
-                            >}>
-                                <option value=''>Select...</option>
-                                <option value='any'>Any</option>
-                                <option value='programming'>Programming</option>
-                                <option value='dark'>Dark</option>
-                                <option value='pun'>Pun</option>
-                                <option value='spooky'>Spooky</option>
-                                <option value='christmas'>Christmas</option>
-                                <option value='misc'>Misc</option>
+                            >
+                                <JokeAboutSelector/>
                             </select>
                         </div>
                         <div className='outerSubmitJoke'>
-                            <label htmlFor='jokeConsistOfSelector'>
+                            <label htmlFor='jokeTypeSelector'>
                                 And consists of:
                             </label>
-                            <select {...register('jokeConsistOfSelector')}>
-                                <option value=''>Select...</option>
-                                <option value='one-part'>One part</option>
-                                <option value='two-part'>Two parts</option>
+                            <select {...register('jokeTypeSelector',
+                                {
+                                    required: "You must specify a joke type",
+                                })}
+                                    onChange={(e) => setJokeTypeSelector(e.target.value)}
+                            >
+                                <JokeTypeSelector/>
                             </select>
                         </div>
                         <div className='outerSubmitJoke'>
-                            <Label htmlFor='getJokeFlagSelector' labelText='I consider my joke to be:' />
-                            <select {...register('getJokeFlagSelector')}
-                                    onChange={(e) => setGetJokeFlagSelector(e.target.value)}>
-                                <JokeFlagSelector />
+                            <Label htmlFor='jokeFlagSelector' labelText='I consider my joke to be:'/>
+                            <select {...register('jokeFlagSelector')}
+                                    onChange={(e) => setJokeFlagSelector(e.target.value)}>
+                                <JokeFlagSelector/>
                             </select>
                         </div>
-                        <label htmlFor='textfieldJoke'>
-                            The actual joke is:
-                        </label>
+
+                        <Label htmlFor='textfieldJoke' labelText='The actual joke is:'/>
+                        <div className='outerSubmitJoke'>
                         <textarea className='submitjoketextfield'
                                   id='submitjoketextfield'
                                   {...register("submitjoketextfield",
@@ -119,14 +124,32 @@ function SubmitJokeForm() {
                                           required: "Message can not be empty",
                                       },
                                   )}
+
                                   onChange={(e) => setSubmittedJoke(e.target.value)}>
-                            </textarea>
-                        {errors.submitjoketextfield && <p className='error'>{errors.submitjoketextfield.message}</p>}
+                        </textarea>
+                        </div>
+                            {isTwoPart &&
+                                <>
+                                <div className='outerSubmitJoke'>
+                                <textarea className='submitjoketextfield'
+                                      id='submitdeliverytextfield'
+                                      {...register("submitdeliverytextfield",
+                                          {
+                                              required: "Message can not be empty",
+                                          },
+                                      )}
+                                      onChange={(e) => setSubmittedDelivery(e.target.value)}>
+                                </textarea>
+                                    {errors.submitjoketextfield &&
+                                        <p className='error'>{errors.submitjoketextfield.message}</p>}
+                                </div>
+                            </>
+                        }
+
                         <Button type='submit' text='Submit Joke'/>
                     </form>
                 </>
             }
-
         </>
     )
 }
