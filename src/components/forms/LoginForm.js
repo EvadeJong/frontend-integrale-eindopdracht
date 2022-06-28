@@ -1,21 +1,24 @@
 import React, {useContext, useState} from "react";
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
 import Button from "../button/Button";
 import './LoginForm.css'
 
-function LoginForm(){
-    const { register, handleSubmit, formState: { errors } } = useForm({
+function LoginForm() {
+    const {register, handleSubmit, formState: {errors}} = useForm({
         mode: 'onBlur',
-        });
-    const { login } = useContext(AuthContext);
+    });
+    const {login} = useContext(AuthContext);
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    const [isError, setIsError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
     async function signInRequest() {
-        try{
+        try {
             const result = await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signin',
                 {
                     'username': username,
@@ -24,52 +27,94 @@ function LoginForm(){
             )
             console.log(result.data.accessToken);
             login(result.data.accessToken);
-        } catch(e){
-            console.error(e);
+        } catch (e) {
+            setIsError(true);
+
+            switch (e.response.status) {
+                case 400:
+                    setErrorMessage
+                    ('The request is formatted incorrectly and cannot be processed.')
+                    break;
+                case 401:
+                    setErrorMessage
+                    ('You are not correctly authenticated, have you entered the correct credentials?');
+                    break;
+                case 403:
+                    setErrorMessage
+                    ('You are not authorized.');
+                    break;
+                case 404:
+                    setErrorMessage
+                    ('The server can not find the requested resource, the URL is not recognized.');
+                    break;
+                case 500:
+                    setErrorMessage
+                    ('The server has encountered a situation it does not know how to handle.');
+                    break;
+                case 503:
+                    setErrorMessage
+                    ('Service unavailable. The server is not ready to handle the request. Common causes are a server that is down for maintenance or that is overloaded.');
+                    break;
+                default:
+                    setErrorMessage(e.response.status, e.response.data);
+            }
         }
     }
 
-    return(
-        <form className='loginForm' onSubmit={handleSubmit(signInRequest)}>
-            <fieldset>
-                <legend>
-                    <h2>Login</h2>
-                </legend>
-                <label htmlFor='username'>
-                    Username:
-                </label>
-                <input
-                    type='text'
-                    id='username'
-                    {...register('username',
-                        {
-                            required: 'Username can not be empty',
-                        })
-                    }
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                    {errors.username && <p className='error'>{errors.username.message}</p>}
-                <label htmlFor='password'>
-                    Password:
-                </label>
-                    <input
-                        type='password'
-                        id='password'
-                        {...register('password',
-                            {
-                                required: "You must specify a password",
-                                minLength: {
-                                    value: 8,
-                                    message: "Password must have at least 8 characters"
+    return (
+        <>
+
+            <form className='loginForm' onSubmit={handleSubmit(signInRequest)}>
+                <fieldset>
+                    <legend>
+                        <h2>Login</h2>
+                    </legend>
+                    {isError ?
+                        <div >
+                            <h3>{errorMessage}</h3>
+                            <Button type='submit' text='I want to try again' onClick={() => setIsError(false)}/>
+                        </div>
+                        :
+                        <>
+                            <label htmlFor='username'>
+                                Username:
+                            </label>
+                            <input
+                                type='text'
+                                id='username'
+                                {...register('username',
+                                    {
+                                        required: 'Username can not be empty',
+                                    })
                                 }
-                            }
-                        )}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    {errors.password && <p className='error'>{errors.password.message}</p>}
-                <Button type='submit' text= 'Login'/>
-            </fieldset>
-        </form>
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                            {errors.username && <p className='error'>{errors.username.message}</p>}
+                            <label htmlFor='password'>
+                                Password:
+                            </label>
+                            <input
+                                type='password'
+                                id='password'
+                                {...register('password',
+                                    {
+                                        required: "You must specify a password",
+                                        minLength: {
+                                            value: 8,
+                                            message: "Password must have at least 8 characters"
+                                        }
+                                    }
+                                )}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            {errors.password && <p className='error'>{errors.password.message}</p>}
+                            <Button type='submit' text='Login'/>
+                        </>
+                    }
+                </fieldset>
+            </form>
+
+        </>
     )
 }
 

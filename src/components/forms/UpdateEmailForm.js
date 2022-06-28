@@ -13,6 +13,9 @@ function UpdateEmailForm() {
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
     const {register, handleSubmit, formState: {errors}} = useForm({});
 
+    const [isError, setIsError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
     async function updateEmailRequest() {
         try {
             const token = localStorage.getItem('token');
@@ -33,25 +36,54 @@ function UpdateEmailForm() {
             setIsRequestSuccessful(true);
 
         } catch (e) {
-            if (e.response.status === 400) {
-                console.error(e.message);
-                console.log('The server cannot or will not process the request due to something that is perceived to be a client error (for example, malformed request syntax, invalid request message framing, or deceptive request routing).')
-            } else if (e.response.status === 401) {
-                console.error(e.response.data.message);
-            } else {
-                console.error(e);
+            setIsError(true);
+
+            switch (e.response.status) {
+                case 400:
+                    setErrorMessage
+                    ('The email is already in use. If you already have an account, please log in.')
+                    break;
+                case 401:
+                    setErrorMessage
+                    ('You are not correctly authenticated, have you entered the correct credentials?');
+                    break;
+                case 403:
+                    setErrorMessage
+                    ('You are not authorized.');
+                    break;
+                case 404:
+                    setErrorMessage
+                    ('The server can not find the requested resource, the URL is not recognized.');
+                    break;
+                case 500:
+                    setErrorMessage
+                    ('The server has encountered a situation it does not know how to handle.');
+                    break;
+                case 503:
+                    setErrorMessage
+                    ('Service unavailable. The server is not ready to handle the request. Common causes are a server that is down for maintenance or that is overloaded.');
+                    break;
+                default:
+                    setErrorMessage(e.response.status, e.response.data);
             }
         }
     }
 
     return (
         <>
-            {isRequestSuccessful ?
+            {isError &&
+                <div>
+                    <h3>{errorMessage}</h3>
+                    <Button type='submit' text='I want to try again' onClick={() => setIsError(false)}/>
+                </div>
+            }
+            {isRequestSuccessful && !isError &&
                 <>
                     <h3>Your info is successfully updated</h3>
-                    <Button type='button' text='Back to profile' onClick={() => window.location.reload(true)} />
+                    <Button type='button' text='Back to profile' onClick={() => window.location.reload(true)}/>
                 </>
-                :
+            }
+            {!isRequestSuccessful && !isError &&
                 <form className='updatedProfileForm' onSubmit={handleSubmit(updateEmailRequest)}>
                     <div className='outerProfileGroup'>
                         <label htmlFor='updatedEmail'>

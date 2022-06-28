@@ -20,3 +20,13 @@ h3 {
     font-size: 14px;
     height: 100px;
 }
+
+.sendJokeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f1ab85;
+    border: 1px solid #5b5454;
+    box-shadow: 5px 5px 5px #88888845;
+    padding: 20px;
+}

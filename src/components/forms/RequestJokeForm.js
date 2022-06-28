@@ -3,10 +3,10 @@ import {useForm} from "react-hook-form";
 import axios from "axios";
 import Button from "../button/Button";
 import './RequestJokeForm.css'
-import JokeFlagSelector from "../FormComponents/JokeFlagSelector";
-import JokeAboutSelector from "../FormComponents/JokeAboutSelector";
-import JokeTypeSelector from "../FormComponents/JokeTypeSelector";
-import JokeNumberSelector from "../FormComponents/JokeNumberSelector";
+import JokeFlagSelector from "../formComponents/JokeFlagSelector";
+import JokeAboutSelector from "../formComponents/JokeAboutSelector";
+import JokeTypeSelector from "../formComponents/JokeTypeSelector";
+import JokeNumberSelector from "../formComponents/JokeNumberSelector";
 
 function RequestJokeForm() {
 
@@ -26,6 +26,9 @@ function RequestJokeForm() {
 
     const [singleJokeArray, setSingleJokeArray] = useState([]);
     const [twoPartJokeArray, setTwoPartJokeArray] = useState([]);
+
+    const [isError, setIsError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         reset({
@@ -68,13 +71,33 @@ function RequestJokeForm() {
             setIsRequestSuccessful(true);
         } catch (e) {
             setIsRequestSuccessful(false);
-            if (e.response.status === 400) {
-                console.error(e.message);
-                console.log('The server cannot or will not process the request due to something that is perceived to be a client error (for example, malformed request syntax, invalid request message framing, or deceptive request routing).')
-            } else if (e.response.status === 401) {
-                console.error(e.response.data.message);
-            } else {
-                console.error(e);
+            setIsError(true);
+            switch (e.response.status){
+                case 400: setErrorMessage
+                ('The request you have sent to JokeAPI is formatted incorrectly and cannot be processed')
+                    break;
+                case 403:  setErrorMessage
+                ('You have been added to the blacklist due to malicious behavior and are not allowed to send requests to JokeAPI anymore');
+                    break;
+                case 404:  setErrorMessage
+                ('The URL you have requested couldn\'t be found');
+                    break;
+                case 413:  setErrorMessage
+                ('The payload data sent to the server exceeds the maximum size of 5120 bytes');
+                    break;
+                case 414:  setErrorMessage
+                ('The URL exceeds the maximum length of 250 characters');
+                    break;
+                case 429:  setErrorMessage
+                ('You have exceeded the limit of 120 requests per minute and have to wait a bit until you are allowed to send requests again');
+                    break;
+                case 500: setErrorMessage
+                (e.response.data.additionalInfo)
+                    break;
+                case 523: setErrorMessage
+                ('The server is temporarily offline due to maintenance or a dynamic IP update. Please be patient.')
+                    break;
+                default: setErrorMessage(e);
             }
         }
     }
@@ -85,20 +108,24 @@ function RequestJokeForm() {
         setTwoPartDelivery('');
         setAreMultipleJokes(false);
         setIsRequestSuccessful(false);
-
-        {
-            twoPartJokeArray.map((joke) => (
-                console.log(joke.setup, joke.delivery)
-            ))
-        }
     }
 
     return (
         <>
-            {isRequestSuccessful ?
+            {isError &&
+                <>
+                <p>{errorMessage}</p>
+                <Button type='submit' text='I want to try again' onClick={newRequest}/>
+            </>
+        }
+            {isRequestSuccessful &&
                 <>
                     {!isTwoPart && !areMultipleJokes &&
-                        <h3>{singleJoke}</h3>
+                        <>
+                            <ul className='multipleJokesList'>
+                                <li>{singleJoke}</li>
+                            </ul>
+                        </>
                     }
 
                     {!isTwoPart && areMultipleJokes &&
@@ -133,7 +160,8 @@ function RequestJokeForm() {
 
                     <Button type='button' text='I want another joke' onClick={newRequest}/>
                 </>
-                :
+            }
+            {!isError && !isRequestSuccessful &&
                 <>
                     <div className='requestPageHeader'>
                         <h1>So you don’t like our chicken jokes?</h1>
