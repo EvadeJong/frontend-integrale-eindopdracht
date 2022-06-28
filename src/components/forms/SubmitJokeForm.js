@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {useForm} from "react-hook-form";
+import register, {useForm} from "react-hook-form";
 import axios from "axios";
 import Button from "../button/Button";
 import './SubmitJokeForm.css'
+import Label from "../FormComponents/Label";
+import JokeFlagSelector from "../FormComponents/JokeFlagSelector";
 
 function SubmitJokeForm() {
 
@@ -10,18 +12,29 @@ function SubmitJokeForm() {
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
     const [submittedJoke, setSubmittedJoke] = useState('');
 
+    const [getJokeAboutSelector, setGetJokeAboutSelector] = useState('');
+    const [getJokeTypeSelector, setGetJokeTypeSelector] = useState('');
+    const [getNumberOfJokesSelector, setGetNumberOfJokesSelector] = useState('');
+    const [getJokeFlagSelector, setGetJokeFlagSelector] = useState('');
+
+
     useEffect(() => {
         reset({
-            jokeAboutSelector: '',
-            jokeConsistOfSelector: '',
-            jokeIsSelector: '',
-            textfieldJoke: '',
+            getJokeAboutSelector: '',
+            getJokeFlagSelector: '',
+            getNumberOfJokesSelector: '',
+            getJokeTypeSelector: '',
         })
     }, [isRequestSuccessful])
 
     async function submitJokeRequest(data) {
         try {
+            const category = getJokeAboutSelector;
+            const flag = getJokeFlagSelector;
+            const jokeType = getJokeTypeSelector;
+            const numberOfJokes = getNumberOfJokesSelector;
             console.log(data);
+            console.log(category, flag, jokeType, numberOfJokes);
             setIsRequestSuccessful(true);
         } catch (e) {
             setIsRequestSuccessful(false);
@@ -37,7 +50,6 @@ function SubmitJokeForm() {
     }
 
     function newRequest() {
-
         setIsRequestSuccessful(false);
     }
 
@@ -46,6 +58,14 @@ function SubmitJokeForm() {
             {isRequestSuccessful ?
                 <>
                     <h3>Thank you for submitting your joke!</h3>
+                    <ul>
+                        <li>
+
+                        </li>
+                        <li>
+
+                        </li>
+                    </ul>
                     <Button type='submit' text='I want to submit another joke' onClick={newRequest}/>
                 </>
                 :
@@ -78,18 +98,11 @@ function SubmitJokeForm() {
                             </select>
                         </div>
                         <div className='outerSubmitJoke'>
-                            <label htmlFor='jokeIsSelector'>
-                                I consider my joke to be:
-                            </label>
-                            <select {...register('jokeIsSelector')}>
-                                <option value=''>Select...</option>
-                                <option value='any'>Any</option>
-                                <option value='nsfw'>Nsfw</option>
-                                <option value='religious'>Religious</option>
-                                <option value='political'>Political</option>
-                                <option value='racist'>Racist</option>
-                                <option value='sexist'>Sexist</option>
-                                <option value='explicit'>Explicit</option>
+
+                            <Label htmlFor='getJokeFlagSelector' labelText='I consider my joke to be:' />
+                            <select {...register('getJokeFlagSelector')}
+                                    onChange={(e) => setGetJokeFlagSelector(e.target.value)}>
+                                <JokeFlagSelector />
                             </select>
                         </div>
                         <label htmlFor='textfieldJoke'>
