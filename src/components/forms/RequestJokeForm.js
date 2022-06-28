@@ -8,17 +8,40 @@ function RequestJokeForm(){
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
 
+    const [getJokeAboutSelector, setGetJokeAboutSelector] = useState('');
+    const [getJokeTypeSelector, setGetJokeTypeSelector] = useState('');
+    const [getNumberOfJokesSelector, setGetNumberOfJokesSelector] = useState('');
+    const [getJokeFlagSelector, setGetJokeFlagSelector] = useState('');
+
+    const [singleJoke, setSingleJoke] = useState('');
+
     useEffect(() => {
         reset({
             getJokeAboutSelector: '',
-            getJokeShouldntBeSelector: '',
+            getJokeFlagSelector: '',
             getNumberOfJokesSelector: '',
+            getJokeTypeSelector: '',
         })
     }, [isRequestSuccessful])
 
-    async function requestJokeRequest(data) {
+    async function requestJokeRequest() {
         try {
-            console.log(data);
+            const category = getJokeAboutSelector;
+            const flag = getJokeFlagSelector;
+            const jokeType = getJokeTypeSelector;
+            const numberOfJokes = getNumberOfJokesSelector;
+
+            const result = await axios.get (`https://v2.jokeapi.dev/joke/${category}?format=json&?blacklistFlags=${flag}&lang=en&type=${jokeType}&amount=${numberOfJokes}`)
+
+            if (jokeType === 'twopart') {
+                console.log(result.data.setup);
+                console.log(result.data.delivery);
+            }
+            if (jokeType === 'single') {
+                console.log(result.data.joke);
+                setSingleJoke(result.data.joke);
+                console.log(singleJoke);
+            }
             setIsRequestSuccessful(true);
         } catch (e) {
             setIsRequestSuccessful(false);
@@ -55,7 +78,13 @@ function RequestJokeForm(){
                             <label className='outerRequestJoke' htmlFor='getJokeAboutSelector'>
                                 I want a joke about:
                             </label>
-                            <select {...register('getJokeAboutSelector')}>
+                            <select
+                                {...register('getJokeAboutSelector',
+                                {
+                                    required: "You must specify a subject",}
+                                )}
+                                onChange={(e) => setGetJokeAboutSelector(e.target.value)}
+                            >
                                     <option value=''>Select...</option>
                                     <option value='any'>Any</option>
                                     <option value='programming'>Programming</option>
@@ -65,13 +94,15 @@ function RequestJokeForm(){
                                     <option value='christmas'>Christmas</option>
                                     <option value='misc'>Misc</option>
                                 </select>
+                            {errors.getJokeAboutSelector && <p className='error'>{errors.getJokeAboutSelector.message}</p>}
                         </div>
                         <div className='outerRequestJoke'>
-                                <label htmlFor='getJokeShouldntBeSelector'>
+                                <label htmlFor='getJokeFlagSelector'>
                                         It should not be:
                                     </label>
-                                <select {...register("getJokeShouldntBeSelector")}>
-                                        <option value="">Select...</option>
+                                <select {...register("getJokeFlagSelector")}
+                                        onChange={(e) => setGetJokeFlagSelector(e.target.value)}>
+                                        <option value=''>Select...</option>
                                         <option value='nsfw'>Nsfw</option>
                                         <option value='religious'>Religious</option>
                                         <option value='political'>Political</option>
@@ -81,15 +112,31 @@ function RequestJokeForm(){
                                     </select>
                             </div>
                         <div className='outerRequestJoke'>
+                            <label htmlFor='getJokeTypeSelector'>
+                                Joke type:
+                            </label>
+                            <select {...register("getJokeTypeSelector",
+                                {
+                                    required: "You must specify a joke type",}
+                                    )}
+                                onChange={(e) => setGetJokeTypeSelector(e.target.value)}>
+                                <option value="">Select...</option>
+                                <option value='single'>Single part</option>
+                                <option value='twopart'>Two part</option>
+                            </select>
+                        </div>
+                        <div className='outerRequestJoke'>
                                 <label htmlFor='getNumberOfJokesSelector'>
                                     Give me:
                                 </label>
-                                <select {...register('getNumberOfJokesSelector')}>
-                                        <option value=''>Select...</option>
-                                        <option value='1'>one good laugh!</option>
-                                        <option value='3'>a couple laughs!</option>
-                                        <option value='5'>a lot of jokes, wanna ROFL!</option>
-                                    </select>
+                                <select
+                                    {...register('getNumberOfJokesSelector')}
+                                    onChange={(e) => setGetNumberOfJokesSelector(e.target.value)}>
+                                    <option value=''>Select...</option>
+                                    <option value='1'>one good laugh!</option>
+                                    <option value='3'>a couple laughs!</option>
+                                    <option value='5'>a lot of jokes, wanna ROFL!</option>
+                                </select>
                             </div>
                         <Button type='submit' text='Request Joke'/>
                     </form>
