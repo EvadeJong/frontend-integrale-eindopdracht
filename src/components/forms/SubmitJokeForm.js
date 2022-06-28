@@ -12,27 +12,27 @@ function SubmitJokeForm() {
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
     const [submittedJoke, setSubmittedJoke] = useState('');
 
-    const [getJokeAboutSelector, setGetJokeAboutSelector] = useState('');
-    const [getJokeTypeSelector, setGetJokeTypeSelector] = useState('');
-    const [getNumberOfJokesSelector, setGetNumberOfJokesSelector] = useState('');
-    const [getJokeFlagSelector, setGetJokeFlagSelector] = useState('');
+    const [jokeAboutSelector, setJokeAboutSelector] = useState('');
+    const [jokeTypeSelector, setGetJokeTypeSelector] = useState('');
+    const [numberOfJokesSelector, setGetNumberOfJokesSelector] = useState('');
+    const [jokeFlagSelector, setGetJokeFlagSelector] = useState('');
 
 
     useEffect(() => {
         reset({
-            getJokeAboutSelector: '',
-            getJokeFlagSelector: '',
-            getNumberOfJokesSelector: '',
-            getJokeTypeSelector: '',
+            jokeAboutSelector: '',
+            jokeFlagSelector: '',
+            numberOfJokesSelector: '',
+            jokeTypeSelector: '',
         })
     }, [isRequestSuccessful])
 
     async function submitJokeRequest(data) {
         try {
-            const category = getJokeAboutSelector;
-            const flag = getJokeFlagSelector;
-            const jokeType = getJokeTypeSelector;
-            const numberOfJokes = getNumberOfJokesSelector;
+            const category = jokeAboutSelector;
+            const flag = jokeFlagSelector;
+            const jokeType = jokeTypeSelector;
+            const numberOfJokes = numberOfJokesSelector;
             console.log(data);
             console.log(category, flag, jokeType, numberOfJokes);
             setIsRequestSuccessful(true);
@@ -76,7 +76,12 @@ function SubmitJokeForm() {
                             <label htmlFor='jokeAboutSelector'>
                                 The subject of my joke is:
                             </label>
-                            <select {...register('jokeAboutSelector')}>
+                            <select {...register('jokeAboutSelector',
+                                    {
+                                        required: "You must specify a subject",
+                                        })}
+                                    onChange={(e) => setJokeAboutSelector(e.target.value)}
+                            >}>
                                 <option value=''>Select...</option>
                                 <option value='any'>Any</option>
                                 <option value='programming'>Programming</option>
@@ -98,7 +103,6 @@ function SubmitJokeForm() {
                             </select>
                         </div>
                         <div className='outerSubmitJoke'>
-
                             <Label htmlFor='getJokeFlagSelector' labelText='I consider my joke to be:' />
                             <select {...register('getJokeFlagSelector')}
                                     onChange={(e) => setGetJokeFlagSelector(e.target.value)}>

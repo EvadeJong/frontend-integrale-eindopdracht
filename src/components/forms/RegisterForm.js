@@ -57,6 +57,7 @@ function RegisterForm() {
                     <>
                         <label htmlFor="registerUsername">
                             Username:
+                        </label>
                             <input
                                 type="text"
                                 id="registerUsername"
@@ -68,7 +69,7 @@ function RegisterForm() {
                                 onChange={(e) => setRegisterUsername(e.target.value)}
                             />
                             {errors.registerUsername && <p className='error'>{errors.registerUsername.message}</p>}
-                        </label>
+
                         <label htmlFor="registerEmail">
                             Email:
                         </label>
@@ -91,14 +92,14 @@ function RegisterForm() {
                             Password:
                         </label>
                         <input
-                            type="password"
-                            id="register-password"
-                            {...register("register-password",
+                            type='password'
+                            id='registerPassword'
+                            {...register('registerPassword',
                                 {
-                                    required: "Password can not be empty",
+                                    required: "You must specify a password",
                                     minLength: {
-                                        value: 5,
-                                        message: "Email must be at least 5 characters"
+                                        value: 8,
+                                        message: "Password must have at least 8 characters"
                                     }
                                 }
                             )}
