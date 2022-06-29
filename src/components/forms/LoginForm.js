@@ -17,8 +17,11 @@ function LoginForm() {
 
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [loading, toggleLoading] = useState(false);
 
     async function signInRequest() {
+        toggleLoading(true);
+
         try {
             const result = await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signin',
                 {
@@ -28,7 +31,8 @@ function LoginForm() {
             )
             console.log(result.data.accessToken);
             login(result.data.accessToken);
-        } catch (e) {
+        }
+        catch (e) {
             setIsError(true);
 
             switch (e.response.status) {
@@ -60,16 +64,20 @@ function LoginForm() {
                     setErrorMessage(e.response.status, e.response.data);
             }
         }
+
+        toggleLoading(false);
     }
 
     return (
         <>
-
             <form className='loginForm' onSubmit={handleSubmit(signInRequest)}>
                 <fieldset>
                     <legend>
                         <h2>Login</h2>
                     </legend>
+                    {loading &&
+                        <ErrorMessage className='fieldLoadingMessage' message='Loading...' />
+                    }
                     {isError ?
                         <span>
                             <ErrorMessage className={'errorMessage'} message={errorMessage}/>

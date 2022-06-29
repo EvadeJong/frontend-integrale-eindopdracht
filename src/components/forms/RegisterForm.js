@@ -5,6 +5,7 @@ import axios from 'axios';
 import Button from '../button/Button';
 import './LoginForm.css'
 import ErrorMessage from "../errorMessage/ErrorMessage";
+import Label from "../formComponents/Label";
 
 function RegisterForm() {
     const {register, handleSubmit, formState: {errors}} = useForm({
@@ -18,8 +19,10 @@ function RegisterForm() {
 
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [loading, toggleLoading] = useState(false);
 
     async function signUpRequest() {
+        toggleLoading(true);
 
         try {
             const result = await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signup', {
@@ -38,7 +41,8 @@ function RegisterForm() {
                 console.log('JEEH! GELUKT')
                 setIsRequestSuccessful(true);
             }
-        } catch (e) {
+        }
+        catch (e) {
             setIsError(true);
 
             switch (e.response.status) {
@@ -70,6 +74,8 @@ function RegisterForm() {
                     setErrorMessage(e.response.status, e.response.data);
             }
         }
+
+        toggleLoading(false);
     }
 
     return (
@@ -78,6 +84,9 @@ function RegisterForm() {
                 <legend>
                     <h2>Register</h2>
                 </legend>
+                {loading &&
+                    <ErrorMessage className='fieldLoadingMessage' message='Loading...' />
+                }
                 {isError &&
                     <div>
                         <ErrorMessage className={'errorMessage'} message={errorMessage}/>
@@ -89,9 +98,7 @@ function RegisterForm() {
                 }
                 {!isError && !isRequestSuccessful &&
                     <>
-                        <label htmlFor="registerUsername">
-                            Username:
-                        </label>
+                        <Label htmlFor="registerUsername" labelText='Username:' />
                         <input
                             type="text"
                             id="registerUsername"

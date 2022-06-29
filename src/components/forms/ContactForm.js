@@ -3,6 +3,8 @@ import {useForm} from "react-hook-form";
 import {AuthContext} from "../../context/AuthContext";
 import Button from "../button/Button";
 import './ContactForm.css'
+import Label from "../formComponents/Label";
+import ErrorMessage from "../errorMessage/ErrorMessage";
 
 function ContactForm() {
     const {register, handleSubmit, formState: {errors}} = useForm();
@@ -17,7 +19,7 @@ function ContactForm() {
             setContactName(username);
             setContactEmail(email);
         }
-    }, [])
+    }, [isAuth])
 
     async function sendContactForm() {
         console.log('Form is send');
@@ -37,30 +39,31 @@ function ContactForm() {
                 <form className='contactForm' onSubmit={handleSubmit(sendContactForm)}>
                     <h2>You are not a joke to us!</h2>
                     <h3>Please reach out if you need help or have any suggestions.</h3>
-                    <label htmlFor='contactname'>
-                        Name:
-                    </label>
+                    <Label htmlFor='contactname' labelText='Name:' />
                     <input
                         type='text'
                         id='contactname'
                         {...register('contactname',
                             {
-                                required: 'Name can not be empty',
+                                required: 'You must specify a name',
                             })
                         }
                         onChange={(e) => setContactName(e.target.value)}
                     />
-                    {errors.contactname && <p className='error'>{errors.contactname.message}</p>}
+                    {errors.contactname &&
+                        <ErrorMessage
+                            className={'fieldErrorMessageLight'}
+                            message={errors.contactname.message}
+                        />
+                    }
 
-                    <label htmlFor="contactemail">
-                        Email:
-                    </label>
+                    <Label htmlFor="contactemail" labelText='Email:'/>
                     <input
                         type="email"
                         id="contactemail"
                         {...register("contactemail",
                             {
-                                required: "E-mail can not be empty",
+                                required: "You must specify an email address",
                                 pattern: {
                                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                                     message: 'Enter a valid e-mail address',
@@ -69,10 +72,13 @@ function ContactForm() {
                         )}
                         onChange={(e) => setContactEmail(e.target.value)}
                     />
-                    {errors.contactemail && <p className='error'>{errors.contactemail.message}</p>}
-                    <label className='contacttextfield' htmlFor='contacttextfield'>
-                        Message:
-                    </label>
+                    {errors.contactemail &&
+                        <ErrorMessage
+                            className={'fieldErrorMessageLight'}
+                            message={errors.contactemail.message}
+                        />
+                    }
+                    <Label className='contacttextfield' htmlFor='contacttextfield' labelText='Message:' />
                     <textarea className='contacttextfield'
                               id='contacttextfield'
                               {...register("contacttextfield",
@@ -82,7 +88,12 @@ function ContactForm() {
                               )}
                               onChange={(e) => setContactMessage(e.target.value)}>
                        </textarea>
-                    {errors.contacttextfield && <p className='error'>{errors.contacttextfield.message}</p>}
+                    {errors.contacttextfield &&
+                        <ErrorMessage
+                            className={'fieldErrorMessageLight'}
+                            message={errors.contacttextfield.message}
+                        />
+                     }
                     <Button type='submit' text='Send message'/>
                 </form>
             }

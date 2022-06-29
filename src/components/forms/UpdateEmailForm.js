@@ -6,6 +6,7 @@ import {AuthContext} from "../../context/AuthContext";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Label from "../formComponents/Label";
 import './UpdateForm.css';
+import {useHistory} from "react-router-dom";
 
 function UpdateEmailForm() {
 
@@ -18,8 +19,11 @@ function UpdateEmailForm() {
 
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [loading, toggleLoading] = useState(false);
 
     async function updateEmailRequest() {
+        toggleLoading(true);
+
         try {
             const token = localStorage.getItem('token');
             await axios.put(
@@ -36,7 +40,8 @@ function UpdateEmailForm() {
             )
             setIsRequestSuccessful(true);
 
-        } catch (e) {
+        }
+        catch (e) {
             setIsError(true);
 
             switch (e.response.status) {
@@ -68,6 +73,13 @@ function UpdateEmailForm() {
                     setErrorMessage(e.response.status, e.response.data);
             }
         }
+
+        toggleLoading(false);
+    }
+
+    function backToHome() {
+        reset();
+        setIsRequestSuccessful(!isRequestSuccessful);
     }
 
     return (
@@ -81,11 +93,16 @@ function UpdateEmailForm() {
             {isRequestSuccessful && !isError &&
                 <span>
                     <h3>Your info is successfully updated</h3>
-                    <Button type='button' text='Back to profile' onClick={() => reset()}/>
+                    <Button type='button' text='Back to homepage' onClick={backToHome}/>
                 </span>
             }
             {!isRequestSuccessful && !isError &&
                 <form className='updatedProfileForm' onSubmit={handleSubmit(updateEmailRequest)}>
+
+                    {loading &&
+                        <ErrorMessage className='fieldLoadingMessage' message='Loading...' />
+                    }
+
                     <span className='outerProfileGroup'>
                         <Label htmlFor='updatedEmail' labelText='E-mail:'/>
                         <input

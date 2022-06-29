@@ -23,8 +23,11 @@ function SubmitJokeForm() {
     const [isTwoPart, setIsTwoPart] = useState(false);
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [loading, toggleLoading] = useState(false);
 
     async function submitJokeRequest() {
+        toggleLoading(true);
+
         try {
             const category = jokeAboutSelector;
             const flag = jokeFlagSelector;
@@ -70,7 +73,8 @@ function SubmitJokeForm() {
                 )
             }
             setIsRequestSuccessful(true);
-        } catch (e) {
+        }
+        catch (e) {
             setIsRequestSuccessful(false);
             setIsError(true);
             switch (e.response.status) {
@@ -110,6 +114,8 @@ function SubmitJokeForm() {
                     setErrorMessage(e);
             }
         }
+
+        toggleLoading(false);
     }
 
     function newRequest() {
@@ -148,6 +154,9 @@ function SubmitJokeForm() {
             {!isError && !isRequestSuccessful &&
                 <>
                     <h3>Let's find out!</h3>
+                    {loading &&
+                        <ErrorMessage className='fieldLoadingMessage' message='Loading...' />
+                    }
                     <form className='submitJokeForm' onSubmit={handleSubmit(submitJokeRequest)}>
                        <span className='outerSubmitJoke'>
                            <Label htmlFor='jokeAboutSelector' labelText='I want a joke about:'/>

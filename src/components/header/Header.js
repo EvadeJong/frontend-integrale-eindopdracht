@@ -17,7 +17,6 @@ function Header() {
                     <span className='giggles'>
                         <Giggles/>
                     </span>
-
                 </span>
                 <nav>
                     <ul>

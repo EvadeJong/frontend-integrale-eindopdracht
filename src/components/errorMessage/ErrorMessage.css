@@ -10,11 +10,12 @@
     font-size: 20px;
 }
 
+.fieldLoadingMessage,
 .fieldErrorMessageLight,
 .fieldErrorMessage {
     display: flex;
     align-items: center;
-    color: #bf1650;
+    color: red;
     font-size: 20px;
     letter-spacing: .1rem;
     padding: 3px;
@@ -22,14 +23,21 @@
 }
 
 .fieldErrorMessageLight {
-    border: solid 3px #bf1650;
+    border: solid 3px red;
     background-color: white;
-    max-width: 65%;
-    margin: 10px;
+    max-width: 75%;
+    margin: 10px 10px 10px 0px;
+}
+.fieldLoadingMessage{
+    border: solid 3px green;
+    color: green;
+    background-color: white;
+    max-width: 75%;
+    margin: 10px 10px 10px 0px;
 }
 
 .fieldErrorMessageLight::before,
 .fieldErrorMessage::before {
     display: inline;
-    content: '⚠';
+    content: '❗';
 }

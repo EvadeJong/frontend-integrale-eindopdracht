@@ -5,6 +5,7 @@ import Button from "../button/Button";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Label from "../formComponents/Label";
 import './UpdateForm.css';
+import {useHistory} from "react-router-dom";
 
 
 function UpdatePasswordForm() {
@@ -18,10 +19,14 @@ function UpdatePasswordForm() {
 
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [loading, toggleLoading] = useState(false);
+    const history = useHistory();
 
     password.current = watch('password', '');
 
     async function updatePasswordRequest() {
+        toggleLoading(true);
+
         try {
             const token = localStorage.getItem('token');
             const data = await axios.put(
@@ -38,7 +43,7 @@ function UpdatePasswordForm() {
                 }
             )
             setIsRequestSuccessful(true);
-            console.log(`Password geupdated naar ${updatedPassword}`);
+
         } catch (e) {
             setIsError(true);
 
@@ -72,6 +77,13 @@ function UpdatePasswordForm() {
             }
         }
 
+        toggleLoading(false);
+    }
+
+    function backToHome() {
+        reset();
+        setIsRequestSuccessful(!isRequestSuccessful);
+        history.push('./');
     }
 
     return (
@@ -85,13 +97,18 @@ function UpdatePasswordForm() {
             {isRequestSuccessful && !isError &&
                 <>
                     <h3>Your info is successfully updated</h3>
-                    <Button type='button' text='Back to profile' onClick={() => reset()}/>
+                    <Button type='button' text='Back to homepage' onClick={backToHome}/>
                 </>
             }
             {!isRequestSuccessful && !isError &&
                 <form className='updatedProfileForm' onSubmit={handleSubmit(updatePasswordRequest)}>
                     <span className='outerProfileGroup'>
-                        <Label htmlFor='updatedPassword' labelText='Password:' />
+
+                        {loading &&
+                            <ErrorMessage className='fieldLoadingMessage' message='Loading...'/>
+                        }
+
+                        <Label htmlFor='updatedPassword' labelText='Password:'/>
                         <input
                             name="password"
                             type="password"
@@ -105,16 +122,16 @@ function UpdatePasswordForm() {
                             onChange={(e) => setUpdatedPassword(e.target.value)}
                         />
                         <span>
-                                  {errors.password &&
-                                      <ErrorMessage
-                                          className={'fieldErrorMessage'}
-                                          message={errors.password.message}
-                                      />
-                                  }
+                            {errors.password &&
+                                <ErrorMessage
+                                    className={'fieldErrorMessage'}
+                                    message={errors.password.message}
+                                />
+                            }
                         </span>
                     </span>
                     <span className='outerProfileGroup'>
-                        <Label htmlFor='profilePassword' labelText=' Repeat password:' />
+                        <Label htmlFor='profilePassword' labelText=' Repeat password:'/>
                         <input
                             name="password_repeat"
                             type="password"

@@ -31,8 +31,11 @@ function RequestJokeForm() {
 
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [loading, toggleLoading] = useState(false);
 
     async function requestJokeRequest() {
+        toggleLoading(true);
+
         try {
             const category = getJokeAboutSelector;
             const flag = getJokeFlagSelector;
@@ -40,7 +43,7 @@ function RequestJokeForm() {
             const numberOfJokes = getNumberOfJokesSelector;
 
             const result = await axios.get(`https://v2.jokeapi.dev/joke/${category}?format=json&?blacklistFlags=${flag}&lang=en&type=${jokeType}&amount=${numberOfJokes}`)
-            console.log(jokeType);
+
             if (jokeType === 'twopart') {
                 setIsTwoPart(true);
                 if (numberOfJokes === '1') {
@@ -62,7 +65,8 @@ function RequestJokeForm() {
             }
 
             setIsRequestSuccessful(true);
-        } catch (e) {
+        }
+        catch (e) {
             setIsRequestSuccessful(false);
             setIsError(true);
             switch (e.response.status) {
@@ -102,6 +106,8 @@ function RequestJokeForm() {
                     setErrorMessage(e);
             }
         }
+
+        toggleLoading(false);
     }
 
     function newRequest() {
@@ -116,19 +122,19 @@ function RequestJokeForm() {
             {isError &&
                 <span>
                     <ErrorMessage className={'errorMessage'} message={errorMessage}/>
-                    <Button type='submit' text='I want to try again' onClick={newRequest}/>
+                    <Button type='submit' text='I want to try again' onClick={ newRequest }/>
                 </span>
             }
             {isRequestSuccessful &&
                 <>
                     {!isTwoPart && !areMultipleJokes &&
-                        <ul className='multipleJokesList'>
+                        <ul className='jokesList'>
                             <li>{singleJoke}</li>
                         </ul>
                     }
 
                     {!isTwoPart && areMultipleJokes &&
-                        <ul className='multipleJokesList'>
+                        <ul className='jokesList'>
                             {singleJokeArray.map((joke, key) => (
                                 <li key={key}>{joke.joke}</li>
                             ))}
@@ -136,14 +142,16 @@ function RequestJokeForm() {
                     }
 
                     {isTwoPart && !areMultipleJokes &&
-                        <article>
-                            <h3>{twoPartSetup}</h3>
-                            <h3>{twoPartDelivery}</h3>
-                        </article>
+                        <ul className='jokesList'>
+                            <li>
+                                <h3>{twoPartSetup}</h3>
+                                <h3>{twoPartDelivery}</h3>
+                            </li>
+                        </ul>
                     }
 
                     {isTwoPart && areMultipleJokes &&
-                        <ul className='multipleJokesList'>
+                        <ul className='jokesList'>
                             {twoPartJokeArray.map((joke, key) => (
                                 <li key={key}>
                                     <h3>{joke.setup}</h3>
@@ -158,11 +166,16 @@ function RequestJokeForm() {
             }
             {!isError && !isRequestSuccessful &&
                 <>
-                    <div className='requestPageHeader'>
+                    <span className='requestPageHeader'>
                         <h1>So you don’t like our chicken jokes?</h1>
-                    </div>
+                    </span>
                     <form className='requestJokeForm' onSubmit={handleSubmit(requestJokeRequest)}>
                         <h3>Maybe we can find something else for you. Tell us what will make you laugh</h3>
+
+                        {loading &&
+                            <ErrorMessage className='fieldLoadingMessage' message='Loading...' />
+                        }
+
                         <span className='outerRequestJoke'>
                             <Label htmlFor='getJokeAboutSelector' labelText='I want a joke about:'/>
                             <select {...register('getJokeAboutSelector',
