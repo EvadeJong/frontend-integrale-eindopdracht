@@ -1,4 +1,4 @@
-import React, {createContext, useEffect, useState} from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 import axios from "axios";
@@ -7,37 +7,43 @@ export const AuthContext = createContext({});
 
 function AuthContextProvider({ children }) {
 
-    const history = useHistory();
-    const [auth, toggleAuth] = useState({
-        isAuth: false,
-        user: {
-            username: '',
-        },
-        status: 'pending',
-    });
-
     useEffect(() => {
         const token = localStorage.getItem('token');
+        // als er een token in de localStorage staat, decoderen we hem en kijken we of hij nog geldig is
         if(token) {
-            const tokenIsValid = jwtValidator(jwtDecode(token));
+            const decoded = jwtDecode(token);
+            const tokenIsValid = jwtValidator(decoded);
+            console.log(tokenIsValid);
             if (tokenIsValid) {
                 getUserData(token);
+                // als de token niet geldig is halen we hem uit de localStorage
             } else{
                 localStorage.removeItem('token');
                 toggleAuth({
-                    ...auth,
+                    isAuth: false,
+                    user: null,
                     status: 'done',
                 })
             }
+            //als er geen token is, is de user niet geauthentiseerd
         }else{
             toggleAuth({
-                ...auth,
+                isAuth: false,
+                user: null,
                 status: 'done',
             });
         }
     },[]);
 
-    async function getUserData(token) {
+    const history = useHistory();
+
+    const [auth, toggleAuth] = useState({
+        isAuth: false,
+        user: null,
+        status: 'pending',
+    });
+
+    async function getUserData(token, url) {
         try {
             const data = await axios.get('https://frontend-educational-backend.herokuapp.com/api/user', {
                 headers: {
@@ -45,6 +51,7 @@ function AuthContextProvider({ children }) {
                     Authorization: `Bearer ${token}`,
                 }
             });
+
             toggleAuth({
                 ...auth,
                 isAuth: true,
@@ -53,12 +60,17 @@ function AuthContextProvider({ children }) {
                     username: data.data.username,
                 },
                 status: 'done',
-            })
+            });
+
+            if (url) {
+                history.push(url);
+            }
         } catch (e) {
             console.error(e);
             localStorage.removeItem('token');
             toggleAuth({
                 ...auth,
+                user: null,
                 status: 'error',
             });
         }
@@ -75,21 +87,18 @@ function AuthContextProvider({ children }) {
     }
 
     function login(token) {
-        //const decodedToken = jwtDecode(token);
-        //encoded token in de localstorage plaatsen
+        // token in de localstorage plaatsen
         localStorage.setItem('token', token);
-        getUserData(token);
-        history.push('/');
+        const decoded = jwtDecode(token);
+        getUserData(token, '/');
     }
 
     function logout() {
-        console.log('Gebruiker is uitgelogd!');
+
         localStorage.removeItem('token');
         toggleAuth({
             isAuth: false,
-            user: {
-                username: '',
-            },
+            user: null,
             status: 'done',
         });
         history.push('/');
