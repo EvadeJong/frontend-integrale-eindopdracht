@@ -1,17 +1,20 @@
-import React, {useState, useContext, useRef} from "react";
+import React, {useContext, useState} from "react";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 import Button from "../button/Button";
-import './SubmitJokeForm.css'
 import {AuthContext} from "../../context/AuthContext";
-
+import ErrorMessage from "../errorMessage/ErrorMessage";
+import Label from "../formComponents/Label";
+import './UpdateForm.css';
 
 function UpdateEmailForm() {
 
     const {user: {email}} = useContext(AuthContext);
     const [updatedEmail, setUpdatedEmail] = useState(email);
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
-    const {register, handleSubmit, formState: {errors}} = useForm({});
+    const {register, handleSubmit, formState: {errors}, reset} = useForm({
+        mode: 'onChange',
+    });
 
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -31,8 +34,6 @@ function UpdateEmailForm() {
                     }
                 }
             )
-            console.log(`Email geupdated naar ${updatedEmail}`);
-
             setIsRequestSuccessful(true);
 
         } catch (e) {
@@ -72,36 +73,37 @@ function UpdateEmailForm() {
     return (
         <>
             {isError &&
-                <div>
-                    <h3>{errorMessage}</h3>
+                <span>
+                    <ErrorMessage className={'errorMessage'} message={errorMessage}/>
                     <Button type='submit' text='I want to try again' onClick={() => setIsError(false)}/>
-                </div>
+                </span>
             }
             {isRequestSuccessful && !isError &&
-                <>
+                <span>
                     <h3>Your info is successfully updated</h3>
-                    <Button type='button' text='Back to profile' onClick={() => window.location.reload(true)}/>
-                </>
+                    <Button type='button' text='Back to profile' onClick={() => reset()}/>
+                </span>
             }
             {!isRequestSuccessful && !isError &&
                 <form className='updatedProfileForm' onSubmit={handleSubmit(updateEmailRequest)}>
-                    <div className='outerProfileGroup'>
-                        <label htmlFor='updatedEmail'>
-                            E-mail:
-                        </label>
+                    <span className='outerProfileGroup'>
+                        <Label htmlFor='updatedEmail' labelText='E-mail:'/>
                         <input
                             type='email'
                             id='updatedEmail'
                             defaultValue={email}
                             {...register('updatedEmail',
                                 {
-                                    required: 'Email can not be empty',
+                                    required: 'Specify an email address',
                                 })
                             }
                             onChange={(e) => setUpdatedEmail(e.target.value)}
                         />
-                        {errors.updatedEmail && <p className='error'>{errors.updatedEmail.message}</p>}
-                    </div>
+                    </span>
+                    <span>
+                        {errors.updatedEmail &&
+                            <ErrorMessage className={'fieldErrorMessage'} message={errors.updatedEmail.message}/>}
+                    </span>
                     <Button type='submit' text='Update email'/>
                 </form>
             }

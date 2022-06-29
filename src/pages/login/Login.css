@@ -4,11 +4,12 @@
     width: 1000px;
     justify-content: space-evenly;
 }
-.loginpage-left{
+
+.loginpage-left {
     width: 45vh;
 }
 
-.registerpage-right{
+.registerpage-right {
     width: 45vh;
 }
 

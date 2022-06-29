@@ -1,23 +1,23 @@
-import React, { createContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, {createContext, useEffect, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 
 export const AuthContext = createContext({});
 
-function AuthContextProvider({ children }) {
+function AuthContextProvider({children}) {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         // als er een token in de localStorage staat, decoderen we hem en kijken we of hij nog geldig is
-        if(token) {
+        if (token) {
             const decoded = jwtDecode(token);
             const tokenIsValid = jwtValidator(decoded);
             console.log(tokenIsValid);
             if (tokenIsValid) {
                 getUserData(token);
                 // als de token niet geldig is halen we hem uit de localStorage
-            } else{
+            } else {
                 localStorage.removeItem('token');
                 toggleAuth({
                     isAuth: false,
@@ -28,7 +28,7 @@ function AuthContextProvider({ children }) {
                 })
             }
             //als er geen token is, is de user niet geauthentiseerd
-        }else{
+        } else {
             toggleAuth({
                 isAuth: false,
                 user: {
@@ -37,7 +37,7 @@ function AuthContextProvider({ children }) {
                 status: 'done',
             });
         }
-    },[]);
+    }, []);
 
     const history = useHistory();
 
@@ -79,12 +79,12 @@ function AuthContextProvider({ children }) {
         }
     }
 
-    function jwtValidator (decodedToken) {
+    function jwtValidator(decodedToken) {
         const now = Date.now().valueOf() / 1000
         if (typeof decodedToken.exp !== 'undefined' && decodedToken.exp < now) {
             console.log(`token expired: ${JSON.stringify(decodedToken)}`);
             return false;
-        }else{
+        } else {
             return true;
         }
     }

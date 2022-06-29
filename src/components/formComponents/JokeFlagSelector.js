@@ -1,9 +1,9 @@
 import React from "react";
 
-function JokeFlagSelector(){
+function JokeFlagSelector() {
 
     const JokeIsArray = [
-        {field: '', value:'Select...'},
+        {field: '', value: 'Select...'},
         {field: 'nsfw', value: 'Nsfw'},
         {field: 'religious', value: 'Religious'},
         {field: 'political', value: 'Political'},
@@ -12,7 +12,7 @@ function JokeFlagSelector(){
         {field: 'explicit', value: 'Explicit'},
     ]
 
-    return(
+    return (
         <>
             {
                 JokeIsArray.map(({field, value}) => (

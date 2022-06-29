@@ -4,6 +4,7 @@ import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
 import Button from "../button/Button";
 import './LoginForm.css'
+import ErrorMessage from "../errorMessage/ErrorMessage";
 
 function LoginForm() {
     const {register, handleSubmit, formState: {errors}} = useForm({
@@ -70,12 +71,12 @@ function LoginForm() {
                         <h2>Login</h2>
                     </legend>
                     {isError ?
-                        <div >
-                            <h3>{errorMessage}</h3>
+                        <span>
+                            <ErrorMessage className={'errorMessage'} message={errorMessage}/>
                             <Button type='submit' text='I want to try again' onClick={() => setIsError(false)}/>
-                        </div>
+                        </span>
                         :
-                        <>
+                        <span>
                             <label htmlFor='username'>
                                 Username:
                             </label>
@@ -84,12 +85,13 @@ function LoginForm() {
                                 id='username'
                                 {...register('username',
                                     {
-                                        required: 'Username can not be empty',
+                                        required: 'You must specify a username',
                                     })
                                 }
                                 onChange={(e) => setUsername(e.target.value)}
                             />
-                            {errors.username && <p className='error'>{errors.username.message}</p>}
+                            {errors.username &&
+                                <ErrorMessage className={'fieldErrorMessage'} message={errors.username.message}/>}
                             <label htmlFor='password'>
                                 Password:
                             </label>
@@ -107,9 +109,10 @@ function LoginForm() {
                                 )}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            {errors.password && <p className='error'>{errors.password.message}</p>}
+                            {errors.password &&
+                                <ErrorMessage className={'fieldErrorMessage'} message={errors.password.message}/>}
                             <Button type='submit' text='Login'/>
-                        </>
+                        </span>
                     }
                 </fieldset>
             </form>

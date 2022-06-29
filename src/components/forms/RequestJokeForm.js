@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 import Button from "../button/Button";
@@ -7,6 +7,8 @@ import JokeFlagSelector from "../formComponents/JokeFlagSelector";
 import JokeAboutSelector from "../formComponents/JokeAboutSelector";
 import JokeTypeSelector from "../formComponents/JokeTypeSelector";
 import JokeNumberSelector from "../formComponents/JokeNumberSelector";
+import ErrorMessage from "../errorMessage/ErrorMessage";
+import Label from "../formComponents/Label";
 
 function RequestJokeForm() {
 
@@ -29,15 +31,6 @@ function RequestJokeForm() {
 
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-
-    useEffect(() => {
-        reset({
-            getJokeAboutSelector: '',
-            getJokeFlagSelector: '',
-            getNumberOfJokesSelector: '',
-            getJokeTypeSelector: '',
-        })
-    }, [isRequestSuccessful])
 
     async function requestJokeRequest() {
         try {
@@ -72,70 +65,74 @@ function RequestJokeForm() {
         } catch (e) {
             setIsRequestSuccessful(false);
             setIsError(true);
-            switch (e.response.status){
-                case 400: setErrorMessage
-                ('The request you have sent to JokeAPI is formatted incorrectly and cannot be processed')
+            switch (e.response.status) {
+                case 400:
+                    setErrorMessage
+                    ('The request you have sent to JokeAPI is formatted incorrectly and cannot be processed')
                     break;
-                case 403:  setErrorMessage
-                ('You have been added to the blacklist due to malicious behavior and are not allowed to send requests to JokeAPI anymore');
+                case 403:
+                    setErrorMessage
+                    ('You have been added to the blacklist due to malicious behavior and are not allowed to send requests to JokeAPI anymore');
                     break;
-                case 404:  setErrorMessage
-                ('The URL you have requested couldn\'t be found');
+                case 404:
+                    setErrorMessage
+                    ('The URL you have requested couldn\'t be found');
                     break;
-                case 413:  setErrorMessage
-                ('The payload data sent to the server exceeds the maximum size of 5120 bytes');
+                case 413:
+                    setErrorMessage
+                    ('The payload data sent to the server exceeds the maximum size of 5120 bytes');
                     break;
-                case 414:  setErrorMessage
-                ('The URL exceeds the maximum length of 250 characters');
+                case 414:
+                    setErrorMessage
+                    ('The URL exceeds the maximum length of 250 characters');
                     break;
-                case 429:  setErrorMessage
-                ('You have exceeded the limit of 120 requests per minute and have to wait a bit until you are allowed to send requests again');
+                case 429:
+                    setErrorMessage
+                    ('You have exceeded the limit of 120 requests per minute and have to wait a bit until you are allowed to send requests again');
                     break;
-                case 500: setErrorMessage
-                (e.response.data.additionalInfo)
+                case 500:
+                    setErrorMessage
+                    (e.response.data.additionalInfo)
                     break;
-                case 523: setErrorMessage
-                ('The server is temporarily offline due to maintenance or a dynamic IP update. Please be patient.')
+                case 523:
+                    setErrorMessage
+                    ('The server is temporarily offline due to maintenance or a dynamic IP update. Please be patient.')
                     break;
-                default: setErrorMessage(e);
+                default:
+                    setErrorMessage(e);
             }
         }
     }
 
     function newRequest() {
-        setSingleJoke('');
-        setTwoPartSetup('');
-        setTwoPartDelivery('');
         setAreMultipleJokes(false);
         setIsRequestSuccessful(false);
+        setIsError(false);
+        reset();
     }
 
     return (
         <>
             {isError &&
-                <>
-                <p>{errorMessage}</p>
-                <Button type='submit' text='I want to try again' onClick={newRequest}/>
-            </>
-        }
+                <span>
+                    <ErrorMessage className={'errorMessage'} message={errorMessage}/>
+                    <Button type='submit' text='I want to try again' onClick={newRequest}/>
+                </span>
+            }
             {isRequestSuccessful &&
                 <>
                     {!isTwoPart && !areMultipleJokes &&
-                        <>
-                            <ul className='multipleJokesList'>
-                                <li>{singleJoke}</li>
-                            </ul>
-                        </>
+                        <ul className='multipleJokesList'>
+                            <li>{singleJoke}</li>
+                        </ul>
                     }
 
                     {!isTwoPart && areMultipleJokes &&
-                        <>
-                            <ul className='multipleJokesList'>
-                                {singleJokeArray.map((joke, key) => (
-                                    <li key={key}>{joke.joke}</li>
-                                ))}
-                            </ul>
-                        </>
+                        <ul className='multipleJokesList'>
+                            {singleJokeArray.map((joke, key) => (
+                                <li key={key}>{joke.joke}</li>
+                            ))}
+                        </ul>
                     }
 
                     {isTwoPart && !areMultipleJokes &&
@@ -146,16 +143,14 @@ function RequestJokeForm() {
                     }
 
                     {isTwoPart && areMultipleJokes &&
-                        <>
-                            <ul className='multipleJokesList'>
-                                {twoPartJokeArray.map((joke, key) => (
-                                    <li key={key}>
-                                        <h3>{joke.setup}</h3>
-                                        <h3>{joke.delivery}</h3>
-                                    </li>
-                                ))}
-                            </ul>
-                        </>
+                        <ul className='multipleJokesList'>
+                            {twoPartJokeArray.map((joke, key) => (
+                                <li key={key}>
+                                    <h3>{joke.setup}</h3>
+                                    <h3>{joke.delivery}</h3>
+                                </li>
+                            ))}
+                        </ul>
                     }
 
                     <Button type='button' text='I want another joke' onClick={newRequest}/>
@@ -168,36 +163,35 @@ function RequestJokeForm() {
                     </div>
                     <form className='requestJokeForm' onSubmit={handleSubmit(requestJokeRequest)}>
                         <h3>Maybe we can find something else for you. Tell us what will make you laugh</h3>
-                        <div className='outerRequestJoke'>
-                            <label className='outerRequestJoke' htmlFor='getJokeAboutSelector'>
-                                I want a joke about:
-                            </label>
-                            <select
-                                {...register('getJokeAboutSelector',
-                                    {
-                                        required: "You must specify a subject",
-                                    }
-                                )}
-                                onChange={(e) => setGetJokeAboutSelector(e.target.value)}
+                        <span className='outerRequestJoke'>
+                            <Label htmlFor='getJokeAboutSelector' labelText='I want a joke about:'/>
+                            <select {...register('getJokeAboutSelector',
+                                {
+                                    required: "You must specify a subject",
+                                }
+                            )}
+                                    onChange={(e) => setGetJokeAboutSelector(e.target.value)}
                             >
                                 <JokeAboutSelector/>
                             </select>
+                        </span>
+                        <span>
                             {errors.getJokeAboutSelector &&
-                                <p className='error'>{errors.getJokeAboutSelector.message}</p>}
-                        </div>
-                        <div className='outerRequestJoke'>
-                            <label htmlFor='getJokeFlagSelector'>
-                                It should not be:
-                            </label>
+                                <ErrorMessage
+                                    className={'fieldErrorMessage'}
+                                    message={errors.getJokeAboutSelector.message}
+                                />
+                            }
+                        </span>
+                        <span className='outerRequestJoke'>
+                            <Label htmlFor='getJokeFlagSelector' labelText='Flag (can be empty):'/>
                             <select {...register("getJokeFlagSelector")}
                                     onChange={(e) => setGetJokeFlagSelector(e.target.value)}>
                                 <JokeFlagSelector/>
                             </select>
-                        </div>
-                        <div className='outerRequestJoke'>
-                            <label htmlFor='getJokeTypeSelector'>
-                                Joke type:
-                            </label>
+                        </span>
+                        <span className='outerRequestJoke'>
+                            <Label htmlFor='getJokeTypeSelector' labelText='Joke type:'/>
                             <select {...register("getJokeTypeSelector",
                                 {
                                     required: "You must specify a joke type",
@@ -206,13 +200,17 @@ function RequestJokeForm() {
                             >
                                 <JokeTypeSelector/>
                             </select>
+                            </span>
+                        <span>
                             {errors.getJokeTypeSelector &&
-                                <p className='error'>{errors.getJokeTypeSelector.message}</p>}
-                        </div>
-                        <div className='outerRequestJoke'>
-                            <label htmlFor='getNumberOfJokesSelector'>
-                                Give me:
-                            </label>
+                                <ErrorMessage
+                                    className={'fieldErrorMessage'}
+                                    message={errors.getJokeTypeSelector.message}
+                                />
+                            }
+                        </span>
+                        <span className='outerRequestJoke'>
+                            <Label htmlFor='getNumberOfJokesSelector' labelText='Give me:'/>
                             <select
                                 {...register('getNumberOfJokesSelector',
                                     {
@@ -222,9 +220,15 @@ function RequestJokeForm() {
                             >
                                 <JokeNumberSelector/>
                             </select>
+                        </span>
+                        <span>
                             {errors.getNumberOfJokesSelector &&
-                                <p className='error'>{errors.getNumberOfJokesSelector.message}</p>}
-                        </div>
+                                <ErrorMessage
+                                    className={'fieldErrorMessage'}
+                                    message={errors.getNumberOfJokesSelector.message}
+                                />
+                            }
+                        </span>
                         <Button type='submit' text='Request Joke'/>
                     </form>
                 </>

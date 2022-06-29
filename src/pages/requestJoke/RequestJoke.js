@@ -1,42 +1,42 @@
-import React, {useEffect, useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './RequestJoke.css'
 import Button from '../../components/button/Button';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 import {AuthContext} from '../../context/AuthContext';
-import { chickenJokesArray } from '../../assets/ChickenJokesArray';
+import {chickenJokesArray} from '../../assets/ChickenJokesArray';
 import RequestJokeForm from "../../components/forms/RequestJokeForm";
 
-function RequestJoke(){
-    const { isAuth, user: {username}} = useContext(AuthContext);
+function RequestJoke() {
+    const {isAuth, user: {username}} = useContext(AuthContext);
     const [isChickenButtonClicked, setIsChickenButtonClicked] = useState(false);
     const [isRealJokeButtonClicked, setIsRealJokeButtonClicked] = useState(false);
     const [index, setIndex] = useState(0)
     const [chickenPunchline, setChickenPunchline] = useState('');
 
-    function getPunchlineButton(){
+    function getPunchlineButton() {
         setIsChickenButtonClicked(true);
 
-        if(index < chickenJokesArray.length -1){
+        if (index < chickenJokesArray.length - 1) {
             setChickenPunchline(chickenJokesArray[index]);
-            setIndex(index +1);
-        }else{
+            setIndex(index + 1);
+        } else {
             setChickenPunchline(chickenJokesArray[index]);
             setIndex(0);
         }
     }
 
-    function getRealJokeButton(){
+    function getRealJokeButton() {
         setIsRealJokeButtonClicked(true);
     }
 
-    useEffect (() =>{
+    useEffect(() => {
         document.documentElement.style.setProperty('--dynamic-background-color', '#BFD7EA')
     }, []);
 
-    return(
+    return (
         <>
-            <Header />
+            <Header/>
             <main>
                 <section className="pageOuterContainer">
                     <div className="pageInnerContainer">
@@ -60,7 +60,7 @@ function RequestJoke(){
                                 </div>
                                 <div className='chickenJoke'>
                                     <h3>Why did the chicken cross the road?</h3>
-                                    <Button onClick={getPunchlineButton} text={"I don't know! Why?"} />
+                                    <Button onClick={getPunchlineButton} text={"I don't know! Why?"}/>
                                 </div>
                             </>
                         }

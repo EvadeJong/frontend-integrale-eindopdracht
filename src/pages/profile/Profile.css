@@ -1,9 +1,13 @@
 .profileForm {
- margin: 0 auto;
+    margin: 0 auto;
 }
 
+.updatedProfileForm {
+    width: 600px;
+}
 .outerProfileGroup {
- display: flex;
- justify-content: space-between;
- align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
 }

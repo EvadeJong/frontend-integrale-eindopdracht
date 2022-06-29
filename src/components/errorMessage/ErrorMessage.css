@@ -1,0 +1,35 @@
+
+.errorMessage {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 30px;
+    background-color: white;
+    border: solid #bf1650 3px;
+    color: #bf1650;
+    font-size: 20px;
+}
+
+.fieldErrorMessageLight,
+.fieldErrorMessage {
+    display: flex;
+    align-items: center;
+    color: #bf1650;
+    font-size: 20px;
+    letter-spacing: .1rem;
+    padding: 3px;
+    font-weight: bold;
+}
+
+.fieldErrorMessageLight {
+    border: solid 3px #bf1650;
+    background-color: white;
+    max-width: 65%;
+    margin: 10px;
+}
+
+.fieldErrorMessageLight::before,
+.fieldErrorMessage::before {
+    display: inline;
+    content: '⚠';
+}

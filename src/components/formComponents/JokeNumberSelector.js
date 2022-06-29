@@ -1,15 +1,15 @@
 import React from "react";
 
-function JokeNumberSelector(){
+function JokeNumberSelector() {
 
     const JokeNumberArray = [
-        {field: '', value:'Select...'},
+        {field: '', value: 'Select...'},
         {field: '1', value: 'One good laugh!'},
         {field: '3', value: 'A couple laughs!'},
         {field: '5', value: 'A lot, wanna ROLF!'},
     ]
 
-    return(
+    return (
         <>
             {
                 JokeNumberArray.map(({field, value}) => (

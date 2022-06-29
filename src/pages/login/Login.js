@@ -15,29 +15,29 @@ function Login() {
     }, []);
 
     return (
-            <>
-                <Header />
-                <main>
-                    <section className='pageOuterContainer'>
-                        <div className='pageInnerContainer'>
+        <>
+            <Header/>
+            <main>
+                <section className='pageOuterContainer'>
+                    <div className='pageInnerContainer'>
                             <span className='seperator'>
                               <div className='loginpage-left'>
-                                <LoginForm />
+                                <LoginForm/>
                               </div>
 
                               <div className='seperator-line'>
                               </div>
 
                               <div className='registerpage-right'>
-                                <RegisterForm />
+                                <RegisterForm/>
                               </div>
                             </span>
-                         </div>
-                    </section>
-                </main>
-                <Footer text='Contact us!'/>
-            </>
-        )
-    }
+                    </div>
+                </section>
+            </main>
+            <Footer text='Contact us!'/>
+        </>
+    )
+}
 
 export default Login;

@@ -1,8 +1,10 @@
-import React, {useState, useRef} from "react";
+import React, {useRef, useState} from "react";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 import Button from "../button/Button";
-import {useHistory} from "react-router-dom";
+import ErrorMessage from "../errorMessage/ErrorMessage";
+import Label from "../formComponents/Label";
+import './UpdateForm.css';
 
 
 function UpdatePasswordForm() {
@@ -11,7 +13,7 @@ function UpdatePasswordForm() {
     const [repeatedUpdatedPassword, setRepeatedUpdatedPassword] = useState('');
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
 
-    const {register, handleSubmit, formState: {errors}, watch} = useForm({});
+    const {register, handleSubmit, formState: {errors}, watch, reset} = useForm({});
     const password = useRef({});
 
     const [isError, setIsError] = useState(false);
@@ -43,7 +45,7 @@ function UpdatePasswordForm() {
             switch (e.response.status) {
                 case 400:
                     setErrorMessage
-                    ('The email is already in use. If you already have an account, please log in.')
+                    ('The server was unable to process the request sent by the client due to invalid syntax');
                     break;
                 case 401:
                     setErrorMessage
@@ -75,23 +77,21 @@ function UpdatePasswordForm() {
     return (
         <>
             {isError &&
-                <div>
-                    <h3>{errorMessage}</h3>
+                <span>
+                    <ErrorMessage className={'errorMessage'} message={errorMessage}/>
                     <Button type='submit' text='I want to try again' onClick={() => setIsError(false)}/>
-                </div>
+                </span>
             }
             {isRequestSuccessful && !isError &&
                 <>
                     <h3>Your info is successfully updated</h3>
-                    <Button type='button' text='Back to profile' onClick={() => window.location.reload(true)}/>
+                    <Button type='button' text='Back to profile' onClick={() => reset()}/>
                 </>
             }
             {!isRequestSuccessful && !isError &&
                 <form className='updatedProfileForm' onSubmit={handleSubmit(updatePasswordRequest)}>
-                    <div className='outerProfileGroup'>
-                        <label htmlFor='updatedPassword'>
-                            Password:
-                        </label>
+                    <span className='outerProfileGroup'>
+                        <Label htmlFor='updatedPassword' labelText='Password:' />
                         <input
                             name="password"
                             type="password"
@@ -99,17 +99,22 @@ function UpdatePasswordForm() {
                                 required: "You must specify a password",
                                 minLength: {
                                     value: 8,
-                                    message: "Password must have at least 8 characters"
+                                    message: "Password must have 8 characters"
                                 }
                             })}
                             onChange={(e) => setUpdatedPassword(e.target.value)}
                         />
-                        {errors.password && <p className='error'>{errors.password.message}</p>}
-                    </div>
-                    <div className='outerProfileGroup'>
-                        <label htmlFor='profilePassword'>
-                            Repeat password:
-                        </label>
+                        <span>
+                                  {errors.password &&
+                                      <ErrorMessage
+                                          className={'fieldErrorMessage'}
+                                          message={errors.password.message}
+                                      />
+                                  }
+                        </span>
+                    </span>
+                    <span className='outerProfileGroup'>
+                        <Label htmlFor='profilePassword' labelText=' Repeat password:' />
                         <input
                             name="password_repeat"
                             type="password"
@@ -119,8 +124,16 @@ function UpdatePasswordForm() {
                             })}
                             onChange={(e) => setRepeatedUpdatedPassword(e.target.value)}
                         />
-                        {errors.password_repeat && <p className='error'>{errors.password_repeat.message}</p>}
-                    </div>
+                        <span>
+                                  {errors.password_repeat &&
+                                      <ErrorMessage
+                                          className={'fieldErrorMessage'}
+                                          message={errors.password_repeat.message}
+                                      />
+                                  }
+                        </span>
+
+                    </span>
                     <Button type='submit' text='Change password'/>
                 </form>
             }

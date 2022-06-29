@@ -1,9 +1,9 @@
 import React from "react";
 
-function JokeAboutSelector(){
+function JokeAboutSelector() {
 
     const JokeAboutArray = [
-        {field: '', value:'Select...'},
+        {field: '', value: 'Select...'},
         {field: 'any', value: 'Any'},
         {field: 'programming', value: 'Programming'},
         {field: 'dark', value: 'Dark'},
@@ -13,7 +13,7 @@ function JokeAboutSelector(){
         {field: 'misc', value: 'Misc'},
     ]
 
-    return(
+    return (
         <>
             {
                 JokeAboutArray.map(({field, value}) => (

@@ -1,28 +1,26 @@
-import React, {useEffect}  from 'react';
-import styles from './Contact.css';
-import Button from "../../components/button/Button";
+import React, {useEffect} from 'react';
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import ContactForm from "../../components/forms/ContactForm";
 
 
-function Contact(){
+function Contact() {
 
-    function submitButton(){
+    function submitButton() {
         console.log('Form is submitted')
     }
 
-    useEffect (() =>{
+    useEffect(() => {
         document.documentElement.style.setProperty('--dynamic-background-color', '#FFAD30');
     }, []);
 
-    return(
+    return (
         <>
-            <Header />
+            <Header/>
             <main>
                 <section className="pageOuterContainer">
                     <div className="pageInnerContainer">
-                        <ContactForm />
+                        <ContactForm/>
                     </div>
                 </section>
             </main>

@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 
-:root{
+:root {
     --dynamic-background-color: #F4E15E;
     --Bright-orange: #E67A3D;
     --Orange: #FFAD30;
@@ -14,16 +14,16 @@
     --Light-blue: #BFD7EA;
 }
 
-html, body, #root, #root>div {
+html, body, #root, #root > div {
     min-height: 100vh;
     background-color: var(--dynamic-background-color);
 }
 
-header{
+header {
     min-height: 20vh;
 }
 
-main{
+main {
     min-height: 70vh;
 }
 
@@ -48,6 +48,7 @@ h2 {
 h3 {
     font-size: 25px;
 }
+
 input {
     width: 100%;
     display: block;
@@ -59,7 +60,7 @@ input {
     font-size: 20px;
 }
 
-select{
+select {
     font-size: 18px;
     min-width: 260px;
 }

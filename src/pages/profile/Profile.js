@@ -1,5 +1,4 @@
 import React, {useContext, useEffect, useState} from 'react';
-import styles from './Profile.css'
 import Button from "../../components/button/Button";
 import {AuthContext} from "../../context/AuthContext";
 import Header from "../../components/header/Header";

@@ -1,14 +1,14 @@
 import React from "react";
 
-function JokeTypeSelector(){
+function JokeTypeSelector() {
 
     const JokeTypeArray = [
-        {field: '', value:'Select...'},
+        {field: '', value: 'Select...'},
         {field: 'single', value: 'Single part'},
         {field: 'twopart', value: 'Two parts'},
     ]
 
-    return(
+    return (
         <>
             {
                 JokeTypeArray.map(({field, value}) => (

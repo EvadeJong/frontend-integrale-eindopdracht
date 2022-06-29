@@ -2,7 +2,7 @@ h4 {
     line-height: 6;
 }
 
-.Welcome{
+.Welcome {
     display: flex;
     align-items: center;
     font-size: 25px;
@@ -20,6 +20,7 @@ h4 {
     flex-direction: row;
     width: 1000px;
 }
+
 .homepage-lower .registerButton {
     margin-left: 255px;
 }

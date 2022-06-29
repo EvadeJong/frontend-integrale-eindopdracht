@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Button from '../button/Button';
 import './LoginForm.css'
+import ErrorMessage from "../errorMessage/ErrorMessage";
 
 function RegisterForm() {
     const {register, handleSubmit, formState: {errors}} = useForm({
@@ -79,7 +80,7 @@ function RegisterForm() {
                 </legend>
                 {isError &&
                     <div>
-                        <h3>{errorMessage}</h3>
+                        <ErrorMessage className={'errorMessage'} message={errorMessage}/>
                         <Button type='submit' text='I want to try again' onClick={() => setIsError(false)}/>
                     </div>
                 }
@@ -91,17 +92,22 @@ function RegisterForm() {
                         <label htmlFor="registerUsername">
                             Username:
                         </label>
-                            <input
-                                type="text"
-                                id="registerUsername"
-                                {...register("registerUsername",
-                                    {
-                                        required: "Username can not be empty",
-                                    })
-                                }
-                                onChange={(e) => setRegisterUsername(e.target.value)}
+                        <input
+                            type="text"
+                            id="registerUsername"
+                            {...register("registerUsername",
+                                {
+                                    required: "You must specify a username",
+                                })
+                            }
+                            onChange={(e) => setRegisterUsername(e.target.value)}
+                        />
+                        {errors.registerUsername &&
+                            <ErrorMessage
+                                className={'fieldErrorMessage'}
+                                message={errors.registerUsername.message}
                             />
-                            {errors.registerUsername && <p className='error'>{errors.registerUsername.message}</p>}
+                        }
 
                         <label htmlFor="registerEmail">
                             Email:
@@ -111,7 +117,7 @@ function RegisterForm() {
                             id="registerEmail"
                             {...register("registerEmail",
                                 {
-                                    required: "E-mail can not be empty",
+                                    required: "You must specify an email address",
                                     pattern: {
                                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                                         message: 'Enter a valid e-mail address',
@@ -120,7 +126,12 @@ function RegisterForm() {
                             )}
                             onChange={(e) => setRegisterEmail(e.target.value)}
                         />
-                        {errors.registerEmail && <p className='error'>{errors.registerEmail.message}</p>}
+                        {errors.registerEmail &&
+                            <ErrorMessage
+                                className={'fieldErrorMessage'}
+                                message={errors.registerEmail.message}
+                            />
+                        }
                         <label htmlFor="register-password">
                             Password:
                         </label>
@@ -138,7 +149,12 @@ function RegisterForm() {
                             )}
                             onChange={(e) => setRegisterPassword(e.target.value)}
                         />
-                        {errors.registerPassword && <p className='error'>{errors.registerPassword.message}</p>}
+                        {errors.registerPassword &&
+                            <ErrorMessage
+                                className={'fieldErrorMessage'}
+                                message={errors.registerPassword.message}
+                            />
+                        }
                         <Button type="submit" text="Register"/>
                     </>
                 }

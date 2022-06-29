@@ -1,23 +1,22 @@
 import React, {useEffect} from 'react';
-import Button from "../../components/button/Button";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import SubmitJokeForm from "../../components/forms/SubmitJokeForm";
 
-function SubmitJoke(){
+function SubmitJoke() {
 
-    useEffect (() =>{
+    useEffect(() => {
         document.documentElement.style.setProperty('--dynamic-background-color', '#E67A3D')
     }, []);
 
-    return(
+    return (
         <>
-            <Header />
+            <Header/>
             <main>
                 <section className="pageOuterContainer">
                     <div className="pageInnerContainer">
                         <h1>So you think you are funny?</h1>
-                        <SubmitJokeForm />
+                        <SubmitJokeForm/>
                     </div>
                 </section>
             </main>

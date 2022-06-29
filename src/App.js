@@ -1,9 +1,6 @@
 //3d party packages
-import React, {useContext, useState} from 'react';
-import {
-    Switch,
-    Route, Redirect,
-} from 'react-router-dom';
+import React, {useContext} from 'react';
+import {Redirect, Route, Switch,} from 'react-router-dom';
 
 //pages
 import Home from './pages/home/Home.js';
@@ -20,32 +17,32 @@ import './App.css';
 import {AuthContext} from './context/AuthContext';
 
 function App() {
-  const { isAuth } = useContext(AuthContext);
+    const {isAuth} = useContext(AuthContext);
 
-  return (
-      <>
-          <Switch>
-              <Route exact path='/'>
-                <Home />
-              </Route>
-              <Route exact path='/Contact'>
-                <Contact />
-              </Route>
+    return (
+        <>
+            <Switch>
+                <Route exact path='/'>
+                    <Home/>
+                </Route>
+                <Route exact path='/Contact'>
+                    <Contact/>
+                </Route>
                 <Route exact path='/Login'>
-                    <Login />
+                    <Login/>
                 </Route>
                 <Route exact path='/Profile'>
-                    {isAuth ? <Profile /> : <Home />}
+                    {isAuth ? <Profile/> : <Home/>}
                 </Route>
                 <Route exact path='/RequestJoke'>
-                    {isAuth ? <RequestJoke /> : <Redirect to="/" />}
+                    {isAuth ? <RequestJoke/> : <Redirect to="/"/>}
                 </Route>
                 <Route exact path='/submitJoke'>
-                    {isAuth ? <SubmitJoke /> : <Redirect to="/" />}
+                    {isAuth ? <SubmitJoke/> : <Redirect to="/"/>}
                 </Route>
-              </Switch>
-      </>
-  );
+            </Switch>
+        </>
+    );
 }
 
 export default App;
