@@ -6,7 +6,9 @@ import Button from '../button/Button';
 import './LoginForm.css'
 
 function RegisterForm() {
-    const {register, handleSubmit, formState: {errors}} = useForm();
+    const {register, handleSubmit, formState: {errors}} = useForm({
+        mode: 'onChange',
+    });
 
     const [registerUsername, setRegisterUsername] = useState('');
     const [registerEmail, setRegisterEmail] = useState('');

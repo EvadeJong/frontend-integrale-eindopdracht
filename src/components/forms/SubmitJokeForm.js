@@ -39,6 +39,7 @@ function SubmitJokeForm() {
             const flag = jokeFlagSelector;
             const jokeType = jokeTypeSelector;
 
+//TODO: Joke submissions are temporarily disabled. Once it works code should be checked again to submit joke to the JokeAPI backend.
             if (jokeType === 'twopart') {
                 setIsTwoPart(true);
                 await axios.post(

@@ -7,7 +7,7 @@ import './LoginForm.css'
 
 function LoginForm() {
     const {register, handleSubmit, formState: {errors}} = useForm({
-        mode: 'onBlur',
+        mode: 'onChange',
     });
     const {login} = useContext(AuthContext);
 

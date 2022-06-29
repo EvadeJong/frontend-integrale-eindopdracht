@@ -21,7 +21,9 @@ function AuthContextProvider({ children }) {
                 localStorage.removeItem('token');
                 toggleAuth({
                     isAuth: false,
-                    user: null,
+                    user: {
+                        username: '',
+                    },
                     status: 'done',
                 })
             }
@@ -29,7 +31,9 @@ function AuthContextProvider({ children }) {
         }else{
             toggleAuth({
                 isAuth: false,
-                user: null,
+                user: {
+                    username: '',
+                },
                 status: 'done',
             });
         }
@@ -66,7 +70,6 @@ function AuthContextProvider({ children }) {
                 history.push(url);
             }
         } catch (e) {
-            console.error(e);
             localStorage.removeItem('token');
             toggleAuth({
                 ...auth,
@@ -98,7 +101,9 @@ function AuthContextProvider({ children }) {
         localStorage.removeItem('token');
         toggleAuth({
             isAuth: false,
-            user: null,
+            user: {
+                username: '',
+            },
             status: 'done',
         });
         history.push('/');
