@@ -21,6 +21,8 @@ function UpdateEmailForm() {
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, toggleLoading] = useState(false);
 
+    const history = useHistory();
+
     async function updateEmailRequest() {
         toggleLoading(true);
 
@@ -80,6 +82,7 @@ function UpdateEmailForm() {
     function backToHome() {
         reset();
         setIsRequestSuccessful(!isRequestSuccessful);
+        history.push('./');
     }
 
     return (

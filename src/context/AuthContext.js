@@ -2,6 +2,7 @@ import React, {createContext, useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 import axios from "axios";
+import ErrorMessage from "../components/errorMessage/ErrorMessage";
 
 export const AuthContext = createContext({});
 
@@ -13,7 +14,7 @@ function AuthContextProvider({children}) {
         if (token) {
             const decoded = jwtDecode(token);
             const tokenIsValid = jwtValidator(decoded);
-            console.log(tokenIsValid);
+
             if (tokenIsValid) {
                 getUserData(token);
                 // als de token niet geldig is halen we hem uit de localStorage
@@ -119,8 +120,8 @@ function AuthContextProvider({children}) {
     return (
         <AuthContext.Provider value={contextData}>
             {auth.status === 'done' && children}
-            {auth.status === 'pending' && <p>Loading...</p>}
-            {auth.status === 'error' && <p className='error'>An error has occurred, please refresh the page.</p>}
+            {auth.status === 'pending' && <ErrorMessage className='fieldLoadingMessage' message='Loading...' />}
+            {auth.status === 'error' && <ErrorMessage className={'errorMessage'} message='An error has occurred, please refresh the page.'/>}
         </AuthContext.Provider>
     );
 }
