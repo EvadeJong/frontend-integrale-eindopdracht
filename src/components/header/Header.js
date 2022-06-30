@@ -1,18 +1,22 @@
 import React, {useContext} from 'react';
-import {NavLink} from 'react-router-dom';
+import {Link, NavLink, useHistory} from 'react-router-dom';
 import {ReactComponent as Lips} from "../../assets/Lippen.svg";
 import {ReactComponent as Giggles} from "../../assets/Giggles.svg";
 import {AuthContext} from "../../context/AuthContext";
 import './Header.css'
 
+
 function Header() {
+    const history = useHistory();
     const {isAuth, logout} = useContext(AuthContext);
     return (
         <header className="pageOuterContainer">
             <span className="pageInnerContainer">
                 <span className='header-images'>
                     <span className='lips'>
-                        <Lips/>
+                        <Link to={'./'}>
+                            <Lips/>
+                        </Link>
                     </span>
                     <span className='giggles'>
                         <Giggles/>
@@ -24,7 +28,6 @@ function Header() {
                             <NavLink to='/' exact activeClassName='active-link'>Home</NavLink>
                         </li>
                         {isAuth ?
-
                                 <ul>
                                     <li key='requestJoke'>
                                         <NavLink to='/requestJoke' exact activeClassName='active-link'>Giggler</NavLink>

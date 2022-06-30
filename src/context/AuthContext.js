@@ -71,11 +71,12 @@ function AuthContextProvider({children}) {
                 history.push(url);
             }
         } catch (e) {
+            console.log(e);
             localStorage.removeItem('token');
             toggleAuth({
                 ...auth,
                 user: null,
-                status: 'error',
+                status: 'done',
             });
         }
     }
