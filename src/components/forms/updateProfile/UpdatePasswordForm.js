@@ -1,9 +1,9 @@
 import React, {useRef, useState} from "react";
 import {useForm} from "react-hook-form";
 import axios from "axios";
-import Button from "../button/Button";
-import ErrorMessage from "../errorMessage/ErrorMessage";
-import Label from "../formComponents/Label";
+import Button from "../../button/Button";
+import ErrorMessage from "../../errorMessage/ErrorMessage";
+import Label from "../../formComponents/Label";
 import './UpdateForm.css';
 import {useHistory} from "react-router-dom";
 

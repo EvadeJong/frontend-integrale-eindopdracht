@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
-import ContactForm from "../../components/forms/ContactForm";
+import ContactForm from "../../components/forms/contact/ContactForm";
 
 
 function Contact() {

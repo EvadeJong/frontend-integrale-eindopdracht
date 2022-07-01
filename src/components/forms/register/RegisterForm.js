@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import axios from 'axios';
 
-import Button from '../button/Button';
-import './LoginForm.css'
-import ErrorMessage from "../errorMessage/ErrorMessage";
-import Label from "../formComponents/Label";
+import Button from '../../button/Button';
+import '../login/LoginForm.css'
+import ErrorMessage from "../../errorMessage/ErrorMessage";
+import Label from "../../formComponents/Label";
 
 function RegisterForm() {
     const {register, handleSubmit, formState: {errors}} = useForm({

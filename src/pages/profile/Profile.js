@@ -3,8 +3,8 @@ import Button from "../../components/button/Button";
 import {AuthContext} from "../../context/AuthContext";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
-import UpdatePasswordForm from "../../components/forms/UpdatePasswordForm";
-import UpdateEmailForm from "../../components/forms/UpdateEmailForm";
+import UpdatePasswordForm from "../../components/forms/updateProfile/UpdatePasswordForm";
+import UpdateEmailForm from "../../components/forms/updateProfile/UpdateEmailForm";
 
 function Profile() {
 

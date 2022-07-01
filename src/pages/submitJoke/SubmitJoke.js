@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
-import SubmitJokeForm from "../../components/forms/SubmitJokeForm";
+import SubmitJokeForm from "../../components/forms/submitJoke/SubmitJokeForm";
 
 function SubmitJoke() {
 

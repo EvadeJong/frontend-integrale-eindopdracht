@@ -1,10 +1,10 @@
 import React, {useContext, useState} from "react";
 import {useForm} from "react-hook-form";
 import axios from "axios";
-import Button from "../button/Button";
-import {AuthContext} from "../../context/AuthContext";
-import ErrorMessage from "../errorMessage/ErrorMessage";
-import Label from "../formComponents/Label";
+import Button from "../../button/Button";
+import {AuthContext} from "../../../context/AuthContext";
+import ErrorMessage from "../../errorMessage/ErrorMessage";
+import Label from "../../formComponents/Label";
 import './UpdateForm.css';
 import {useHistory} from "react-router-dom";
 

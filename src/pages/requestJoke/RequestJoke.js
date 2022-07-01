@@ -5,7 +5,7 @@ import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 import {AuthContext} from '../../context/AuthContext';
 import {chickenJokesArray} from '../../assets/ChickenJokesArray';
-import RequestJokeForm from "../../components/forms/RequestJokeForm";
+import RequestJokeForm from "../../components/forms/requestJoke/RequestJokeForm";
 
 function RequestJoke() {
     const {isAuth, user: {username}} = useContext(AuthContext);

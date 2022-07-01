@@ -1,14 +1,14 @@
 import React, {useState} from "react";
 import {useForm} from "react-hook-form";
 import axios from "axios";
-import Button from "../button/Button";
+import Button from "../../button/Button";
 import './RequestJokeForm.css'
-import JokeFlagSelector from "../formComponents/JokeFlagSelector";
-import JokeAboutSelector from "../formComponents/JokeAboutSelector";
-import JokeTypeSelector from "../formComponents/JokeTypeSelector";
-import JokeNumberSelector from "../formComponents/JokeNumberSelector";
-import ErrorMessage from "../errorMessage/ErrorMessage";
-import Label from "../formComponents/Label";
+import JokeFlagSelector from "../../formComponents/JokeFlagSelector";
+import JokeAboutSelector from "../../formComponents/JokeAboutSelector";
+import JokeTypeSelector from "../../formComponents/JokeTypeSelector";
+import JokeNumberSelector from "../../formComponents/JokeNumberSelector";
+import ErrorMessage from "../../errorMessage/ErrorMessage";
+import Label from "../../formComponents/Label";
 
 function RequestJokeForm() {
 

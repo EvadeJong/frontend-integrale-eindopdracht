@@ -1,10 +1,10 @@
 import React, {useContext, useState} from "react";
 import {useForm} from "react-hook-form";
 import axios from "axios";
-import {AuthContext} from "../../context/AuthContext";
-import Button from "../button/Button";
+import {AuthContext} from "../../../context/AuthContext";
+import Button from "../../button/Button";
 import './LoginForm.css'
-import ErrorMessage from "../errorMessage/ErrorMessage";
+import ErrorMessage from "../../errorMessage/ErrorMessage";
 
 function LoginForm() {
     const {register, handleSubmit, formState: {errors}} = useForm({

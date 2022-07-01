@@ -1,9 +1,9 @@
 import React, {useContext, useEffect} from 'react';
 import {AuthContext} from "../../context/AuthContext";
 import './Login.css';
-import LoginForm from "../../components/forms/LoginForm";
+import LoginForm from "../../components/forms/login/LoginForm";
 import Header from "../../components/header/Header";
-import RegisterForm from "../../components/forms/RegisterForm";
+import RegisterForm from "../../components/forms/register/RegisterForm";
 import Footer from "../../components/footer/Footer";
 
 function Login() {

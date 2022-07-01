@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import {AuthContext} from "../../context/AuthContext";
-import Button from "../button/Button";
+import {AuthContext} from "../../../context/AuthContext";
+import Button from "../../button/Button";
 import './ContactForm.css'
-import Label from "../formComponents/Label";
-import ErrorMessage from "../errorMessage/ErrorMessage";
+import Label from "../../formComponents/Label";
+import ErrorMessage from "../../errorMessage/ErrorMessage";
 
 function ContactForm() {
     const {register, handleSubmit, formState: {errors}} = useForm();
