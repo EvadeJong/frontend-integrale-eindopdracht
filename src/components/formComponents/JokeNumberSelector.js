@@ -1,4 +1,5 @@
 import React from "react";
+import './Selectors.css';
 
 function JokeNumberSelector() {
 
