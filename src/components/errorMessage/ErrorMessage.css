@@ -17,9 +17,8 @@
     align-items: center;
     color: red;
     font-size: 20px;
-    letter-spacing: .1rem;
+    letter-spacing: .05rem;
     padding: 3px;
-    font-weight: bold;
 }
 
 .fieldErrorMessageLight {

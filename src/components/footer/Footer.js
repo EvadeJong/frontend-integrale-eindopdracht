@@ -7,11 +7,7 @@ function Footer({text}) {
     return (
         <footer className="pageOuterContainer">
             <div className="pageInnerContainer">
-                <ul>
-                    <li>
-                        <Link to='/contact' exact activeClassName='active-link'>{text}</Link>
-                    </li>
-                </ul>
+                <Link to='/contact' exact activeClassName='active-link'>{text}</Link>
             </div>
         </footer>
     );
