@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.css';
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function Footer({text}) {
 
@@ -8,8 +8,8 @@ function Footer({text}) {
         <footer className="pageOuterContainer">
             <div className="pageInnerContainer">
                 <ul>
-                    <li key='contact'>
-                        <NavLink to='/contact' exact activeClassName='active-link'>{text}</NavLink>
+                    <li>
+                        <Link to='/contact' exact activeClassName='active-link'>{text}</Link>
                     </li>
                 </ul>
             </div>
