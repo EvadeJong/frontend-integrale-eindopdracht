@@ -7,6 +7,14 @@ import ErrorMessage from "../components/errorMessage/ErrorMessage";
 export const AuthContext = createContext({});
 
 function AuthContextProvider({children}) {
+    const history = useHistory();
+
+    const [auth, toggleAuth] = useState({
+        isAuth: false,
+        user: null,
+        status: 'pending',
+    });
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -14,9 +22,9 @@ function AuthContextProvider({children}) {
         if (token) {
             const decoded = jwtDecode(token);
             const tokenIsValid = jwtValidator(decoded);
-
+            console.log(tokenIsValid);
             if (tokenIsValid) {
-                getUserData(token);
+                getUserData(token, './');
                 // als de token niet geldig is halen we hem uit de localStorage
             } else {
                 localStorage.removeItem('token');
@@ -40,13 +48,6 @@ function AuthContextProvider({children}) {
         }
     }, []);
 
-    const history = useHistory();
-
-    const [auth, toggleAuth] = useState({
-        isAuth: false,
-        user: null,
-        status: 'pending',
-    });
 
     async function getUserData(token, url) {
         try {

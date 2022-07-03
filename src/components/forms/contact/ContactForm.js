@@ -88,6 +88,10 @@ function ContactForm() {
                               {...register("contacttextfield",
                                   {
                                       required: "Message can not be empty",
+                                      minLength: {
+                                          value: 5,
+                                          message: "Your message must have at least 5 characters"
+                                      }
                                   },
                               )}
                               onChange={(e) => setContactMessage(e.target.value)}>

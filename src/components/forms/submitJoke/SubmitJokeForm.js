@@ -147,6 +147,7 @@ function SubmitJokeForm() {
                                 }
                             )}
                                     onChange={(e) => setJokeAboutSelector(e.target.value)}
+                                    data-testid="jokeAboutSelector"
                             >
                                 <JokeAboutSelector/>
                             </select>
@@ -169,6 +170,7 @@ function SubmitJokeForm() {
                                         setJokeTypeSelector(e.target.value);
                                         setIsTwoPart(e.target.value === "twopart");
                                     }}
+                                    data-testid="jokeTypeSelector"
                             >
                                 <JokeTypeSelector/>
                             </select>
@@ -178,6 +180,7 @@ function SubmitJokeForm() {
                                 <ErrorMessage
                                     className={'fieldErrorMessageLight'}
                                     message={errors.jokeTypeSelector.message}
+
                                 />
                             }
                         </span>
@@ -194,11 +197,15 @@ function SubmitJokeForm() {
                                       id='submitjoketextfield'
                                       {...register("submitjoketextfield",
                                           {
-                                              required: "Message can not be empty",
+                                              required: "Joke can not be empty",
+                                              minLength: {
+                                                  value: 5,
+                                                  message: "A joke must have at least 5 characters"
+                                              }
                                           },
-                                      )}
-
-                                      onChange={(e) => setSubmittedJoke(e.target.value)}>
+                                      )
+                                    }
+                                    onChange={(e) => setSubmittedJoke(e.target.value)}>
                           </textarea>
                         </span>
                        <span>
@@ -232,6 +239,10 @@ function SubmitJokeForm() {
                                           {...register("submitdeliverytextfield",
                                               {
                                                   required: "Message can not be empty",
+                                                  minLength: {
+                                                      value: 5,
+                                                      message: "A punchline must have at least 5 characters"
+                                                  }
                                               },
                                           )}
                                           onChange={(e) => setSubmittedDelivery(e.target.value)}>

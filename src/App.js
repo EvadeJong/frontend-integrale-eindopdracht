@@ -32,12 +32,12 @@ function App() {
                     <Login/>
                 </Route>
                 <Route exact path='/Profile'>
-                    {isAuth ? <Profile/> : <Home/>}
+                    {isAuth ? <Profile/> : <Redirect to="/"/>}
                 </Route>
                 <Route exact path='/RequestJoke'>
                     {isAuth ? <RequestJoke/> : <Redirect to="/"/>}
                 </Route>
-                <Route exact path='/submitJoke'>
+                <Route exact path='/SubmitJoke'>
                     {isAuth ? <SubmitJoke/> : <Redirect to="/"/>}
                 </Route>
             </Switch>

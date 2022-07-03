@@ -13,7 +13,9 @@ import ContentContainer from "../../contentContainer/ContentContainer";
 
 function RequestJokeForm() {
 
-    const {register, handleSubmit, formState: {errors}} = useForm();
+    const {register, handleSubmit, formState: {errors}, formState} = useForm({
+        mode: "onChange"
+    });
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
 
     const [getJokeAboutSelector, setGetJokeAboutSelector] = useState('');
@@ -120,11 +122,11 @@ function RequestJokeForm() {
         <main>
             <section className="pageOuterContainer">
                 <span className="pageInnerContainer">
-                    <span className='jokeContentContainer'>
+                    <span className='requestJokeContentContainer'>
                         {isError &&
                             <span>
                                 <ErrorMessage className={'errorMessage'} message={errorMessage}/>
-                                <Button type='submit' text='I want to try again' onClick={newRequest}/>
+                                <Button type='submit' text='I want to try again' onClick={newRequest} />
                             </span>
                         }
                         {!isError && !isRequestSuccessful &&
@@ -147,6 +149,7 @@ function RequestJokeForm() {
                                     }
                                 )}
                                         onChange={(e) => setGetJokeAboutSelector(e.target.value)}
+                                        data-testid="jokeAboutSelector"
                                 >
                                     <JokeAboutSelector/>
                                 </select>
@@ -173,6 +176,7 @@ function RequestJokeForm() {
                                         required: "You must specify a joke type",
                                     })}
                                         onChange={(e) => setGetJokeTypeSelector(e.target.value)}
+                                        data-testid="jokeTypeSelector"
                                 >
                                     <JokeTypeSelector/>
                                 </select>
@@ -193,6 +197,7 @@ function RequestJokeForm() {
                                             required: "You must specify the number of jokes",
                                         })}
                                     onChange={(e) => setGetNumberOfJokesSelector(e.target.value)}
+                                    data-testid="jokeNumberSelector"
                                 >
                                     <JokeNumberSelector/>
                                 </select>
@@ -205,7 +210,7 @@ function RequestJokeForm() {
                                     />
                                 }
                             </span>
-                                    <Button type='submit' text='Request Joke'/>
+                                    <Button type='submit' text='Request Joke' />
                                 </form>
                             </>
                         }

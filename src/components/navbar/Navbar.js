@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {AuthContext} from "../../context/AuthContext";
 import './Navbar.css'
@@ -10,7 +10,7 @@ function Navbar() {
                 <nav>
                     <ul>
 
-                        {isAuth ?
+                        {isAuth &&
                             <>
                                 <li key='requestJoke'>
                                     <NavLink to='/requestJoke' exact activeClassName='active-link'>Giggler</NavLink>
@@ -19,7 +19,7 @@ function Navbar() {
                                     <NavLink to='/submitJoke' exact activeClassName='active-link'>Joker</NavLink>
                                 </li>
                                 <li key='logout'>
-                                    <NavLink to='/' onClick={logout} >Logout</NavLink>
+                                    <NavLink to='/' onClick={logout}>Logout</NavLink>
                                 </li>
                                 <li key='profile'>
                                     <NavLink to='/profile' exact activeClassName='active-link'>
@@ -27,12 +27,12 @@ function Navbar() {
                                     </NavLink>
                                 </li>
                             </>
-                            :
+                            }
+                            { window.location.pathname != '/login' && !isAuth &&
                             <li key='login'>
                                 <NavLink to='/login' exact activeClassName='active-link'>Login</NavLink>
                             </li>
-
-                        }
+                            }
                         <li key='home'>
                             <NavLink to='/' exact activeClassName='active-link'>
                                 <i className="fa-solid fa-house"></i>

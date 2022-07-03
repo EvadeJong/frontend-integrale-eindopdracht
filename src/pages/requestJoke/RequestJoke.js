@@ -9,6 +9,8 @@ import ContentContainer from "../../components/contentContainer/ContentContainer
 
 function RequestJoke() {
 
+    //TODO isChickenButtonClicked in de context plaatsen zodat een gebruiker alleen de eerste keer door het menu gaat
+    //TODO in useEffect toetsten of de pagina al eerder bezocht is onMount
     const [isChickenButtonClicked, setIsChickenButtonClicked] = useState(false);
     const [isRealJokeButtonClicked, setIsRealJokeButtonClicked] = useState(false);
     const [index, setIndex] = useState(0)

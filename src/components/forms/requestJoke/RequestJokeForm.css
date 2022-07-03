@@ -1,8 +1,7 @@
-.jokeContentContainer {
+.requestJokeContentContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 50px;
 }
 
 .outerRequestJoke {
@@ -16,12 +15,7 @@
     text-decoration: none;
     flex-direction: column;
     font-size: 26px;
-    width: 100%;
     gap: 20px;
-}
-
-ul.jokesList {
-    padding: 0px;
 }
 
 .jokesList li {
@@ -30,4 +24,6 @@ ul.jokesList {
     box-shadow: 5px 5px 5px #88888845;
     padding: 20px;
     white-space: pre-line;
+    margin: auto;
+    width: 800px;
 }
