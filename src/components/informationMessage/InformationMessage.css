@@ -1,0 +1,10 @@
+.informationMessage {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    border: solid #1665bf 3px;
+    color: #1665bf;
+    font-size: 17px;
+    max-width: 33%;
+}

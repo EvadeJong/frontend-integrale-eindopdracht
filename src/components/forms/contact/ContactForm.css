@@ -1,10 +1,25 @@
 .contactForm {
-    margin-bottom: 30px;
+    margin-left: 50%;
+    width: 1000px;
+}
+.button{
+    margin-left: 10%;
+}
+
+.contactInput,
+.contacttextfield {
+    width: 400px;
 }
 
 .contacttextfield {
-    width: 100%;
     min-height: 150px;
     box-sizing: border-box;
     border-radius: 4px;
+}
+
+.icon {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: flex-end;
 }

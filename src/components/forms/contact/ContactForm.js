@@ -6,6 +6,7 @@ import './ContactForm.css'
 import Label from "../../formComponents/Label";
 import ErrorMessage from "../../errorMessage/ErrorMessage";
 import ContentContainer from "../../contentContainer/ContentContainer";
+import InformationMessage from "../../informationMessage/InformationMessage";
 
 function ContactForm() {
     const {register, handleSubmit, formState: {errors}} = useForm();
@@ -14,6 +15,12 @@ function ContactForm() {
     const [contactEmail, setContactEmail] = useState('');
     const [contactMessage, setContactMessage] = useState('');
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
+    const [textfieldIcon, setTextfieldIcon] = useState('fa-solid fa-circle-info');
+    const [emailIcon, setEmailIcon] = useState('fa-solid fa-circle-info');
+    const [usernameIcon, setUsernameIcon] = useState('fa-solid fa-circle-info');
+    const [showUsernameInformation, setShowUsernameInformation] = useState(false);
+    const [showTexfieldInformation, setShowTexfieldInformation] = useState(false);
+    const [showEmailInformation,setShowEmailInformation] = useState (false);
 
     useEffect(() => {
         if (isAuth) {
@@ -29,7 +36,34 @@ function ContactForm() {
         console.log(`Message: ${contactMessage}`);
         setIsRequestSuccessful(true);
     }
+    function provideTextfieldInfo(){
+        if(textfieldIcon === 'fa-solid fa-circle-info'){
+            setTextfieldIcon('fa-solid fa-circle-xmark')
+            setShowTexfieldInformation(true);
+        }else{
+            setTextfieldIcon('fa-solid fa-circle-info')
+            setShowTexfieldInformation(false);
+        }
+    }
+    function provideUserNameInfo(){
+        if(usernameIcon === 'fa-solid fa-circle-info'){
+            setUsernameIcon('fa-solid fa-circle-xmark')
+            setShowUsernameInformation(true);
+        }else{
+            setUsernameIcon('fa-solid fa-circle-info')
+            setShowUsernameInformation(false);
+        }
+    }
 
+    function provideEmailInfo(){
+        if(emailIcon === 'fa-solid fa-circle-info'){
+            setEmailIcon('fa-solid fa-circle-xmark')
+            setShowEmailInformation(true);
+        }else{
+            setEmailIcon('fa-solid fa-circle-info')
+            setShowEmailInformation(false);
+        }
+    }
 
     return (
         <>
@@ -44,7 +78,9 @@ function ContactForm() {
 
                 <form className='contactForm' onSubmit={handleSubmit(sendContactForm)}>
                     <Label htmlFor='contactname' labelText='Name:' />
+                    <div className='icon'>
                     <input
+                        className='contactInput'
                         type='text'
                         id='contactname'
                         {...register('contactname',
@@ -54,6 +90,13 @@ function ContactForm() {
                         }
                         onChange={(e) => setContactName(e.target.value)}
                     />
+                        <i className={usernameIcon} onClick={() => provideUserNameInfo()}></i>
+                        {showUsernameInformation &&
+                            <InformationMessage
+                                message='Please provide us with your name'
+                            />
+                        }
+                    </div>
                     {errors.contactname &&
                         <ErrorMessage
                             className={'fieldErrorMessageLight'}
@@ -62,7 +105,9 @@ function ContactForm() {
                     }
 
                     <Label htmlFor="contactemail" labelText='Email:'/>
+                    <div className='icon'>
                     <input
+                        className='contactInput'
                         type="email"
                         id="contactemail"
                         {...register("contactemail",
@@ -76,6 +121,13 @@ function ContactForm() {
                         )}
                         onChange={(e) => setContactEmail(e.target.value)}
                     />
+                        <i className={emailIcon} onClick={() => provideEmailInfo()}></i>
+                        {showEmailInformation &&
+                            <InformationMessage
+                                message='Please provide us with your email'
+                            />
+                        }
+                      </div>
                     {errors.contactemail &&
                         <ErrorMessage
                             className={'fieldErrorMessageLight'}
@@ -83,6 +135,7 @@ function ContactForm() {
                         />
                     }
                     <Label className='contacttextfield' htmlFor='contacttextfield' labelText='Message:' />
+                   <div className='icon'>
                     <textarea className='contacttextfield'
                               id='contacttextfield'
                               {...register("contacttextfield",
@@ -95,7 +148,16 @@ function ContactForm() {
                                   },
                               )}
                               onChange={(e) => setContactMessage(e.target.value)}>
+
                        </textarea>
+                        <i className={textfieldIcon} onClick={() => provideTextfieldInfo()}></i>
+                       {showTexfieldInformation &&
+                           <InformationMessage
+                               message='Please typ out your joke in this field'
+                           />
+                       }
+                   </div>
+
                     {errors.contacttextfield &&
                         <ErrorMessage
                             className={'fieldErrorMessageLight'}
