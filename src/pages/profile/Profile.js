@@ -25,7 +25,7 @@ function Profile() {
                         <h1>Hi {username}</h1>
                         <h3>You can change your personal data here</h3>
                         {changeEmailRequest === false && changePasswordRequest === false &&
-                            <form className='currentProfileInfo'>
+                            <span className='currentProfileInfo'>
                                 <div className='outerProfileGroup'>
                                     <label htmlFor='profileUsername'>
                                         Username:
@@ -59,11 +59,13 @@ function Profile() {
                                         disabled
                                     />
                                 </div>
-                                <Button type='button' text='Update password'
-                                        onClick={() => toggleChangePasswordRequest(!changePasswordRequest)}></Button>
-                                <Button type='button' text='Update email'
-                                        onClick={() => toggleChangeEmailRequest(!changeEmailRequest)}></Button>
-                            </form>
+                                <span className='buttonGroup'>
+                                    <Button type='button' text='Update password'
+                                        onClick={() => toggleChangePasswordRequest(!changePasswordRequest)} />
+                                     <Button type='button' text='Update email'
+                                        onClick={() => toggleChangeEmailRequest(!changeEmailRequest)} />
+                                </span>
+                            </span>
                         }
                         {changePasswordRequest &&
                             <UpdatePasswordForm/>
