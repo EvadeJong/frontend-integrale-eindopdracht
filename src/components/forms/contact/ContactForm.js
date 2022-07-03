@@ -5,6 +5,7 @@ import Button from "../../button/Button";
 import './ContactForm.css'
 import Label from "../../formComponents/Label";
 import ErrorMessage from "../../errorMessage/ErrorMessage";
+import ContentContainer from "../../contentContainer/ContentContainer";
 
 function ContactForm() {
     const {register, handleSubmit, formState: {errors}} = useForm();
@@ -33,12 +34,15 @@ function ContactForm() {
     return (
         <>
             {isRequestSuccessful ?
-
                 <h3>Your message is send successfully!</h3>
                 :
+                <>
+                <ContentContainer
+                    subtitle='You are not a joke to us!'
+                    content= 'Please reach out if you need help or have any suggestions.'
+                />
+
                 <form className='contactForm' onSubmit={handleSubmit(sendContactForm)}>
-                    <h2>You are not a joke to us!</h2>
-                    <h3>Please reach out if you need help or have any suggestions.</h3>
                     <Label htmlFor='contactname' labelText='Name:' />
                     <input
                         type='text'
@@ -96,6 +100,7 @@ function ContactForm() {
                      }
                     <Button type='submit' text='Send message'/>
                 </form>
+                </>
             }
         </>
     )
