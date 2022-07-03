@@ -126,7 +126,7 @@ function SubmitJokeForm() {
     }
 
     return (
-        <>
+        <span className='jokeContentContainer'>
             {isError &&
                 <span className='sendJokeContainer'>
                     <ErrorMessage className={'errorMessage'} message={errorMessage}/>
@@ -257,7 +257,7 @@ function SubmitJokeForm() {
                     </form>
                 </>
             }
-        </>
+        </span>
     )
 }
 

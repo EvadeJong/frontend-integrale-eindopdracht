@@ -5,11 +5,7 @@
     justify-content: space-evenly;
     color: #0a0a0a;
     width: 60%;
-    min-height: 60%;
-}
-
-.subtitle {
-    text-align: right;
+    min-height: 40vh;
 }
 
 .content {

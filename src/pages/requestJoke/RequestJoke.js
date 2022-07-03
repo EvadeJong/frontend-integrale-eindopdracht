@@ -6,6 +6,7 @@ import Footer from '../../components/footer/Footer';
 import {AuthContext} from '../../context/AuthContext';
 import {chickenJokesArray} from '../../assets/ChickenJokesArray';
 import RequestJokeForm from "../../components/forms/requestJoke/RequestJokeForm";
+import ContentContainer from "../../components/contentContainer/ContentContainer";
 
 function RequestJoke() {
     const {isAuth, user: {username}} = useContext(AuthContext);
@@ -40,29 +41,27 @@ function RequestJoke() {
             <main>
                 <section className="pageOuterContainer">
                     <div className="pageInnerContainer">
-                        {isChickenButtonClicked && !isRealJokeButtonClicked &&
+                        { isChickenButtonClicked && !isRealJokeButtonClicked &&
                             <>
-                                <h1>Why did the chicken cross the road?</h1>
-                                <div className='chickenJoke'>
-                                    <h3>{chickenPunchline}</h3>
-                                    <div>
+                                <ContentContainer
+                                    subtitle= 'Why did the chicken cross the road?'
+                                    content= {chickenPunchline}
+                                />
+                                <span className='buttonGroup'>
                                         <Button onClick={getPunchlineButton} text={"Haha! Give me an other one"}/>
                                         <Button onClick={getRealJokeButton} text={"Mwah, give me a real joke"}/>
-                                    </div>
-                                </div>
+                                </span>
                             </>
                         }
                         {!isChickenButtonClicked &&
                             <>
-                                <div className='jokeHeadline'>
-                                    <h1>How about a joke, {username}</h1>
-                                    <h4>The joker, 2019</h4>
-                                </div>
-                                <div className='chickenJoke'>
-                                    <h3>Why did the chicken cross the road?</h3>
-                                    <Button onClick={getPunchlineButton} text={"I don't know! Why?"}/>
-                                </div>
+                                <ContentContainer
+                                    title= 'How about a joke'
+                                    content='Why did the chicken cross the road?'
+                                    />
+                                <Button onClick={getPunchlineButton} text={"I don't know! Why?"}/>
                             </>
+
                         }
                         {isRealJokeButtonClicked &&
                             <RequestJokeForm/>

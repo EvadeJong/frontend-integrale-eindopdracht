@@ -7,7 +7,7 @@ function JokeNumberSelector() {
         {field: '', value: 'Select...'},
         {field: '1', value: 'One good laugh!'},
         {field: '3', value: 'A couple laughs!'},
-        {field: '5', value: 'A lot, wanna ROLF!'},
+        {field: '5', value: 'A lot, wanna ROFL!'},
     ]
 
     return (

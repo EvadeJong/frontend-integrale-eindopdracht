@@ -65,8 +65,7 @@ function RequestJokeForm() {
             }
 
             setIsRequestSuccessful(true);
-        }
-        catch (e) {
+        } catch (e) {
             setIsRequestSuccessful(false);
             setIsError(true);
             switch (e.response.status) {
@@ -114,139 +113,140 @@ function RequestJokeForm() {
         setAreMultipleJokes(false);
         setIsRequestSuccessful(false);
         setIsError(false);
-        reset();
     }
 
     return (
-        <>
-            {isError &&
-                <span>
-                    <ErrorMessage className={'errorMessage'} message={errorMessage}/>
-                    <Button type='submit' text='I want to try again' onClick={ newRequest }/>
-                </span>
-            }
-            {isRequestSuccessful &&
-                <>
-                    {!isTwoPart && !areMultipleJokes &&
-                        <ul className='jokesList'>
-                            <li>{singleJoke}</li>
-                        </ul>
-                    }
-
-                    {!isTwoPart && areMultipleJokes &&
-                        <ul className='jokesList'>
-                            {singleJokeArray.map((joke, key) => (
-                                <li key={key}>{joke.joke}</li>
-                            ))}
-                        </ul>
-                    }
-
-                    {isTwoPart && !areMultipleJokes &&
-                        <ul className='jokesList'>
-                            <li>
-                                <h3>{twoPartSetup}</h3>
-                                <h3>{twoPartDelivery}</h3>
-                            </li>
-                        </ul>
-                    }
-
-                    {isTwoPart && areMultipleJokes &&
-                        <ul className='jokesList'>
-                            {twoPartJokeArray.map((joke, key) => (
-                                <li key={key}>
-                                    <h3>{joke.setup}</h3>
-                                    <h3>{joke.delivery}</h3>
-                                </li>
-                            ))}
-                        </ul>
-                    }
-
-                    <Button type='button' text='I want another joke' onClick={newRequest}/>
-                </>
-            }
-            {!isError && !isRequestSuccessful &&
-                <>
-                    <span className='requestPageHeader'>
-                        <h1>So you don’t like our chicken jokes?</h1>
-                    </span>
-                    <form className='requestJokeForm' onSubmit={handleSubmit(requestJokeRequest)}>
-                        <h3>Maybe we can find something else for you. Tell us what will make you laugh</h3>
-
-                        {loading &&
-                            <ErrorMessage className='fieldLoadingMessage' message='Loading...' />
-                        }
-
-                        <span className='outerRequestJoke'>
-                            <Label htmlFor='getJokeAboutSelector' labelText='I want a joke about:'/>
-                            <select {...register('getJokeAboutSelector',
-                                {
-                                    required: "You must specify a subject",
-                                }
-                            )}
-                                    onChange={(e) => setGetJokeAboutSelector(e.target.value)}
-                            >
-                                <JokeAboutSelector/>
-                            </select>
-                        </span>
+        <main>
+            <section className="pageOuterContainer">
+                <span className="pageInnerContainer">
+                    <span className='jokeContentContainer'>
+                    {isError &&
                         <span>
-                            {errors.getJokeAboutSelector &&
-                                <ErrorMessage
-                                    className={'fieldErrorMessage'}
-                                    message={errors.getJokeAboutSelector.message}
-                                />
-                            }
+                            <ErrorMessage className={'errorMessage'} message={errorMessage}/>
+                            <Button type='submit' text='I want to try again' onClick={newRequest}/>
                         </span>
-                        <span className='outerRequestJoke'>
-                            <Label htmlFor='getJokeFlagSelector' labelText='Flag (can be empty):'/>
-                            <select {...register("getJokeFlagSelector")}
-                                    onChange={(e) => setGetJokeFlagSelector(e.target.value)}>
-                                <JokeFlagSelector/>
-                            </select>
-                        </span>
-                        <span className='outerRequestJoke'>
-                            <Label htmlFor='getJokeTypeSelector' labelText='Joke type:'/>
-                            <select {...register("getJokeTypeSelector",
-                                {
-                                    required: "You must specify a joke type",
-                                })}
-                                    onChange={(e) => setGetJokeTypeSelector(e.target.value)}
-                            >
-                                <JokeTypeSelector/>
-                            </select>
-                            </span>
-                        <span>
-                            {errors.getJokeTypeSelector &&
-                                <ErrorMessage
-                                    className={'fieldErrorMessage'}
-                                    message={errors.getJokeTypeSelector.message}
-                                />
-                            }
-                        </span>
-                        <span className='outerRequestJoke'>
-                            <Label htmlFor='getNumberOfJokesSelector' labelText='Give me:'/>
-                            <select
-                                {...register('getNumberOfJokesSelector',
+                    }
+                        {!isError && !isRequestSuccessful &&
+                            <>
+                                <h1>So you don’t like our chicken jokes?</h1>
+                                <h3>Maybe we can find something else for you. Tell us what will make you laugh</h3>
+                                <form onSubmit={handleSubmit(requestJokeRequest)}>
+                                    {loading &&
+                                        <ErrorMessage className='fieldLoadingMessage' message='Loading...'/>
+                                    }
+                                    <span className='outerRequestJoke'>
+                                <Label htmlFor='getJokeAboutSelector' labelText='I want a joke about:'/>
+                                <select {...register('getJokeAboutSelector',
                                     {
-                                        required: "You must specify the number of jokes",
+                                        required: "You must specify a subject",
+                                    }
+                                )}
+                                        onChange={(e) => setGetJokeAboutSelector(e.target.value)}
+                                >
+                                    <JokeAboutSelector/>
+                                </select>
+                            </span>
+                                    <span>
+                                {errors.getJokeAboutSelector &&
+                                    <ErrorMessage
+                                        className={'fieldErrorMessage'}
+                                        message={errors.getJokeAboutSelector.message}
+                                    />
+                                }
+                            </span>
+                                    <span className='outerRequestJoke'>
+                                <Label htmlFor='getJokeFlagSelector' labelText='I do not want:'/>
+                                <select {...register("getJokeFlagSelector")}
+                                        onChange={(e) => setGetJokeFlagSelector(e.target.value)}>
+                                    <JokeFlagSelector/>
+                                </select>
+                            </span>
+                                    <span className='outerRequestJoke'>
+                                <Label htmlFor='getJokeTypeSelector' labelText='Joke type:'/>
+                                <select {...register("getJokeTypeSelector",
+                                    {
+                                        required: "You must specify a joke type",
                                     })}
-                                onChange={(e) => setGetNumberOfJokesSelector(e.target.value)}
-                            >
-                                <JokeNumberSelector/>
-                            </select>
-                        </span>
-                        <span>
-                            {errors.getNumberOfJokesSelector &&
-                                <ErrorMessage
-                                    className={'fieldErrorMessage'}
-                                    message={errors.getNumberOfJokesSelector.message}
-                                />
-                            }
-                        </span>
-                        <Button type='submit' text='Request Joke'/>
-                    </form>
-                </>
-            }
-        </>
+                                        onChange={(e) => setGetJokeTypeSelector(e.target.value)}
+                                >
+                                    <JokeTypeSelector/>
+                                </select>
+                                </span>
+                                    <span>
+                                {errors.getJokeTypeSelector &&
+                                    <ErrorMessage
+                                        className={'fieldErrorMessage'}
+                                        message={errors.getJokeTypeSelector.message}
+                                    />
+                                }
+                            </span>
+                                    <span className='outerRequestJoke'>
+                                <Label htmlFor='getNumberOfJokesSelector' labelText='Give me:'/>
+                                <select
+                                    {...register('getNumberOfJokesSelector',
+                                        {
+                                            required: "You must specify the number of jokes",
+                                        })}
+                                    onChange={(e) => setGetNumberOfJokesSelector(e.target.value)}
+                                >
+                                    <JokeNumberSelector/>
+                                </select>
+                            </span>
+                                    <span>
+                                {errors.getNumberOfJokesSelector &&
+                                    <ErrorMessage
+                                        className={'fieldErrorMessage'}
+                                        message={errors.getNumberOfJokesSelector.message}
+                                    />
+                                }
+                            </span>
+                                    <Button type='submit' text='Request Joke'/>
+                                </form>
+
+                            </>
+                        }
+                        {isRequestSuccessful &&
+                            <>
+                                {!isTwoPart && !areMultipleJokes &&
+                                    <ul className='jokesList'>
+                                        <li>{singleJoke}</li>
+                                    </ul>
+                                }
+
+                                {!isTwoPart && areMultipleJokes &&
+                                    <ul className='jokesList'>
+                                        {singleJokeArray.map((joke, key) => (
+                                            <li key={key}>{joke.joke}</li>
+                                        ))}
+                                    </ul>
+                                }
+
+                                {isTwoPart && !areMultipleJokes &&
+                                    <ul className='jokesList'>
+                                        <li>
+                                            <h3>{twoPartSetup}</h3>
+                                            <h3>{twoPartDelivery}</h3>
+                                        </li>
+                                    </ul>
+                                }
+
+                                {isTwoPart && areMultipleJokes &&
+                                    <ul className='jokesList'>
+                                        {twoPartJokeArray.map((joke, key) => (
+                                            <li key={key}>
+                                                <h3>{joke.setup}</h3>
+                                                <h3>{joke.delivery}</h3>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                }
+                                <Button type='button' text='I want another joke' onClick={newRequest}/>
+                            </>
+                        }
+                    </span>
+                </span>
+            </section>
+        </main>
     )
 }
 

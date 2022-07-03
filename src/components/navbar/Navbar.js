@@ -9,9 +9,7 @@ function Navbar() {
     return (
                 <nav>
                     <ul>
-                        <li key='home'>
-                            <NavLink to='/' exact activeClassName='active-link'>Home</NavLink>
-                        </li>
+
                         {isAuth ?
                             <>
                                 <li key='requestJoke'>
@@ -20,18 +18,26 @@ function Navbar() {
                                 <li key='submitJoke'>
                                     <NavLink to='/submitJoke' exact activeClassName='active-link'>Joker</NavLink>
                                 </li>
-                                <li key='profile'>
-                                    <NavLink to='/profile' exact activeClassName='active-link'>Profile</NavLink>
-                                </li>
                                 <li key='logout'>
                                     <NavLink to='/' onClick={logout} >Logout</NavLink>
+                                </li>
+                                <li key='profile'>
+                                    <NavLink to='/profile' exact activeClassName='active-link'>
+                                        <i className="fa-solid fa-user"></i>
+                                    </NavLink>
                                 </li>
                             </>
                             :
                             <li key='login'>
                                 <NavLink to='/login' exact activeClassName='active-link'>Login</NavLink>
                             </li>
+
                         }
+                        <li key='home'>
+                            <NavLink to='/' exact activeClassName='active-link'>
+                                <i className="fa-solid fa-house"></i>
+                            </NavLink>
+                        </li>
                     </ul>
                 </nav>
 

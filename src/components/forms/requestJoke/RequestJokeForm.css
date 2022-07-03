@@ -1,5 +1,8 @@
-h3 {
-    line-height: 1;
+.jokeContentContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
 }
 
 .outerRequestJoke {
@@ -9,16 +12,16 @@ h3 {
     align-items: center;
 }
 
-.requestPageHeader {
-    padding-top: 40px;
-}
-
 .jokesList {
-    display: flex;
+    text-decoration: none;
     flex-direction: column;
     font-size: 26px;
-    max-width: 50%;
+    width: 100%;
     gap: 20px;
+}
+
+ul.jokesList {
+    padding: 0px;
 }
 
 .jokesList li {
@@ -26,5 +29,5 @@ h3 {
     border: 1px solid #5b5454;
     box-shadow: 5px 5px 5px #88888845;
     padding: 20px;
-    white-space: pre-line
+    white-space: pre-line;
 }

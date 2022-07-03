@@ -13,3 +13,8 @@
 .chickenJoke h3 {
     line-height: 6;
 }
+
+.buttonGroup  {
+    display: flex;
+    gap: 50px;
+}
