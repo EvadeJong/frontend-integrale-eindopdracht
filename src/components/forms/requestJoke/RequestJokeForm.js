@@ -9,10 +9,11 @@ import JokeTypeSelector from "../../formComponents/JokeTypeSelector";
 import JokeNumberSelector from "../../formComponents/JokeNumberSelector";
 import ErrorMessage from "../../errorMessage/ErrorMessage";
 import Label from "../../formComponents/Label";
+import ContentContainer from "../../contentContainer/ContentContainer";
 
 function RequestJokeForm() {
 
-    const {register, handleSubmit, formState: {errors}, reset} = useForm();
+    const {register, handleSubmit, formState: {errors}} = useForm();
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
 
     const [getJokeAboutSelector, setGetJokeAboutSelector] = useState('');
@@ -120,21 +121,25 @@ function RequestJokeForm() {
             <section className="pageOuterContainer">
                 <span className="pageInnerContainer">
                     <span className='jokeContentContainer'>
-                    {isError &&
-                        <span>
-                            <ErrorMessage className={'errorMessage'} message={errorMessage}/>
-                            <Button type='submit' text='I want to try again' onClick={newRequest}/>
-                        </span>
-                    }
+                        {isError &&
+                            <span>
+                                <ErrorMessage className={'errorMessage'} message={errorMessage}/>
+                                <Button type='submit' text='I want to try again' onClick={newRequest}/>
+                            </span>
+                        }
                         {!isError && !isRequestSuccessful &&
                             <>
-                                <h1>So you don’t like our chicken jokes?</h1>
-                                <h3>Maybe we can find something else for you. Tell us what will make you laugh</h3>
+                                <ContentContainer
+                                    subtitle= "So you don't like our chicken jokes?"
+                                    content='Maybe we can find something else for you. Tell us what will make you laugh'
+                                />
                                 <form onSubmit={handleSubmit(requestJokeRequest)}>
                                     {loading &&
                                         <ErrorMessage className='fieldLoadingMessage' message='Loading...'/>
                                     }
+
                                     <span className='outerRequestJoke'>
+
                                 <Label htmlFor='getJokeAboutSelector' labelText='I want a joke about:'/>
                                 <select {...register('getJokeAboutSelector',
                                     {
@@ -202,9 +207,9 @@ function RequestJokeForm() {
                             </span>
                                     <Button type='submit' text='Request Joke'/>
                                 </form>
-
                             </>
                         }
+                        {/*TODO deze code verplaatsen, dit hoort niet thuis in het form*/}
                         {isRequestSuccessful &&
                             <>
                                 {!isTwoPart && !areMultipleJokes &&
@@ -212,7 +217,6 @@ function RequestJokeForm() {
                                         <li>{singleJoke}</li>
                                     </ul>
                                 }
-
                                 {!isTwoPart && areMultipleJokes &&
                                     <ul className='jokesList'>
                                         {singleJokeArray.map((joke, key) => (

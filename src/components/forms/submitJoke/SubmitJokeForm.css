@@ -1,3 +1,7 @@
+.jokerHeadline {
+    margin-bottom: 50px
+}
+
 .jokeContentContainer {
     display: flex;
     flex-direction: column;

@@ -1,3 +1,8 @@
+.subtitle {
+    font-size: 35px;
+    font-family: 'Carter One', sans-serif;
+}
+
 .contentContainer {
     display: flex;
     flex-direction: column;
@@ -5,17 +10,19 @@
     justify-content: space-evenly;
     color: #0a0a0a;
     width: 60%;
-    min-height: 40vh;
+    min-height: 25vh;
 }
 
 .content {
     font-weight: 200;
     font-size: 30px;
     text-align: justify;
+    margin: 40px;
 }
 
 .subcontent {
     font-weight: 150;
     font-size: 20px;
     text-align: justify;
+
 }

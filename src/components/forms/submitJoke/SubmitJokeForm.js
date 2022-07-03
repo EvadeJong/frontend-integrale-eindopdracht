@@ -8,6 +8,7 @@ import JokeFlagSelector from '../../formComponents/JokeFlagSelector';
 import JokeAboutSelector from '../../formComponents/JokeAboutSelector';
 import JokeTypeSelector from '../../formComponents/JokeTypeSelector';
 import ErrorMessage from '../../errorMessage/ErrorMessage';
+import ContentContainer from "../../contentContainer/ContentContainer";
 
 function SubmitJokeForm() {
 
@@ -73,8 +74,7 @@ function SubmitJokeForm() {
                 )
             }
             setIsRequestSuccessful(true);
-        }
-        catch (e) {
+        } catch (e) {
             setIsRequestSuccessful(false);
             setIsError(true);
             switch (e.response.status) {
@@ -133,29 +133,10 @@ function SubmitJokeForm() {
                     <Button type='submit' text='I want to try again' onClick={newRequest}/>
                 </span>
             }
-            {isRequestSuccessful &&
-                <>
-                    <h3>Thank you for submitting your joke!</h3>
-                    <span className='sendJokeContainer'>
-                        <h3>A joke with subject: {jokeAboutSelector}</h3>
-
-                        <h3>You selected flag: {jokeFlagSelector} </h3>
-
-                        <h3> The type of joke is: {jokeTypeSelector}</h3>
-
-                        <h3> This is your joke:</h3>
-                        <p>  {submittedJoke} </p>
-                        <p>  {submittedDelivery} </p>
-
-                        <Button type='submit' text='I want to submit another joke' onClick={newRequest}/>
-                    </span>
-                </>
-            }
             {!isError && !isRequestSuccessful &&
                 <>
-                    <h3>Let's find out!</h3>
                     {loading &&
-                        <ErrorMessage className='fieldLoadingMessage' message='Loading...' />
+                        <ErrorMessage className='fieldLoadingMessage' message='Loading...'/>
                     }
                     <form className='submitJokeForm' onSubmit={handleSubmit(submitJokeRequest)}>
                        <span className='outerSubmitJoke'>
@@ -170,7 +151,7 @@ function SubmitJokeForm() {
                                 <JokeAboutSelector/>
                             </select>
                         </span>
-                        <span>
+                       <span>
                             {errors.jokeAboutSelector &&
                                 <ErrorMessage
                                     className={'fieldErrorMessageLight'}
@@ -178,7 +159,7 @@ function SubmitJokeForm() {
                                 />
                             }
                         </span>
-                        <span className='outerSubmitJoke'>
+                       <span className='outerSubmitJoke'>
                             <Label htmlFor='jokeTypeSelector' labelText='And consists of:'/>
                             <select {...register('jokeTypeSelector',
                                 {
@@ -192,7 +173,7 @@ function SubmitJokeForm() {
                                 <JokeTypeSelector/>
                             </select>
                         </span>
-                        <span>
+                       <span>
                             {errors.jokeTypeSelector &&
                                 <ErrorMessage
                                     className={'fieldErrorMessageLight'}
@@ -200,15 +181,15 @@ function SubmitJokeForm() {
                                 />
                             }
                         </span>
-                        <span className='outerSubmitJoke'>
+                       <span className='outerSubmitJoke'>
                             <Label htmlFor='jokeFlagSelector' labelText='Flag (can be empty):'/>
                             <select {...register('jokeFlagSelector')}
                                     onChange={(e) => setJokeFlagSelector(e.target.value)}>
                                 <JokeFlagSelector/>
                             </select>
                         </span>
-                        <Label htmlFor='textfieldJoke' labelText='The actual joke is:'/>
-                        <span className='outerSubmitJoke'>
+                       <Label htmlFor='textfieldJoke' labelText='The actual joke is:'/>
+                       <span className='outerSubmitJoke'>
                             <textarea className='submitjoketextfield'
                                       id='submitjoketextfield'
                                       {...register("submitjoketextfield",
@@ -220,16 +201,30 @@ function SubmitJokeForm() {
                                       onChange={(e) => setSubmittedJoke(e.target.value)}>
                           </textarea>
                         </span>
-                        <span>
-                                  {errors.submitjoketextfield &&
-                                      <ErrorMessage
-                                          className={'fieldErrorMessageLight'}
-                                          message={errors.submitjoketextfield.message}
-                                      />
-                                  }
+                       <span>
+                            {errors.submitjoketextfield &&
+                                <ErrorMessage
+                                    className={'fieldErrorMessageLight'}
+                                    message={errors.submitjoketextfield.message}
+                                />
+                            }
                         </span>
-                        {isTwoPart &&
-                            <>
+                        <Button type='submit' text='Submit Joke'/>
+                    </form>
+                </>
+             }
+            {isRequestSuccessful &&
+                <>
+                  <ContentContainer
+                    subtitle='Thank you for submitting your joke!'
+                    content= {submittedJoke}
+                    subcontent= {submittedDelivery}
+                    />
+                    <Button type='submit' text='I want to submit another joke' onClick={newRequest}/>
+                </>
+            }
+            {isTwoPart &&
+                <>
                                 <Label htmlFor='textfieldJoke' labelText='The punchline of the joke is:'/>
                                 <span className='outerSubmitJoke'>
                                 <textarea className='submitjoketextfield'
@@ -251,12 +246,8 @@ function SubmitJokeForm() {
                                   }
                                   </span>
                             </>
-                        }
-
-                        <Button type='submit' text='Submit Joke'/>
-                    </form>
-                </>
             }
+
         </span>
     )
 }

@@ -6,7 +6,6 @@ import './ContentContainer.css';
 function ContentContainer({title, subtitle, content, subcontent}){
     const {user: {username}} = useContext(AuthContext);
 
-
     return(
         <>
                 <article className="contentContainer">

@@ -5,6 +5,7 @@ import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import UpdatePasswordForm from "../../components/forms/updateProfile/UpdatePasswordForm";
 import UpdateEmailForm from "../../components/forms/updateProfile/UpdateEmailForm";
+import ContentContainer from "../../components/contentContainer/ContentContainer";
 
 function Profile() {
 
@@ -22,9 +23,11 @@ function Profile() {
             <main>
                 <section className="pageOuterContainer">
                     <div className="pageInnerContainer">
-                        <h1>Hi {username}</h1>
-                        <h3>You can change your personal data here</h3>
-                        {changeEmailRequest === false && changePasswordRequest === false &&
+                        <ContentContainer
+                            title='Hi'
+                            content='You can change your personal data here'
+                        />
+                            {changeEmailRequest === false && changePasswordRequest === false &&
                             <span className='currentProfileInfo'>
                                 <div className='outerProfileGroup'>
                                     <label htmlFor='profileUsername'>

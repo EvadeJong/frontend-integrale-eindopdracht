@@ -5,6 +5,7 @@
 .updatedProfileForm {
     width: 600px;
 }
+
 .outerProfileGroup {
     display: flex;
     justify-content: space-between;

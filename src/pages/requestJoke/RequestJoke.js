@@ -3,13 +3,12 @@ import './RequestJoke.css'
 import Button from '../../components/button/Button';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
-import {AuthContext} from '../../context/AuthContext';
 import {chickenJokesArray} from '../../assets/ChickenJokesArray';
 import RequestJokeForm from "../../components/forms/requestJoke/RequestJokeForm";
 import ContentContainer from "../../components/contentContainer/ContentContainer";
 
 function RequestJoke() {
-    const {isAuth, user: {username}} = useContext(AuthContext);
+
     const [isChickenButtonClicked, setIsChickenButtonClicked] = useState(false);
     const [isRealJokeButtonClicked, setIsRealJokeButtonClicked] = useState(false);
     const [index, setIndex] = useState(0)
@@ -64,7 +63,9 @@ function RequestJoke() {
 
                         }
                         {isRealJokeButtonClicked &&
+                            <>
                             <RequestJokeForm/>
+                            </>
                         }
                     </div>
                 </section>

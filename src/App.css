@@ -7,7 +7,6 @@
 
 :root {
     --dynamic-background-color: #F4E15E;
-    --Bright-orange: #E67A3D;
     --Orange: #FFAD30;
     --Yellow: #F4E15E;
     --Pink: #F7B2AD;
@@ -20,7 +19,7 @@ html, body, #root, #root > div {
 }
 
 main {
-    min-height: 60vh;
+    min-height: 70vh;
 }
 
 h1 {
@@ -93,7 +92,7 @@ ul li a:hover {
     flex-basis: 1200px;
     flex-shrink: 1;
     flex-grow: 0;
-    margin: 30px;
+    margin: 10px;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
