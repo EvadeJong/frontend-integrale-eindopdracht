@@ -5,12 +5,17 @@
 }
 
 .outerRequestJoke {
-    width: 500px;
+    margin-left: 50%;
+    width: 1000px;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+.requestJokeForm {
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
-
 .jokesList {
     text-decoration: none;
     flex-direction: column;
@@ -26,4 +31,7 @@
     white-space: pre-line;
     margin: auto;
     width: 800px;
+}
+.error{
+    align-self: flex-start;
 }

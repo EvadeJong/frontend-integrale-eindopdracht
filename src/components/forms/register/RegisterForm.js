@@ -3,7 +3,7 @@ import {useForm} from 'react-hook-form';
 import axios from 'axios';
 
 import Button from '../../button/Button';
-import '../login/LoginForm.css'
+import './RegisterForm.css'
 import ErrorMessage from "../../errorMessage/ErrorMessage";
 import Label from "../../formComponents/Label";
 
@@ -79,7 +79,7 @@ function RegisterForm() {
     }
 
     return (
-        <form className='loginForm' onSubmit={handleSubmit(signUpRequest)}>
+        <form className='registerForm' onSubmit={handleSubmit(signUpRequest)}>
             <fieldset>
                 <legend>
                     <h2>Register</h2>

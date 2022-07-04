@@ -1,6 +1,11 @@
 .jokerHeadline {
     margin-bottom: 50px
 }
+.submitJokeForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .jokeContentContainer {
     display: flex;
@@ -10,18 +15,19 @@
 }
 
 .outerSubmitJoke {
-    min-width: 500px;
+    margin-left: 50%;
+    width: 1000px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 10px;
 }
 
 .submitjoketextfield, .submitdeliverytextfield {
-    width: 100%;
+    min-width: 260px;
     margin-top: 20px;
     border-radius: 4px;
     font-size: 14px;
-    height: 100px;
+    height: 200px;
 }
 
 .sendJokeContainer {
@@ -32,4 +38,9 @@
     border: 1px solid #5b5454;
     box-shadow: 5px 5px 5px #88888845;
     padding: 20px;
+}
+
+.error{
+    align-self: flex-start;
+    margin-left: 46%;
 }

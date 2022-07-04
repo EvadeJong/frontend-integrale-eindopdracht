@@ -19,7 +19,7 @@ function ContactForm() {
     const [emailIcon, setEmailIcon] = useState('fa-solid fa-circle-info');
     const [usernameIcon, setUsernameIcon] = useState('fa-solid fa-circle-info');
     const [showUsernameInformation, setShowUsernameInformation] = useState(false);
-    const [showTexfieldInformation, setShowTexfieldInformation] = useState(false);
+    const [showTextfieldInformation, setShowTextfieldInformation] = useState(false);
     const [showEmailInformation,setShowEmailInformation] = useState (false);
 
     useEffect(() => {
@@ -36,33 +36,41 @@ function ContactForm() {
         console.log(`Message: ${contactMessage}`);
         setIsRequestSuccessful(true);
     }
-    function provideTextfieldInfo(){
-        if(textfieldIcon === 'fa-solid fa-circle-info'){
-            setTextfieldIcon('fa-solid fa-circle-xmark')
-            setShowTexfieldInformation(true);
-        }else{
-            setTextfieldIcon('fa-solid fa-circle-info')
-            setShowTexfieldInformation(false);
-        }
-    }
-    function provideUserNameInfo(){
-        if(usernameIcon === 'fa-solid fa-circle-info'){
-            setUsernameIcon('fa-solid fa-circle-xmark')
-            setShowUsernameInformation(true);
-        }else{
-            setUsernameIcon('fa-solid fa-circle-info')
-            setShowUsernameInformation(false);
-        }
-    }
 
-    function provideEmailInfo(){
-        if(emailIcon === 'fa-solid fa-circle-info'){
-            setEmailIcon('fa-solid fa-circle-xmark')
-            setShowEmailInformation(true);
-        }else{
-            setEmailIcon('fa-solid fa-circle-info')
-            setShowEmailInformation(false);
-        }
+    function provideInfo(fieldname){
+       switch(fieldname){
+           case 'email':
+               if(emailIcon === 'fa-solid fa-circle-info'){
+                   setEmailIcon('fa-solid fa-circle-xmark')
+                   setShowEmailInformation(true);
+               }else{
+                   setEmailIcon('fa-solid fa-circle-info')
+                   setShowEmailInformation(false);
+               }
+               break
+           case 'username':
+               if(usernameIcon === 'fa-solid fa-circle-info'){
+                   setUsernameIcon('fa-solid fa-circle-xmark')
+                   setShowUsernameInformation(true);
+               }else{
+                   setUsernameIcon('fa-solid fa-circle-info')
+                   setShowUsernameInformation(false);
+               }
+               break
+           case 'messageField':
+               if(textfieldIcon === 'fa-solid fa-circle-info'){
+                   setTextfieldIcon('fa-solid fa-circle-xmark')
+                   setShowTextfieldInformation(true);
+               }else{
+                   setTextfieldIcon('fa-solid fa-circle-info')
+                   setShowTextfieldInformation(false);
+               }
+               break
+           default:
+               setShowUsernameInformation(false);
+               setShowEmailInformation(false);
+               setShowTextfieldInformation(false);
+       }
     }
 
     return (
@@ -75,7 +83,6 @@ function ContactForm() {
                     subtitle='You are not a joke to us!'
                     content= 'Please reach out if you need help or have any suggestions.'
                 />
-
                 <form className='contactForm' onSubmit={handleSubmit(sendContactForm)}>
                     <Label htmlFor='contactname' labelText='Name:' />
                     <div className='icon'>
@@ -90,7 +97,7 @@ function ContactForm() {
                         }
                         onChange={(e) => setContactName(e.target.value)}
                     />
-                        <i className={usernameIcon} onClick={() => provideUserNameInfo()}></i>
+                        <i className={usernameIcon} onClick={() => provideInfo('username')}></i>
                         {showUsernameInformation &&
                             <InformationMessage
                                 message='Please provide us with your name'
@@ -121,7 +128,7 @@ function ContactForm() {
                         )}
                         onChange={(e) => setContactEmail(e.target.value)}
                     />
-                        <i className={emailIcon} onClick={() => provideEmailInfo()}></i>
+                        <i className={emailIcon} onClick={() => provideInfo('email')}></i>
                         {showEmailInformation &&
                             <InformationMessage
                                 message='Please provide us with your email'
@@ -150,8 +157,8 @@ function ContactForm() {
                               onChange={(e) => setContactMessage(e.target.value)}>
 
                        </textarea>
-                        <i className={textfieldIcon} onClick={() => provideTextfieldInfo()}></i>
-                       {showTexfieldInformation &&
+                        <i className={textfieldIcon} onClick={() => provideInfo('messageField')}></i>
+                       {showTextfieldInformation &&
                            <InformationMessage
                                message='Please typ out your joke in this field'
                            />

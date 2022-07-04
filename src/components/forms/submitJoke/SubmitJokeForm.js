@@ -9,6 +9,7 @@ import JokeAboutSelector from '../../formComponents/JokeAboutSelector';
 import JokeTypeSelector from '../../formComponents/JokeTypeSelector';
 import ErrorMessage from '../../errorMessage/ErrorMessage';
 import ContentContainer from "../../contentContainer/ContentContainer";
+import InformationMessage from "../../informationMessage/InformationMessage";
 
 function SubmitJokeForm() {
 
@@ -25,6 +26,17 @@ function SubmitJokeForm() {
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, toggleLoading] = useState(false);
+
+    const [jokeAboutIcon, setJokeAboutIcon] = useState('fa-solid fa-circle-info');
+    const [jokeTypeIcon, setJokeTypeIcon] = useState('fa-solid fa-circle-info');
+    const [flagIcon, setFlagIcon] = useState('fa-solid fa-circle-info');
+    const [jokeFieldIcon, setJokeFieldIcon] = useState('fa-solid fa-circle-info');
+    const [punchlineFieldIcon, setPunchlineFieldIcon] = useState('fa-solid fa-circle-info');
+    const [showPunchlineFieldInformation, setShowPunchlineFieldInformation] = useState(false);
+    const [showJokeFieldInformation, setShowJokeFieldInformation] = useState(false);
+    const [showJokeTypeInformation, setShowJokeTypeInformation] = useState(false);
+    const [showJokeAboutInformation, setShowJokeAboutInformation] = useState(false);
+    const [showFlagInformation, setShowFlagInformation] = useState(false);
 
     async function submitJokeRequest() {
         toggleLoading(true);
@@ -125,6 +137,62 @@ function SubmitJokeForm() {
         reset();
     }
 
+    function provideInfo(fieldname) {
+        switch (fieldname) {
+            case 'jokeAbout':
+                if (jokeAboutIcon === 'fa-solid fa-circle-info') {
+                    setJokeAboutIcon('fa-solid fa-circle-xmark')
+                    setShowJokeAboutInformation(true);
+                } else {
+                    setJokeAboutIcon('fa-solid fa-circle-info')
+                    setShowJokeAboutInformation(false);
+                }
+                break
+            case 'jokeType':
+                if (jokeTypeIcon === 'fa-solid fa-circle-info') {
+                    setJokeTypeIcon('fa-solid fa-circle-xmark')
+                    setShowJokeTypeInformation(true);
+                } else {
+                    setJokeTypeIcon('fa-solid fa-circle-info')
+                    setShowJokeTypeInformation(false);
+                }
+                break
+            case 'jokeFlag':
+                if (flagIcon === 'fa-solid fa-circle-info') {
+                    setFlagIcon('fa-solid fa-circle-xmark')
+                    setShowFlagInformation(true);
+                } else {
+                    setFlagIcon('fa-solid fa-circle-info')
+                    setShowFlagInformation(false);
+                }
+                break
+            case 'jokeField':
+                if(jokeFieldIcon === 'fa-solid fa-circle-info'){
+                    setJokeFieldIcon('fa-solid fa-circle-xmark')
+                    setShowJokeFieldInformation(true);
+                }else{
+                    setJokeFieldIcon('fa-solid fa-circle-info')
+                    setShowJokeFieldInformation(false);
+                }
+                break
+            case 'punchlineField':
+                if(punchlineFieldIcon === 'fa-solid fa-circle-info'){
+                    setPunchlineFieldIcon('fa-solid fa-circle-xmark')
+                    setShowPunchlineFieldInformation(true);
+                }else{
+                    setPunchlineFieldIcon('fa-solid fa-circle-info')
+                    setShowPunchlineFieldInformation(false);
+                }
+                break
+            default:
+                setShowJokeTypeInformation(false);
+                setShowJokeAboutInformation(false);
+                setShowFlagInformation(false);
+                setShowJokeFieldInformation(false);
+                setShowPunchlineFieldInformation(false);
+        }
+    }
+
     return (
         <span className='jokeContentContainer'>
             {isError &&
@@ -151,8 +219,14 @@ function SubmitJokeForm() {
                             >
                                 <JokeAboutSelector/>
                             </select>
+                           <i className={jokeAboutIcon} onClick={() => provideInfo('jokeAbout')}></i>
+                           {showJokeAboutInformation &&
+                               <InformationMessage
+                                   message='What should the joke be about?'
+                               />
+                           }
                         </span>
-                       <span>
+                        <span className='error'>
                             {errors.jokeAboutSelector &&
                                 <ErrorMessage
                                     className={'fieldErrorMessageLight'}
@@ -174,8 +248,15 @@ function SubmitJokeForm() {
                             >
                                 <JokeTypeSelector/>
                             </select>
+                           <i className={jokeTypeIcon}
+                              onClick={() => provideInfo('jokeType')}></i>
+                           {showJokeTypeInformation &&
+                               <InformationMessage
+                                   message='Select the type of the joke'
+                               />
+                           }
                         </span>
-                       <span>
+                        <span className='error'>
                             {errors.jokeTypeSelector &&
                                 <ErrorMessage
                                     className={'fieldErrorMessageLight'}
@@ -185,14 +266,21 @@ function SubmitJokeForm() {
                             }
                         </span>
                        <span className='outerSubmitJoke'>
-                            <Label htmlFor='jokeFlagSelector' labelText='Flag (can be empty):'/>
+                            <Label htmlFor='jokeFlagSelector' labelText='Flag (optional):'/>
                             <select {...register('jokeFlagSelector')}
                                     onChange={(e) => setJokeFlagSelector(e.target.value)}>
                                 <JokeFlagSelector/>
                             </select>
+                           <i className={flagIcon}
+                              onClick={() => provideInfo('jokeFlag')}></i>
+                           {showFlagInformation &&
+                               <InformationMessage
+                                   message='What should it not be? (optional)'
+                               />
+                           }
                         </span>
+                        <span className='outerSubmitJoke'>
                        <Label htmlFor='textfieldJoke' labelText='The actual joke is:'/>
-                       <span className='outerSubmitJoke'>
                             <textarea className='submitjoketextfield'
                                       id='submitjoketextfield'
                                       {...register("submitjoketextfield",
@@ -207,8 +295,15 @@ function SubmitJokeForm() {
                                     }
                                     onChange={(e) => setSubmittedJoke(e.target.value)}>
                           </textarea>
+                            <i className={jokeFieldIcon}
+                               onClick={() => provideInfo('jokeField')}></i>
+                            {showJokeFieldInformation &&
+                                <InformationMessage
+                                    message='Tell us your joke here'
+                                />
+                            }
                         </span>
-                       <span>
+                        <span className='error'>
                             {errors.submitjoketextfield &&
                                 <ErrorMessage
                                     className={'fieldErrorMessageLight'}
@@ -247,8 +342,15 @@ function SubmitJokeForm() {
                                           )}
                                           onChange={(e) => setSubmittedDelivery(e.target.value)}>
                                 </textarea>
+                                    <i className={punchlineFieldIcon}
+                                       onClick={() => provideInfo('punchlineField')}></i>
+                                    {showPunchlineFieldInformation &&
+                                        <InformationMessage
+                                            message='Tell us your joke here'
+                                        />
+                                    }
                                 </span>
-                                <span>
+                                <span className='error'>
                                   {errors.submitdeliverytextfield &&
                                       <ErrorMessage
                                           className={'fieldErrorMessageLight'}

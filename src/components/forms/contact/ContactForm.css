@@ -2,8 +2,9 @@
     margin-left: 50%;
     width: 1000px;
 }
-.button{
+.contactForm .button{
     margin-left: 10%;
+    margin-bottom: 5%;
 }
 
 .contactInput,

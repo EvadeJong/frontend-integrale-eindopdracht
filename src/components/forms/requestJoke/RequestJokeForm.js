@@ -10,10 +10,11 @@ import JokeNumberSelector from "../../formComponents/JokeNumberSelector";
 import ErrorMessage from "../../errorMessage/ErrorMessage";
 import Label from "../../formComponents/Label";
 import ContentContainer from "../../contentContainer/ContentContainer";
+import InformationMessage from "../../informationMessage/InformationMessage";
 
 function RequestJokeForm() {
 
-    const {register, handleSubmit, formState: {errors}, formState} = useForm({
+    const {register, handleSubmit, formState: {errors}} = useForm({
         mode: "onChange"
     });
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
@@ -31,6 +32,15 @@ function RequestJokeForm() {
 
     const [singleJokeArray, setSingleJokeArray] = useState([]);
     const [twoPartJokeArray, setTwoPartJokeArray] = useState([]);
+
+    const [jokeAboutIcon, setJokeAboutIcon] = useState('fa-solid fa-circle-info');
+    const [jokeTypeIcon, setJokeTypeIcon] = useState('fa-solid fa-circle-info');
+    const [flagIcon, setFlagIcon] = useState('fa-solid fa-circle-info');
+    const [nrOfJokesIcon, setNrOfJokesIcon] = useState('fa-solid fa-circle-info');
+    const [showNrOfJokesInformation, setShowNrOfJokesInformation] = useState(false);
+    const [showJokeTypeInformation, setShowJokeTypeInformation] = useState(false);
+    const [showJokeAboutInformation, setShowJokeAboutInformation] = useState(false);
+    const [showFlagInformation, setShowFlagInformation] = useState(false);
 
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -71,6 +81,7 @@ function RequestJokeForm() {
         } catch (e) {
             setIsRequestSuccessful(false);
             setIsError(true);
+
             switch (e.response.status) {
                 case 400:
                     setErrorMessage
@@ -112,6 +123,52 @@ function RequestJokeForm() {
         toggleLoading(false);
     }
 
+    function provideInfo(fieldname) {
+        switch (fieldname) {
+            case 'jokeAbout':
+                if (jokeAboutIcon === 'fa-solid fa-circle-info') {
+                    setJokeAboutIcon('fa-solid fa-circle-xmark')
+                    setShowJokeAboutInformation(true);
+                } else {
+                    setJokeAboutIcon('fa-solid fa-circle-info')
+                    setShowJokeAboutInformation(false);
+                }
+                break
+            case 'jokeType':
+                if (jokeTypeIcon === 'fa-solid fa-circle-info') {
+                    setJokeTypeIcon('fa-solid fa-circle-xmark')
+                    setShowJokeTypeInformation(true);
+                } else {
+                    setJokeTypeIcon('fa-solid fa-circle-info')
+                    setShowJokeTypeInformation(false);
+                }
+                break
+            case 'jokeFlag':
+                if (flagIcon === 'fa-solid fa-circle-info') {
+                    setFlagIcon('fa-solid fa-circle-xmark')
+                    setShowFlagInformation(true);
+                } else {
+                    setFlagIcon('fa-solid fa-circle-info')
+                    setShowFlagInformation(false);
+                }
+                break
+            case 'nrOfJokes':
+                if (nrOfJokesIcon === 'fa-solid fa-circle-info') {
+                    setNrOfJokesIcon('fa-solid fa-circle-xmark')
+                    setShowNrOfJokesInformation(true);
+                } else {
+                    setNrOfJokesIcon('fa-solid fa-circle-info')
+                    setShowNrOfJokesInformation(false);
+                }
+                break
+            default:
+                setShowJokeTypeInformation(false);
+                setShowJokeAboutInformation(false);
+                setShowFlagInformation(false);
+                setShowNrOfJokesInformation(false);
+        }
+    }
+
     function newRequest() {
         setAreMultipleJokes(false);
         setIsRequestSuccessful(false);
@@ -126,16 +183,16 @@ function RequestJokeForm() {
                         {isError &&
                             <span>
                                 <ErrorMessage className={'errorMessage'} message={errorMessage}/>
-                                <Button type='submit' text='I want to try again' onClick={newRequest} />
+                                <Button type='submit' text='I want to try again' onClick={newRequest}/>
                             </span>
                         }
                         {!isError && !isRequestSuccessful &&
                             <>
                                 <ContentContainer
-                                    subtitle= "So you don't like our chicken jokes?"
+                                    subtitle="So you don't like our chicken jokes?"
                                     content='Maybe we can find something else for you. Tell us what will make you laugh'
                                 />
-                                <form onSubmit={handleSubmit(requestJokeRequest)}>
+                                <form className='requestJokeForm' onSubmit={handleSubmit(requestJokeRequest)}>
                                     {loading &&
                                         <ErrorMessage className='fieldLoadingMessage' message='Loading...'/>
                                     }
@@ -153,8 +210,14 @@ function RequestJokeForm() {
                                 >
                                     <JokeAboutSelector/>
                                 </select>
+                                        <i className={jokeAboutIcon} onClick={() => provideInfo('jokeAbout')}></i>
+                                        {showJokeAboutInformation &&
+                                            <InformationMessage
+                                                message='What should the joke be about?'
+                                            />
+                                        }
                             </span>
-                                    <span>
+                                    <span className='error'>
                                 {errors.getJokeAboutSelector &&
                                     <ErrorMessage
                                         className={'fieldErrorMessage'}
@@ -163,11 +226,18 @@ function RequestJokeForm() {
                                 }
                             </span>
                                     <span className='outerRequestJoke'>
-                                <Label htmlFor='getJokeFlagSelector' labelText='I do not want:'/>
+                                <Label htmlFor='getJokeFlagSelector' labelText='I do not want (optional):'/>
                                 <select {...register("getJokeFlagSelector")}
                                         onChange={(e) => setGetJokeFlagSelector(e.target.value)}>
                                     <JokeFlagSelector/>
                                 </select>
+                                          <i className={flagIcon}
+                                             onClick={() => provideInfo('jokeFlag')}></i>
+                                        {showFlagInformation &&
+                                            <InformationMessage
+                                                message='What should it not be? (optional)'
+                                            />
+                                        }
                             </span>
                                     <span className='outerRequestJoke'>
                                 <Label htmlFor='getJokeTypeSelector' labelText='Joke type:'/>
@@ -180,8 +250,15 @@ function RequestJokeForm() {
                                 >
                                     <JokeTypeSelector/>
                                 </select>
+                                        <i className={jokeTypeIcon}
+                                           onClick={() => provideInfo('jokeType')}></i>
+                                        {showJokeTypeInformation &&
+                                            <InformationMessage
+                                                message='Select the type of the joke'
+                                            />
+                                        }
                                 </span>
-                                    <span>
+                                    <span className='error'>
                                 {errors.getJokeTypeSelector &&
                                     <ErrorMessage
                                         className={'fieldErrorMessage'}
@@ -201,8 +278,15 @@ function RequestJokeForm() {
                                 >
                                     <JokeNumberSelector/>
                                 </select>
+                                        <i className={nrOfJokesIcon}
+                                           onClick={() => provideInfo('nrOfJokes')}></i>
+                                        {showNrOfJokesInformation &&
+                                            <InformationMessage
+                                                message='Select the number of the joke (1, 3 or 5)'
+                                            />
+                                        }
                             </span>
-                                    <span>
+                                    <span className='error'>
                                 {errors.getNumberOfJokesSelector &&
                                     <ErrorMessage
                                         className={'fieldErrorMessage'}
@@ -210,7 +294,7 @@ function RequestJokeForm() {
                                     />
                                 }
                             </span>
-                                    <Button type='submit' text='Request Joke' />
+                                    <Button type='submit' text='Request Joke'/>
                                 </form>
                             </>
                         }

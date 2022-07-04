@@ -1,4 +1,3 @@
-
 .errorMessage {
     display: flex;
     align-items: center;
@@ -8,6 +7,7 @@
     border: solid #bf1650 3px;
     color: #bf1650;
     font-size: 20px;
+
 }
 
 .fieldLoadingMessage,
@@ -19,12 +19,12 @@
     font-size: 20px;
     letter-spacing: .05rem;
     padding: 3px;
+
 }
 
 .fieldErrorMessageLight {
     border: solid 3px red;
     background-color: white;
-    max-width: 75%;
     margin: 10px 10px 10px 0px;
 }
 .fieldLoadingMessage{
