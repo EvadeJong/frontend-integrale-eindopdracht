@@ -6,45 +6,46 @@ import ErrorMessage from "../components/errorMessage/ErrorMessage";
 
 export const AuthContext = createContext({});
 
-function AuthContextProvider({children}) {
-    const history = useHistory();
-
-    const [auth, toggleAuth] = useState({
-        isAuth: false,
-        user: null,
-        status: 'pending',
-    });
-
+function AuthContextProvider({ children }) {
+        const [isAuth, toggleIsAuth] = useState({
+            isAuth: false,
+            user: null,
+            status: 'pending',
+        });
+        const history = useHistory();
 
     useEffect(() => {
         const token = localStorage.getItem('token');
+
         // als er een token in de localStorage staat, decoderen we hem en kijken we of hij nog geldig is
         if (token) {
             const decoded = jwtDecode(token);
             const tokenIsValid = jwtValidator(decoded);
-            console.log(tokenIsValid);
+
             if (tokenIsValid) {
-                getUserData(token, './');
+                getUserData(token);
                 // als de token niet geldig is halen we hem uit de localStorage
             } else {
                 localStorage.removeItem('token');
-                toggleAuth({
+                toggleIsAuth({
                     isAuth: false,
                     user: {
+                        email: '',
                         username: '',
                     },
                     status: 'done',
-                })
+                });
             }
             //als er geen token is, is de user niet geauthentiseerd
         } else {
-            toggleAuth({
+            toggleIsAuth({
                 isAuth: false,
                 user: {
+                    email: '',
                     username: '',
                 },
                 status: 'done',
-            });
+            })
         }
     }, []);
 
@@ -58,8 +59,8 @@ function AuthContextProvider({children}) {
                 }
             });
 
-            toggleAuth({
-                ...auth,
+            toggleIsAuth({
+                ...isAuth,
                 isAuth: true,
                 user: {
                     email: data.data.email,
@@ -74,9 +75,12 @@ function AuthContextProvider({children}) {
         } catch (e) {
             console.log(e);
             localStorage.removeItem('token');
-            toggleAuth({
-                ...auth,
-                user: null,
+            toggleIsAuth({
+                isAuth: false,
+                user: {
+                    email: '',
+                    username: '',
+                },
                 status: 'done',
             });
         }
@@ -95,16 +99,16 @@ function AuthContextProvider({children}) {
     function login(token) {
         // token in de localstorage plaatsen
         localStorage.setItem('token', token);
-        const decoded = jwtDecode(token);
-        getUserData(token, '/');
+        getUserData(token, './');
     }
 
     function logout() {
 
         localStorage.removeItem('token');
-        toggleAuth({
+        toggleIsAuth({
             isAuth: false,
             user: {
+                email: '',
                 username: '',
             },
             status: 'done',
@@ -113,17 +117,17 @@ function AuthContextProvider({children}) {
     }
 
     const contextData = {
-        isAuth: auth.isAuth,
-        user: auth.user,
+        isAuth: isAuth.isAuth,
+        user: isAuth.user,
         login: login,
         logout: logout,
     };
 
     return (
         <AuthContext.Provider value={contextData}>
-            {auth.status === 'done' && children}
-            {auth.status === 'pending' && <ErrorMessage className='fieldLoadingMessage' message='Loading...' />}
-            {auth.status === 'error' && <ErrorMessage className={'errorMessage'} message='An error has occurred, please refresh the page.'/>}
+            {isAuth.status === 'done' && children}
+            {isAuth.status === 'pending' && <ErrorMessage className='fieldLoadingMessage' message='Loading...' />}
+            {isAuth.status === 'error' && <ErrorMessage className={'errorMessage'} message='An error has occurred, please refresh the page.'/>}
         </AuthContext.Provider>
     );
 }
