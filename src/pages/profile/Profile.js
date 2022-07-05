@@ -21,8 +21,8 @@ function Profile() {
         <>
             <Header/>
             <main>
-                <section className="pageOuterContainer">
-                    <div className="pageInnerContainer">
+                <section className='pageOuterContainer'>
+                    <div className='pageInnerContainer'>
                         <ContentContainer
                             title='Hi'
                             subtitle='Change your personal data here'

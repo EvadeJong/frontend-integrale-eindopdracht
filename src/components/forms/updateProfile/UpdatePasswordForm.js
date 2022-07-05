@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useRef, useState, useEffect} from "react";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 import Button from "../../button/Button";
@@ -10,6 +10,7 @@ import {useHistory} from "react-router-dom";
 
 function UpdatePasswordForm() {
 
+    const controller = new AbortController();
 
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
 
@@ -23,13 +24,23 @@ function UpdatePasswordForm() {
 
     password.current = watch('password', '');
 
+    useEffect(()=>{
+        return history.listen((location) => {
+            console.log(`You changed the page to: ${location.pathname}`)
+        })
+
+        return function cleanup(){
+            controller.abort();
+        }
+    },[history]);
+
     async function updatePasswordRequest(data) {
         toggleLoading(true);
         const updatedPassword = data.password;
         const repeatedUpdatedPassword = data.repeatedPassword;
         try {
             const token = localStorage.getItem('token');
-            const data = await axios.put(
+            await axios.put(
                 'https://frontend-educational-backend.herokuapp.com/api/user',
                 {
                     "password": updatedPassword,
@@ -147,7 +158,6 @@ function UpdatePasswordForm() {
                                       />
                                   }
                         </span>
-
                     </span>
                     <Button type='submit' text='Change password'/>
                 </form>

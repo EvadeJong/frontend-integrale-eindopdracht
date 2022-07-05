@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import axios from 'axios';
 import Button from '../../button/Button';
@@ -10,8 +10,12 @@ import JokeTypeSelector from '../../formComponents/JokeTypeSelector';
 import ErrorMessage from '../../errorMessage/ErrorMessage';
 import ContentContainer from "../../contentContainer/ContentContainer";
 import InformationMessage from "../../informationMessage/InformationMessage";
+import {useHistory} from "react-router-dom";
+
 
 function SubmitJokeForm() {
+
+    const controller = new AbortController();
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm();
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
@@ -32,6 +36,18 @@ function SubmitJokeForm() {
     const [showJokeAboutInformation, setShowJokeAboutInformation] = useState(false);
     const [showFlagInformation, setShowFlagInformation] = useState(false);
 
+    const history = useHistory();
+
+    useEffect(()=>{
+        return history.listen((location) => {
+            console.log(`You changed the page to: ${location.pathname}`)
+        })
+
+        return function cleanup(){
+            controller.abort();
+        }
+    },[history, ]);
+
     async function submitJokeRequest(data) {
         toggleLoading(true);
 
@@ -41,7 +57,6 @@ function SubmitJokeForm() {
             const jokeType = data.jokeTypeSelector;
             const joke = data.submitjoketextfield;
             const delivery = data.submitdeliverytextfield;
-
 
 //TODO: Joke submissions are temporarily disabled. Once it works code should be checked again to submit joke to the JokeAPI backend.
             if (jokeType === 'twopart') {
@@ -210,10 +225,10 @@ function SubmitJokeForm() {
                            <Label htmlFor='jokeAboutSelector' labelText='I want a joke about:'/>
                             <select {...register('jokeAboutSelector',
                                 {
-                                    required: "You must specify a subject",
+                                    required: 'You must specify a subject',
                                 }
                             )}
-                                    data-testid="jokeAboutSelector"
+                                    data-testid='jokeAboutSelector'
                             >
                                 <JokeAboutSelector/>
                             </select>
@@ -276,6 +291,8 @@ function SubmitJokeForm() {
                        <Label htmlFor='textfieldJoke' labelText='The actual joke is:'/>
                             <textarea className='submitjoketextfield'
                                       id='submitjoketextfield'
+                                      spellCheck="true"
+                                      lang="en"
                                       {...register("submitjoketextfield",
                                           {
                                               required: "Joke can not be empty",
@@ -310,6 +327,8 @@ function SubmitJokeForm() {
 
                                 <textarea className='submitjoketextfield'
                                           id='submitdeliverytextfield'
+                                          spellCheck="true"
+                                          lang="en"
                                           {...register("submitdeliverytextfield",
                                               {
                                                   required: "Message can not be empty",

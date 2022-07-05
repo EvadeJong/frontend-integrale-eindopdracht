@@ -7,7 +7,7 @@ function Footer({text}) {
     return (
         <footer className='pageOuterContainer'>
             <div className='pageInnerContainer'>
-                <Link to='/contact' >{text}</Link>
+                <Link to='/contact'>{text}</Link>
             </div>
         </footer>
     );

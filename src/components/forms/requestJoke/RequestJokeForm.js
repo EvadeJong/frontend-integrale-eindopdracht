@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 import Button from "../../button/Button";
@@ -11,8 +11,11 @@ import ErrorMessage from "../../errorMessage/ErrorMessage";
 import Label from "../../formComponents/Label";
 import ContentContainer from "../../contentContainer/ContentContainer";
 import InformationMessage from "../../informationMessage/InformationMessage";
+import {useHistory, useLocation} from "react-router-dom";
 
 function RequestJokeForm() {
+
+    const controller = new AbortController();
 
     const {register, handleSubmit, formState: {errors}} = useForm({
         mode: "onChange"
@@ -40,6 +43,17 @@ function RequestJokeForm() {
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, toggleLoading] = useState(false);
+    const history = useHistory();
+
+    useEffect(()=>{
+        return history.listen((location) => {
+            console.log(`You changed the page to: ${location.pathname}`)
+        })
+
+        return function cleanup(){
+            controller.abort();
+        }
+    },[history]);
 
     async function requestJokeRequest(data) {
         toggleLoading(true);
@@ -50,7 +64,9 @@ function RequestJokeForm() {
             const jokeType = data.getJokeTypeSelector;
             const numberOfJokes = data.getNumberOfJokesSelector;
 
-            const result = await axios.get(`https://v2.jokeapi.dev/joke/${category}?format=json&?blacklistFlags=${flag}&lang=en&type=${jokeType}&amount=${numberOfJokes}`)
+            const result = await axios.get(
+                `https://v2.jokeapi.dev/joke/${category}?format=json&?blacklistFlags=${flag}&lang=en&type=${jokeType}&amount=${numberOfJokes}`,
+            );
 
             if (jokeType === 'twopart') {
                 setIsTwoPart(true);
@@ -290,7 +306,6 @@ function RequestJokeForm() {
                                 </form>
                             </>
                         }
-                        {/*TODO deze code verplaatsen, dit hoort niet thuis in het form*/}
                         {isRequestSuccessful &&
                             <>
                                 {!isTwoPart && !areMultipleJokes &&

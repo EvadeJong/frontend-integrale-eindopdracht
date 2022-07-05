@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useState, useEffect} from "react";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 import Button from "../../button/Button";
@@ -11,18 +11,29 @@ import ContentContainer from "../../contentContainer/ContentContainer";
 
 function UpdateEmailForm() {
 
+    const controller = new AbortController();
     const {user: {email}} = useContext(AuthContext);
-    const [updatedEmail, setUpdatedEmail] = useState(email);
-    const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
-    const {register, handleSubmit, formState: {errors}, reset} = useForm({
-        mode: 'onChange',
-    });
 
+    const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, toggleLoading] = useState(false);
 
+    const {register, handleSubmit, formState: {errors}, reset} = useForm({
+        mode: 'onChange',
+    });
+
     const history = useHistory();
+
+    useEffect(()=>{
+        return history.listen((location) => {
+            console.log(`You changed the page to: ${location.pathname}`)
+        })
+
+        return function cleanup(){
+            controller.abort();
+        }
+    },[history]);
 
     async function updateEmailRequest(data) {
         toggleLoading(true);
@@ -42,7 +53,6 @@ function UpdateEmailForm() {
                 }
             )
             setIsRequestSuccessful(true);
-
         }
         catch (e) {
             setIsError(true);

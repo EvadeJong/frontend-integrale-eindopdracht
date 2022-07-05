@@ -6,10 +6,6 @@ import ContactForm from "../../components/forms/contact/ContactForm";
 
 function Contact() {
 
-    function submitButton() {
-        console.log('Form is submitted')
-    }
-
     useEffect(() => {
         document.documentElement.style.setProperty('--dynamic-background-color', '#FFAD30');
     }, []);

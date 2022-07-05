@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useState, useEffect} from "react";
 import {useForm} from "react-hook-form";
 import {AuthContext} from "../../../context/AuthContext";
 import Button from "../../button/Button";
@@ -7,8 +7,11 @@ import Label from "../../formComponents/Label";
 import ErrorMessage from "../../errorMessage/ErrorMessage";
 import ContentContainer from "../../contentContainer/ContentContainer";
 import InformationMessage from "../../informationMessage/InformationMessage";
+import {useHistory} from "react-router-dom";
 
 function ContactForm() {
+    const controller = new AbortController();
+
     const {register, handleSubmit, formState: {errors}} = useForm();
     const {user: {username, email}} = useContext(AuthContext);
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
@@ -18,6 +21,18 @@ function ContactForm() {
     const [showUsernameInformation, setShowUsernameInformation] = useState(false);
     const [showTextfieldInformation, setShowTextfieldInformation] = useState(false);
     const [showEmailInformation,setShowEmailInformation] = useState (false);
+
+    const history = useHistory();
+
+    useEffect(()=>{
+        return history.listen((location) => {
+            console.log(`You changed the page to: ${location.pathname}`)
+        })
+
+        return function cleanup(){
+            controller.abort();
+        }
+    },[history]);
 
     async function sendContactForm(data) {
         console.log('Form is send');
@@ -135,6 +150,8 @@ function ContactForm() {
                    <div className='icon'>
                     <textarea className='contactMessage'
                               id='contactMessage'
+                              spellCheck="true"
+                              lang="en"
                               {...register("contactMessage",
                                   {
                                       required: "Message can not be empty",

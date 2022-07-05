@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import axios from 'axios';
 
@@ -6,8 +6,12 @@ import Button from '../../button/Button';
 import './RegisterForm.css'
 import ErrorMessage from "../../errorMessage/ErrorMessage";
 import Label from "../../formComponents/Label";
+import {useHistory} from "react-router-dom";
 
 function RegisterForm() {
+
+    const controller = new AbortController();
+
     const {register, handleSubmit, formState: {errors}} = useForm({
         mode: 'onChange',
     });
@@ -17,6 +21,18 @@ function RegisterForm() {
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, toggleLoading] = useState(false);
+
+    const history = useHistory();
+
+    useEffect(()=>{
+        return history.listen((location) => {
+            console.log(`You changed the page to: ${location.pathname}`)
+        })
+
+        return function cleanup(){
+            controller.abort();
+        }
+    },[history]);
 
     async function signUpRequest(data) {
         toggleLoading(true);

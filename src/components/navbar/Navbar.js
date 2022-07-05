@@ -1,10 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {NavLink} from 'react-router-dom';
+import React, {useContext} from 'react';
+import {NavLink, useHistory} from 'react-router-dom';
 import {AuthContext} from "../../context/AuthContext";
 import './Navbar.css'
 
 function Navbar() {
     const {isAuth, logout} = useContext(AuthContext);
+    const history = useHistory();
 
     return (
                 <nav>
@@ -25,7 +26,7 @@ function Navbar() {
                                 </li>
                             </>
                             }
-                            { window.location.pathname != '/login' && !isAuth &&
+                            { history.location.pathname !== '/login' && !isAuth &&
                             <li key='login'>
                                 <NavLink to='/login' exact activeClassName='active-link'>Login</NavLink>
                             </li>

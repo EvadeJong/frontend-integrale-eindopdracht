@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './RequestJoke.css'
 import Button from '../../components/button/Button';
 import Header from '../../components/header/Header';
@@ -19,6 +19,7 @@ function RequestJoke() {
     function getPunchlineButton() {
         setIsChickenButtonClicked(true);
 
+
         if (index < chickenJokesArray.length - 1) {
             setChickenPunchline(chickenJokesArray[index]);
             setIndex(index + 1);
@@ -34,7 +35,12 @@ function RequestJoke() {
 
     useEffect(() => {
         document.documentElement.style.setProperty('--dynamic-background-color', '#BFD7EA')
+
+        return function cleanup(){
+
+        }
     }, []);
+
 
     return (
         <>
@@ -66,7 +72,7 @@ function RequestJoke() {
                         }
                         {isRealJokeButtonClicked &&
                             <>
-                            <RequestJokeForm/>
+                                <RequestJokeForm />
                             </>
                         }
                     </div>
