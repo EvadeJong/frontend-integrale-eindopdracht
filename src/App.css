@@ -49,6 +49,9 @@ input {
     margin-bottom: 10px;
     font-size: 20px;
 }
+textarea {
+    font-size: 20px;
+}
 
 ul {
     display: flex;

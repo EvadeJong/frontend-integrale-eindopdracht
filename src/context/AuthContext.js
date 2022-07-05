@@ -73,7 +73,6 @@ function AuthContextProvider({ children }) {
                 history.push(url);
             }
         } catch (e) {
-            console.log(e);
             localStorage.removeItem('token');
             toggleIsAuth({
                 isAuth: false,

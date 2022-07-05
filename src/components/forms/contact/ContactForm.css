@@ -8,11 +8,11 @@
 }
 
 .contactInput,
-.contacttextfield {
+.contactMessage {
     width: 400px;
 }
 
-.contacttextfield {
+.contactMessage {
     min-height: 150px;
     box-sizing: border-box;
     border-radius: 4px;
@@ -22,5 +22,5 @@
     display: flex;
     flex-direction: row;
     gap: 20px;
-    align-items: flex-end;
+    align-items: center;
 }

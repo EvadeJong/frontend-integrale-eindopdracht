@@ -7,6 +7,7 @@ import ErrorMessage from "../../errorMessage/ErrorMessage";
 import Label from "../../formComponents/Label";
 import './UpdateForm.css';
 import {useHistory} from "react-router-dom";
+import ContentContainer from "../../contentContainer/ContentContainer";
 
 function UpdateEmailForm() {
 
@@ -23,7 +24,7 @@ function UpdateEmailForm() {
 
     const history = useHistory();
 
-    async function updateEmailRequest() {
+    async function updateEmailRequest(data) {
         toggleLoading(true);
 
         try {
@@ -31,7 +32,7 @@ function UpdateEmailForm() {
             await axios.put(
                 'https://frontend-educational-backend.herokuapp.com/api/user',
                 {
-                    "email": updatedEmail,
+                    "email": data.updatedEmail,
                 },
                 {
                     headers: {
@@ -94,11 +95,13 @@ function UpdateEmailForm() {
                 </span>
             }
             {isRequestSuccessful && !isError &&
-                <span>
-                    <h3>Your info is successfully updated</h3>
+               <>
+                   <ContentContainer
+                    content='Your info is successfully updated'
+                    />
                     <Button type='button' text='Back to homepage' onClick={backToHome}/>
-                </span>
-            }
+               </>
+                   }
             {!isRequestSuccessful && !isError &&
                 <form className='updatedProfileForm' onSubmit={handleSubmit(updateEmailRequest)}>
 
@@ -117,7 +120,6 @@ function UpdateEmailForm() {
                                     required: 'Specify an email address',
                                 })
                             }
-                            onChange={(e) => setUpdatedEmail(e.target.value)}
                         />
                     </span>
                     <span>

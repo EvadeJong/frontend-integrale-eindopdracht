@@ -10,10 +10,7 @@ import InformationMessage from "../../informationMessage/InformationMessage";
 
 function ContactForm() {
     const {register, handleSubmit, formState: {errors}} = useForm();
-    const {isAuth, user: {username, email}} = useContext(AuthContext);
-    const [contactName, setContactName] = useState('');
-    const [contactEmail, setContactEmail] = useState('');
-    const [contactMessage, setContactMessage] = useState('');
+    const {user: {username, email}} = useContext(AuthContext);
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
     const [textfieldIcon, setTextfieldIcon] = useState('fa-solid fa-circle-info');
     const [emailIcon, setEmailIcon] = useState('fa-solid fa-circle-info');
@@ -22,18 +19,11 @@ function ContactForm() {
     const [showTextfieldInformation, setShowTextfieldInformation] = useState(false);
     const [showEmailInformation,setShowEmailInformation] = useState (false);
 
-    useEffect(() => {
-        if (isAuth) {
-            setContactName(username);
-            setContactEmail(email);
-        }
-    }, [isAuth])
-
-    async function sendContactForm() {
+    async function sendContactForm(data) {
         console.log('Form is send');
-        console.log(`Name: ${contactName}`);
-        console.log(`Email: ${contactEmail}`);
-        console.log(`Message: ${contactMessage}`);
+        console.log(data.contactName);
+        console.log(data.contactEmail);
+        console.log(data.contactMessage);
         setIsRequestSuccessful(true);
     }
 
@@ -84,18 +74,18 @@ function ContactForm() {
                     content= 'Please reach out if you need help or have any suggestions.'
                 />
                 <form className='contactForm' onSubmit={handleSubmit(sendContactForm)}>
-                    <Label htmlFor='contactname' labelText='Name:' />
+                    <Label htmlFor='contactName' labelText='Name:' />
                     <div className='icon'>
                     <input
                         className='contactInput'
                         type='text'
-                        id='contactname'
-                        {...register('contactname',
+                        id='contactName'
+                        defaultValue={username}
+                        {...register('contactName',
                             {
                                 required: 'You must specify a name',
                             })
                         }
-                        onChange={(e) => setContactName(e.target.value)}
                     />
                         <i className={usernameIcon} onClick={() => provideInfo('username')}></i>
                         {showUsernameInformation &&
@@ -111,13 +101,14 @@ function ContactForm() {
                         />
                     }
 
-                    <Label htmlFor="contactemail" labelText='Email:'/>
+                    <Label htmlFor="contactEmail" labelText='Email:'/>
                     <div className='icon'>
                     <input
                         className='contactInput'
                         type="email"
-                        id="contactemail"
-                        {...register("contactemail",
+                        id="contactEmail"
+                        defaultValue={email}
+                        {...register("contactEmail",
                             {
                                 required: "You must specify an email address",
                                 pattern: {
@@ -126,7 +117,6 @@ function ContactForm() {
                                 },
                             }
                         )}
-                        onChange={(e) => setContactEmail(e.target.value)}
                     />
                         <i className={emailIcon} onClick={() => provideInfo('email')}></i>
                         {showEmailInformation &&
@@ -141,11 +131,11 @@ function ContactForm() {
                             message={errors.contactemail.message}
                         />
                     }
-                    <Label className='contacttextfield' htmlFor='contacttextfield' labelText='Message:' />
+                    <Label htmlFor='contactMessage' labelText='Message:' />
                    <div className='icon'>
-                    <textarea className='contacttextfield'
-                              id='contacttextfield'
-                              {...register("contacttextfield",
+                    <textarea className='contactMessage'
+                              id='contactMessage'
+                              {...register("contactMessage",
                                   {
                                       required: "Message can not be empty",
                                       minLength: {
@@ -154,7 +144,7 @@ function ContactForm() {
                                       }
                                   },
                               )}
-                              onChange={(e) => setContactMessage(e.target.value)}>
+                    >
 
                        </textarea>
                         <i className={textfieldIcon} onClick={() => provideInfo('messageField')}></i>
@@ -165,10 +155,10 @@ function ContactForm() {
                        }
                    </div>
 
-                    {errors.contacttextfield &&
+                    {errors.contactMessage &&
                         <ErrorMessage
                             className={'fieldErrorMessageLight'}
-                            message={errors.contacttextfield.message}
+                            message={errors.contactMessage.message}
                         />
                      }
                     <Button type='submit' text='Send message'/>

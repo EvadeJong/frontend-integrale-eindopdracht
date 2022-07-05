@@ -15,12 +15,6 @@ function SubmitJokeForm() {
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm();
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
-    const [submittedJoke, setSubmittedJoke] = useState('');
-    const [submittedDelivery, setSubmittedDelivery] = useState('');
-
-    const [jokeAboutSelector, setJokeAboutSelector] = useState('');
-    const [jokeTypeSelector, setJokeTypeSelector] = useState('');
-    const [jokeFlagSelector, setJokeFlagSelector] = useState('');
 
     const [isTwoPart, setIsTwoPart] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -38,25 +32,29 @@ function SubmitJokeForm() {
     const [showJokeAboutInformation, setShowJokeAboutInformation] = useState(false);
     const [showFlagInformation, setShowFlagInformation] = useState(false);
 
-    async function submitJokeRequest() {
+    async function submitJokeRequest(data) {
         toggleLoading(true);
 
         try {
-            const category = jokeAboutSelector;
-            const flag = jokeFlagSelector;
-            const jokeType = jokeTypeSelector;
+            const category = data.jokeAboutSelector;
+            const flag = data.jokeFlagSelector;
+            const jokeType = data.jokeTypeSelector;
+            const joke = data.submitjoketextfield;
+            const delivery = data.submitdeliverytextfield;
+
 
 //TODO: Joke submissions are temporarily disabled. Once it works code should be checked again to submit joke to the JokeAPI backend.
             if (jokeType === 'twopart') {
                 setIsTwoPart(true);
+
                 await axios.post(
                     'https://v2.jokeapi.dev/submit',
                     {
                         "formatVersion": 3,
                         "category": category,
                         "type": jokeType,
-                        "setup": submittedJoke,
-                        "delivery": submittedDelivery,
+                        "setup": joke,
+                        "delivery": delivery,
                         "flag": flag,
                         "lang": "en"
                     }, {
@@ -67,13 +65,14 @@ function SubmitJokeForm() {
                 )
             } else {
                 setIsTwoPart(false);
+                console.log(category, flag, jokeType, joke, delivery );
                 await axios.post(
                     'https://v2.jokeapi.dev/submit',
                     {
                         "formatVersion": 3,
                         "category": category,
                         "type": jokeType,
-                        "joke": submittedJoke,
+                        "joke": joke,
                         "flags": {
                             flag: true
                         },
@@ -214,7 +213,6 @@ function SubmitJokeForm() {
                                     required: "You must specify a subject",
                                 }
                             )}
-                                    onChange={(e) => setJokeAboutSelector(e.target.value)}
                                     data-testid="jokeAboutSelector"
                             >
                                 <JokeAboutSelector/>
@@ -226,7 +224,7 @@ function SubmitJokeForm() {
                                />
                            }
                         </span>
-                        <span className='error'>
+                       <span className='error'>
                             {errors.jokeAboutSelector &&
                                 <ErrorMessage
                                     className={'fieldErrorMessageLight'}
@@ -240,10 +238,7 @@ function SubmitJokeForm() {
                                 {
                                     required: "You must specify a joke type",
                                 })}
-                                    onChange={(e) => {
-                                        setJokeTypeSelector(e.target.value);
-                                        setIsTwoPart(e.target.value === "twopart");
-                                    }}
+
                                     data-testid="jokeTypeSelector"
                             >
                                 <JokeTypeSelector/>
@@ -256,19 +251,17 @@ function SubmitJokeForm() {
                                />
                            }
                         </span>
-                        <span className='error'>
+                       <span className='error'>
                             {errors.jokeTypeSelector &&
                                 <ErrorMessage
                                     className={'fieldErrorMessageLight'}
                                     message={errors.jokeTypeSelector.message}
-
                                 />
                             }
                         </span>
                        <span className='outerSubmitJoke'>
                             <Label htmlFor='jokeFlagSelector' labelText='Flag (optional):'/>
-                            <select {...register('jokeFlagSelector')}
-                                    onChange={(e) => setJokeFlagSelector(e.target.value)}>
+                            <select {...register('jokeFlagSelector')}>
                                 <JokeFlagSelector/>
                             </select>
                            <i className={flagIcon}
@@ -279,7 +272,7 @@ function SubmitJokeForm() {
                                />
                            }
                         </span>
-                        <span className='outerSubmitJoke'>
+                       <span className='outerSubmitJoke'>
                        <Label htmlFor='textfieldJoke' labelText='The actual joke is:'/>
                             <textarea className='submitjoketextfield'
                                       id='submitjoketextfield'
@@ -292,8 +285,7 @@ function SubmitJokeForm() {
                                               }
                                           },
                                       )
-                                    }
-                                    onChange={(e) => setSubmittedJoke(e.target.value)}>
+                                    }>
                           </textarea>
                             <i className={jokeFieldIcon}
                                onClick={() => provideInfo('jokeField')}></i>
@@ -303,7 +295,7 @@ function SubmitJokeForm() {
                                 />
                             }
                         </span>
-                        <span className='error'>
+                       <span className='error'>
                             {errors.submitjoketextfield &&
                                 <ErrorMessage
                                     className={'fieldErrorMessageLight'}
@@ -311,24 +303,11 @@ function SubmitJokeForm() {
                                 />
                             }
                         </span>
-                        <Button type='submit' text='Submit Joke'/>
-                    </form>
-                </>
-             }
-            {isRequestSuccessful &&
-                <>
-                  <ContentContainer
-                    subtitle='Thank you for submitting your joke!'
-                    content= {submittedJoke}
-                    subcontent= {submittedDelivery}
-                    />
-                    <Button type='submit' text='I want to submit another joke' onClick={newRequest}/>
-                </>
-            }
-            {isTwoPart &&
-                <>
-                                <Label htmlFor='textfieldJoke' labelText='The punchline of the joke is:'/>
+                        {isTwoPart &&
+                            <>
                                 <span className='outerSubmitJoke'>
+                                <Label htmlFor='textfieldJoke' labelText='The punchline is:'/>
+
                                 <textarea className='submitjoketextfield'
                                           id='submitdeliverytextfield'
                                           {...register("submitdeliverytextfield",
@@ -339,8 +318,7 @@ function SubmitJokeForm() {
                                                       message: "A punchline must have at least 5 characters"
                                                   }
                                               },
-                                          )}
-                                          onChange={(e) => setSubmittedDelivery(e.target.value)}>
+                                          )}>
                                 </textarea>
                                     <i className={punchlineFieldIcon}
                                        onClick={() => provideInfo('punchlineField')}></i>
@@ -359,6 +337,18 @@ function SubmitJokeForm() {
                                   }
                                   </span>
                             </>
+                        }
+                        <Button type='submit' text='Submit Joke'/>
+                    </form>
+                </>
+             }
+            {isRequestSuccessful &&
+                <>
+                  <ContentContainer
+                    subtitle='Thank you for submitting your joke!'
+                    />
+                    <Button type='submit' text='I want to submit another joke' onClick={newRequest}/>
+                </>
             }
 
         </span>

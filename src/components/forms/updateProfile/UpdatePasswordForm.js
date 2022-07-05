@@ -10,8 +10,7 @@ import {useHistory} from "react-router-dom";
 
 function UpdatePasswordForm() {
 
-    const [updatedPassword, setUpdatedPassword] = useState('');
-    const [repeatedUpdatedPassword, setRepeatedUpdatedPassword] = useState('');
+
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
 
     const {register, handleSubmit, formState: {errors}, watch, reset} = useForm({});
@@ -24,9 +23,10 @@ function UpdatePasswordForm() {
 
     password.current = watch('password', '');
 
-    async function updatePasswordRequest() {
+    async function updatePasswordRequest(data) {
         toggleLoading(true);
-
+        const updatedPassword = data.password;
+        const repeatedUpdatedPassword = data.repeatedPassword;
         try {
             const token = localStorage.getItem('token');
             const data = await axios.put(
@@ -119,7 +119,6 @@ function UpdatePasswordForm() {
                                     message: "Password must have 8 characters"
                                 }
                             })}
-                            onChange={(e) => setUpdatedPassword(e.target.value)}
                         />
                         <span>
                             {errors.password &&
@@ -139,7 +138,6 @@ function UpdatePasswordForm() {
                                 validate: value =>
                                     value === password.current || "The passwords do not match"
                             })}
-                            onChange={(e) => setRepeatedUpdatedPassword(e.target.value)}
                         />
                         <span>
                                   {errors.password_repeat &&

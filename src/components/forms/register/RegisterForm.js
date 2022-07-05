@@ -12,33 +12,26 @@ function RegisterForm() {
         mode: 'onChange',
     });
 
-    const [registerUsername, setRegisterUsername] = useState('');
-    const [registerEmail, setRegisterEmail] = useState('');
-    const [registerPassword, setRegisterPassword] = useState('');
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
 
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, toggleLoading] = useState(false);
 
-    async function signUpRequest() {
+    async function signUpRequest(data) {
         toggleLoading(true);
 
         try {
             const result = await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signup', {
-                "username": registerUsername,
-                "email": registerEmail,
-                "password": registerPassword,
+                "username": data.registerUsername,
+                "email": data.registerEmail,
+                "password": data.registerPassword,
                 "roles": [
                     "user"
                 ]
             })
-            console.log(registerUsername);
-            console.log(registerEmail);
-            console.log(registerPassword);
-            console.log(result);
+
             if (result.status === 200) {
-                console.log('JEEH! GELUKT')
                 setIsRequestSuccessful(true);
             }
         }
@@ -107,7 +100,6 @@ function RegisterForm() {
                                     required: "You must specify a username",
                                 })
                             }
-                            onChange={(e) => setRegisterUsername(e.target.value)}
                         />
                         {errors.registerUsername &&
                             <ErrorMessage
@@ -131,7 +123,6 @@ function RegisterForm() {
                                     },
                                 }
                             )}
-                            onChange={(e) => setRegisterEmail(e.target.value)}
                         />
                         {errors.registerEmail &&
                             <ErrorMessage
@@ -154,7 +145,6 @@ function RegisterForm() {
                                     }
                                 }
                             )}
-                            onChange={(e) => setRegisterPassword(e.target.value)}
                         />
                         {errors.registerPassword &&
                             <ErrorMessage

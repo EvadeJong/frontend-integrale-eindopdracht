@@ -18,12 +18,9 @@ function Navbar() {
                                 <li key='submitJoke'>
                                     <NavLink to='/submitJoke' exact activeClassName='active-link'>Joker</NavLink>
                                 </li>
-                                <li key='logout'>
-                                    <NavLink to='/' onClick={logout}>Logout</NavLink>
-                                </li>
                                 <li key='profile'>
-                                    <NavLink to='/profile' exact activeClassName='active-link'>
-                                        <i className="fa-solid fa-user"></i>
+                                    <NavLink title='Profile' to='/profile' exact activeClassName='active-link'>
+                                        <i className="fa-solid fa-user fa-lg"></i>
                                     </NavLink>
                                 </li>
                             </>
@@ -34,10 +31,15 @@ function Navbar() {
                             </li>
                             }
                         <li key='home'>
-                            <NavLink to='/' exact activeClassName='active-link'>
-                                <i className="fa-solid fa-house"></i>
+                            <NavLink title='Home' to='/' exact activeClassName='active-link'>
+                                <i className="fa-solid fa-house fa-lg"></i>
                             </NavLink>
                         </li>
+                        {isAuth &&
+                            <li key='logout'>
+                                <NavLink title='Log out' to='/' onClick={logout}><i className="fa-solid fa-right-from-bracket fa-lg"></i></NavLink>
+                            </li>
+                        }
                     </ul>
                 </nav>
 

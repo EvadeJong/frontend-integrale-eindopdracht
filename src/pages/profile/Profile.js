@@ -25,7 +25,7 @@ function Profile() {
                     <div className="pageInnerContainer">
                         <ContentContainer
                             title='Hi'
-                            content='You can change your personal data here'
+                            subtitle='Change your personal data here'
                         />
                             {changeEmailRequest === false && changePasswordRequest === false &&
                             <span className='currentProfileInfo'>

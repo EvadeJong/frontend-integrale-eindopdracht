@@ -21,12 +21,11 @@ function Home() {
         <>
             <Header/>
             <main>
-
                 <section className="pageOuterContainer">
                     <div className="pageInnerContainer">
                         {isAuth ?
                         <ContentContainer
-                            title = 'Welcome '
+                            title = 'Welcome'
                             content ='Nice to see you again! Are you ready to piss your pants while laughing out loud?
                                       Click on menu tab "Giggler" if you want to see some great jokes.
                                       Do you have a joke yourself? Submit it using the "Joker" tab.'
@@ -39,7 +38,9 @@ function Home() {
                                     content='Giggles is an app that fetches funny (and really terrible) jokes to put a smile on
                                         the readers face.Jokes may also be added to the database, with the aim of making other
                                         users laugh. Giggles main goal is to make people happy, make them smile and forget about any
-                                        worries for a while.'
+                                        worries for a while.
+                                        Click on menu tab "Giggler" if you want to see some great jokes.
+                                        Do you have a joke yourself? Submit it using the "Joker" tab.'
                                 />
                                 <Button onClick={() => history.push('/login')} text={'Register'}/>
                             </>

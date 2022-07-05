@@ -19,11 +19,6 @@ function RequestJokeForm() {
     });
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
 
-    const [getJokeAboutSelector, setGetJokeAboutSelector] = useState('');
-    const [getJokeTypeSelector, setGetJokeTypeSelector] = useState('');
-    const [getNumberOfJokesSelector, setGetNumberOfJokesSelector] = useState('');
-    const [getJokeFlagSelector, setGetJokeFlagSelector] = useState('');
-
     const [singleJoke, setSingleJoke] = useState('');
     const [isTwoPart, setIsTwoPart] = useState(false);
     const [twoPartSetup, setTwoPartSetup] = useState('')
@@ -46,14 +41,14 @@ function RequestJokeForm() {
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, toggleLoading] = useState(false);
 
-    async function requestJokeRequest() {
+    async function requestJokeRequest(data) {
         toggleLoading(true);
 
         try {
-            const category = getJokeAboutSelector;
-            const flag = getJokeFlagSelector;
-            const jokeType = getJokeTypeSelector;
-            const numberOfJokes = getNumberOfJokesSelector;
+            const category = data.getJokeAboutSelector;
+            const flag = data.getJokeFlagSelector;
+            const jokeType = data.getJokeTypeSelector;
+            const numberOfJokes = data.getNumberOfJokesSelector;
 
             const result = await axios.get(`https://v2.jokeapi.dev/joke/${category}?format=json&?blacklistFlags=${flag}&lang=en&type=${jokeType}&amount=${numberOfJokes}`)
 
@@ -78,7 +73,8 @@ function RequestJokeForm() {
             }
 
             setIsRequestSuccessful(true);
-        } catch (e) {
+        }
+        catch (e) {
             setIsRequestSuccessful(false);
             setIsError(true);
 
@@ -205,7 +201,6 @@ function RequestJokeForm() {
                                         required: "You must specify a subject",
                                     }
                                 )}
-                                        onChange={(e) => setGetJokeAboutSelector(e.target.value)}
                                         data-testid="jokeAboutSelector"
                                 >
                                     <JokeAboutSelector/>
@@ -227,8 +222,7 @@ function RequestJokeForm() {
                             </span>
                                     <span className='outerRequestJoke'>
                                 <Label htmlFor='getJokeFlagSelector' labelText='I do not want (optional):'/>
-                                <select {...register("getJokeFlagSelector")}
-                                        onChange={(e) => setGetJokeFlagSelector(e.target.value)}>
+                                <select {...register("getJokeFlagSelector")}>
                                     <JokeFlagSelector/>
                                 </select>
                                           <i className={flagIcon}
@@ -245,7 +239,6 @@ function RequestJokeForm() {
                                     {
                                         required: "You must specify a joke type",
                                     })}
-                                        onChange={(e) => setGetJokeTypeSelector(e.target.value)}
                                         data-testid="jokeTypeSelector"
                                 >
                                     <JokeTypeSelector/>
@@ -273,7 +266,6 @@ function RequestJokeForm() {
                                         {
                                             required: "You must specify the number of jokes",
                                         })}
-                                    onChange={(e) => setGetNumberOfJokesSelector(e.target.value)}
                                     data-testid="jokeNumberSelector"
                                 >
                                     <JokeNumberSelector/>

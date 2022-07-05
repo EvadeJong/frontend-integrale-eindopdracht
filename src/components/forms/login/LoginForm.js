@@ -12,24 +12,20 @@ function LoginForm() {
     });
     const {login} = useContext(AuthContext);
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, toggleLoading] = useState(false);
 
-    async function signInRequest() {
+    async function signInRequest(data) {
         toggleLoading(true);
 
         try {
             const result = await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signin',
                 {
-                    'username': username,
-                    'password': password,
+                    'username': data.username,
+                    'password': data.password,
                 }
             )
-            console.log(result.data.accessToken);
             login(result.data.accessToken);
         }
         catch (e) {
@@ -96,7 +92,6 @@ function LoginForm() {
                                         required: 'You must specify a username',
                                     })
                                 }
-                                onChange={(e) => setUsername(e.target.value)}
                             />
                             {errors.username &&
                                 <ErrorMessage className={'fieldErrorMessage'} message={errors.username.message}/>}
@@ -115,7 +110,6 @@ function LoginForm() {
                                         }
                                     }
                                 )}
-                                onChange={(e) => setPassword(e.target.value)}
                             />
                             {errors.password &&
                                 <ErrorMessage className={'fieldErrorMessage'} message={errors.password.message}/>}
