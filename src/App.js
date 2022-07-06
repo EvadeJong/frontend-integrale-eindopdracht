@@ -9,6 +9,7 @@ import Login from './pages/login/Login.js';
 import Profile from './pages/profile/Profile.js';
 import RequestJoke from './pages/requestJoke/RequestJoke.js'
 import SubmitJoke from './pages/submitJoke/SubmitJoke.js'
+import NotFound from './pages/notFound/NotFound.js';
 
 //css
 import './App.css';
@@ -41,6 +42,7 @@ function App() {
                 <Route exact path='/SubmitJoke'>
                     {isAuth ? <SubmitJoke/> : <Redirect to="/"/>}
                 </Route>
+                <Route component={NotFound} />
             </Switch>
         </>
     );
