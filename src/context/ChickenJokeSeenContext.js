@@ -7,11 +7,9 @@ function ChickenJokeSeenProvider({children}){
 
     useEffect(()=> {
         const chickenSeen = localStorage.getItem('isChickenSeen');
-        if (chickenSeen) {
-            console.log('chickenseen: ' + chickenSeen)
-            setIsChickenJokeSeen(chickenSeen);
+        if (chickenSeen !== null || undefined) {
+            setIsChickenJokeSeen(chickenSeen === 'true');
         }
-        console.log('ischickenseen: ' + isChickenJokeSeen)
     }, []);
 
     function toggleChickenJokePage(data){

@@ -3,3 +3,7 @@ nav {
     justify-content: flex-end;
     align-self: flex-end;
 }
+
+.toggleChickenJokes {
+    padding:12px;
+}

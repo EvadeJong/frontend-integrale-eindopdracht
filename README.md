@@ -14,7 +14,7 @@ with the goal of demonstrating that I have sufficient skills in HTML, CSS, JavaS
 
 The project was set up with the npx command Create React App.
 
-![most important page](https://github.com/EvadeJong/integrale-eindopdracht-frontend/blob/main/src/assets/Giggler%20page.png?raw=trues)
+![most important page](https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/Giggler%20page.png?raw=trues)
 
 ## 2. Description of the issue, and it's solution
 

@@ -7,52 +7,57 @@ import {ChickenJokeSeenContext} from "../../context/ChickenJokeSeenContext";
 function Navbar() {
     const {isAuth, logout} = useContext(AuthContext);
     const history = useHistory();
-    const { isChickenJokeSeen, toggleChickenJoke } = useContext(ChickenJokeSeenContext);
+    const {isChickenJokeSeen, toggleChickenJoke} = useContext(ChickenJokeSeenContext);
 
-    function showChickenJokes(){
+    function showChickenJokes() {
         toggleChickenJoke(false);
-        window.location.reload();
+        history.push('./requestJoke')
     }
+
     return (
-                <nav>
-                    <ul>
-                        {isChickenJokeSeen &&
-<div onClick={showChickenJokes}>
-                                    <i className="fa-solid fa-kiwi-bird fa-lg" ></i>
-</div>
-                        }
-                        {isAuth &&
-                            <>
-                                <li key='requestJoke'>
-                                    <NavLink to='/requestJoke' exact activeClassName='active-link'>Giggler</NavLink>
-                                </li>
-                                <li key='submitJoke'>
-                                    <NavLink to='/submitJoke' exact activeClassName='active-link'>Joker</NavLink>
-                                </li>
-                                <li key='profile'>
-                                    <NavLink title='Profile' to='/profile' exact activeClassName='active-link'>
-                                        <i className="fa-solid fa-user fa-lg"></i>
-                                    </NavLink>
-                                </li>
-                            </>
-                            }
-                            { history.location.pathname !== '/login' && !isAuth &&
-                            <li key='login'>
-                                <NavLink to='/login' exact activeClassName='active-link'>Login</NavLink>
-                            </li>
-                            }
-                        <li key='home'>
-                            <NavLink title='Home' to='/' exact activeClassName='active-link'>
-                                <i className="fa-solid fa-house fa-lg"></i>
+        <nav>
+            <ul>
+
+                {isAuth &&
+                    <>
+                        <li key='requestJoke'>
+                            <NavLink to='/requestJoke' exact activeClassName='active-link'>Giggler</NavLink>
+                        </li>
+                        <li key='submitJoke'>
+                            <NavLink to='/submitJoke' exact activeClassName='active-link'>Joker</NavLink>
+                        </li>
+                        <li key='profile'>
+                            <NavLink title='Profile' to='/profile' exact activeClassName='active-link'>
+                                <i className="fa-solid fa-user fa-lg"></i>
                             </NavLink>
                         </li>
-                        {isAuth &&
-                            <li key='logout'>
-                                <NavLink title='Log out' to='/' onClick={logout}><i className="fa-solid fa-right-from-bracket fa-lg"></i></NavLink>
-                            </li>
-                        }
+                    </>
+                }
+                {isChickenJokeSeen &&
+                    <ul>
+                        <li key='toggleChickenJokes' className='toggleChickenJokes' onClick={showChickenJokes}>
+                            <i className="fa-solid fa-kiwi-bird fa-lg"></i>
+                        </li>
                     </ul>
-                </nav>
+                }
+                {history.location.pathname !== '/login' && !isAuth &&
+                    <li key='login'>
+                        <NavLink to='/login' exact activeClassName='active-link'>Login</NavLink>
+                    </li>
+                }
+                <li key='home'>
+                    <NavLink title='Home' to='/' exact activeClassName='active-link'>
+                        <i className="fa-solid fa-house fa-lg"></i>
+                    </NavLink>
+                </li>
+                {isAuth &&
+                    <li key='logout'>
+                        <NavLink title='Log out' to='/' onClick={logout}><i
+                            className="fa-solid fa-right-from-bracket fa-lg"></i></NavLink>
+                    </li>
+                }
+            </ul>
+        </nav>
 
     );
 }
