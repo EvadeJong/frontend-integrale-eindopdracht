@@ -9,7 +9,7 @@ import ContentContainer from "../../components/contentContainer/ContentContainer
 
 function Profile() {
 
-    const {user: {username, email}} = useContext(AuthContext);
+    const {user: {username, email, info}} = useContext(AuthContext);
     const [changeEmailRequest, toggleChangeEmailRequest] = useState(false);
     const [changePasswordRequest, toggleChangePasswordRequest] = useState(false);
 
@@ -51,6 +51,19 @@ function Profile() {
                                         disabled
                                     />
                                 </div>
+                                <span className='currentProfileInfo'>
+                                <div className='outerProfileGroup'>
+                                    <label htmlFor='profileDoB'>
+                                        Date of birth:
+                                    </label>
+                                    <input
+                                        type='text'
+                                        id='dob'
+                                        defaultValue={info}
+                                        disabled
+                                    />
+                                </div>
+                                </span>
                                 <div className='outerProfileGroup'>
                                     <label htmlFor='profileUsername'>
                                         Password:

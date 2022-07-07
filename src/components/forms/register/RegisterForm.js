@@ -39,7 +39,7 @@ function RegisterForm() {
         toggleLoading(true);
 
         try {
-            const birthDateString = `${data.birthDate.getDate()}-${(data.birthDate.getMonth() + 1)}-${data.birthDate.getFullYear()}`;
+            const birthDateString = `${data.birthDate.getFullYear()}-${(data.birthDate.getMonth() + 1)}-${data.birthDate.getDate()}`;
 
             const result = await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signup', {
                 "username": data.registerUsername,
@@ -48,11 +48,13 @@ function RegisterForm() {
                 "roles": [
                     "user"
                 ],
-                "info": birthDateString,
+
             })
 
             if (result.status === 200) {
+                localStorage.setItem('birthDate', birthDateString);
                 setIsRequestSuccessful(true);
+
             }
         }
         catch (e) {

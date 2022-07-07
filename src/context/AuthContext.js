@@ -64,6 +64,7 @@ function AuthContextProvider({ children }) {
                 user: {
                     email: data.data.email,
                     username: data.data.username,
+                    info: data.data.info,
                 },
                 status: 'done',
             });
@@ -78,11 +79,41 @@ function AuthContextProvider({ children }) {
                 user: {
                     email: '',
                     username: '',
+                    info: '',
                 },
                 status: 'done',
             });
         }
     }
+
+    async function updateDateOfBirth(){
+        try {
+            const token = localStorage.getItem('token');
+            const birthDateString = localStorage.getItem('birthDate');
+            const data = await axios.put(
+                'https://frontend-educational-backend.herokuapp.com/api/user',
+                {
+                    "info": birthDateString,
+                },
+                {
+                    headers: {
+                        "Content-Type": 'application/json',
+                        "Authorization": `Bearer ${token}`,
+                    }
+                }
+            )
+            toggleIsAuth({
+                ...isAuth,
+                user: {
+                    info: data.data.info,
+                },
+
+            })
+
+            localStorage.removeItem('birthDate');
+    }catch(e){
+            console.log(e)
+        }}
 
     function jwtValidator(decodedToken) {
         const now = Date.now().valueOf() / 1000
@@ -97,6 +128,7 @@ function AuthContextProvider({ children }) {
     function login(token) {
         // token in de localstorage plaatsen
         localStorage.setItem('token', token);
+        updateDateOfBirth();
         getUserData(token, './');
     }
 
@@ -108,6 +140,7 @@ function AuthContextProvider({ children }) {
             user: {
                 email: '',
                 username: '',
+                info: '',
             },
             status: 'done',
         });

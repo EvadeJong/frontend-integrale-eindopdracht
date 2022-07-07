@@ -4,10 +4,12 @@ import Button from '../../components/button/Button';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 import {chickenJokesArray} from '../../assets/ChickenJokesArray';
-import RequestJokeForm from "../../components/forms/requestJoke/RequestJokeForm";
-import ContentContainer from "../../components/contentContainer/ContentContainer";
+import RequestJokeForm from '../../components/forms/requestJoke/RequestJokeForm';
+import RequestSafeModeJokeForm from '../../components/forms/requestJoke/RequestSafeModeJokeForm';
+import ContentContainer from '../../components/contentContainer/ContentContainer';
 import {ChickenJokeSeenContext} from '../../context/ChickenJokeSeenContext';
-
+import {AuthContext} from  '../../context/AuthContext';
+import AgeCalculator from '../../helpers/AgeCalculator';
 
 function RequestJoke() {
 
@@ -15,8 +17,10 @@ function RequestJoke() {
     const [index, setIndex] = useState(0)
     const [chickenPunchline, setChickenPunchline] = useState('');
     const [showWhy, setShowWhy] = useState(false);
-
+    const [ageProtection, setAgeProtection] = useState(false);
     const { toggleChickenJoke, isChickenJokeSeen } = useContext(ChickenJokeSeenContext);
+
+    const {user: {info}} = useContext(AuthContext);
 
     function getPunchlineButton() {
         setShowWhy(true);
@@ -34,13 +38,18 @@ function RequestJoke() {
         setIsRealJokeButtonClicked(true);
     }
 
-    useEffect(() => {
+    useEffect(()=>{
         document.documentElement.style.setProperty('--dynamic-background-color', '#BFD7EA')
+    }, [])
 
-        return function cleanup(){
-
+    useEffect(()=>{
+        const minor = AgeCalculator(info);
+        if(minor){
+            setAgeProtection(true);
+        }else{
+            setAgeProtection(false);
         }
-    }, []);
+    }, [])
 
 
     return (
@@ -49,6 +58,7 @@ function RequestJoke() {
             <main>
                 <section className="pageOuterContainer">
                     <div className="pageInnerContainer">
+
                         {!isChickenJokeSeen && showWhy && !isRealJokeButtonClicked &&
                             <>
                                 <ContentContainer
@@ -73,7 +83,16 @@ function RequestJoke() {
                         }
                         {isChickenJokeSeen &&
                             <>
-                                <RequestJokeForm />
+                                {ageProtection ?
+                                    <>
+                                        <ContentContainer
+                                            subtitle='You are under 18, age protection is enabled'
+                                        />
+                                        <RequestSafeModeJokeForm />
+                                    </>
+                                    :
+                                    <RequestJokeForm />
+                                }
                             </>
                         }
                     </div>

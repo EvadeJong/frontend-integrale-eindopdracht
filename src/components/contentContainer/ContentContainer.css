@@ -11,6 +11,8 @@
     color: #0a0a0a;
     width: 65%;
     min-height: 25vh;
+    flex-grow: 0;
+    flex-shrink: 1;
 }
 
 .content {
