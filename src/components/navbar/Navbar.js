@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
-import {AuthContext} from "../../context/AuthContext";
+import {AuthContext} from '../../context/AuthContext';
 import './Navbar.css'
-import {ChickenJokeSeenContext} from "../../context/ChickenJokeSeenContext";
+import {ChickenJokeSeenContext} from '../../context/ChickenJokeSeenContext';
 
 function Navbar() {
     const {isAuth, logout} = useContext(AuthContext);
@@ -11,7 +11,7 @@ function Navbar() {
 
     function showChickenJokes() {
         toggleChickenJoke(false);
-        history.push('./requestJoke')
+        history.push('./requestJoke');
     }
 
     return (
@@ -28,7 +28,7 @@ function Navbar() {
                         </li>
                         <li key='profile'>
                             <NavLink title='Profile' to='/profile' exact activeClassName='active-link'>
-                                <i className="fa-solid fa-user fa-lg"></i>
+                                <i className='fa-solid fa-user fa-lg'></i>
                             </NavLink>
                         </li>
                     </>
@@ -36,7 +36,7 @@ function Navbar() {
                 {isChickenJokeSeen &&
                     <ul>
                         <li key='toggleChickenJokes' className='toggleChickenJokes' onClick={showChickenJokes}>
-                            <i className="fa-solid fa-kiwi-bird fa-lg"></i>
+                            <i className='fa-solid fa-kiwi-bird fa-lg'></i>
                         </li>
                     </ul>
                 }
@@ -46,14 +46,14 @@ function Navbar() {
                     </li>
                 }
                 <li key='home'>
-                    <NavLink title='Home' to='/' exact activeClassName='active-link'>
-                        <i className="fa-solid fa-house fa-lg"></i>
+                    <NavLink title='Home' to='./' exact activeClassName='active-link'>
+                        <i className='fa-solid fa-house fa-lg'></i>
                     </NavLink>
                 </li>
                 {isAuth &&
                     <li key='logout'>
                         <NavLink title='Log out' to='/' onClick={logout}><i
-                            className="fa-solid fa-right-from-bracket fa-lg"></i></NavLink>
+                            className='fa-solid fa-right-from-bracket fa-lg'></i></NavLink>
                     </li>
                 }
             </ul>

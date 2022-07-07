@@ -13,7 +13,6 @@ import AgeCalculator from '../../helpers/AgeCalculator';
 
 function RequestJoke() {
 
-    const [isRealJokeButtonClicked, setIsRealJokeButtonClicked] = useState(false);
     const [index, setIndex] = useState(0)
     const [chickenPunchline, setChickenPunchline] = useState('');
     const [showWhy, setShowWhy] = useState(false);
@@ -59,7 +58,7 @@ function RequestJoke() {
                 <section className="pageOuterContainer">
                     <div className="pageInnerContainer">
 
-                        {!isChickenJokeSeen && showWhy && !isRealJokeButtonClicked &&
+                        {!isChickenJokeSeen && showWhy &&
                             <>
                                 <ContentContainer
                                     subtitle= 'Why did the chicken cross the road?'

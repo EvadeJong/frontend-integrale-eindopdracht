@@ -14,7 +14,7 @@ with the goal of demonstrating that I have sufficient skills in HTML, CSS, JavaS
 
 The project was set up with the npx command Create React App.
 
-![most important page](https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/GigglerPage.png?raw=true)
+![most important page](https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/Gigglerpage.png?raw=true)
 
 ## 2. Description of the issue, and it's solution
 
@@ -34,6 +34,10 @@ The purpose of the web app is to make people happy, to make them smile and to fo
 To install the application on your local machine, navigate
 to https://github.com/EvadeJong/integrale-eindopdracht-frontend.
 Select the green 'code' button, and copy the SSH, HTTPS or Github CLI url.
+
+![github](https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/Github.png?raw=true)
+
+
 Import the application in Webstorm via tab 'Git' --> Clone (or tab 'VCS' --> Get from version control).
 Use the copied url, and select a directory in which you would like to place the application.
 
