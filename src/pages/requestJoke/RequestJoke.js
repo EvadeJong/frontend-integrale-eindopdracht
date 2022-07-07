@@ -34,7 +34,6 @@ function RequestJoke() {
 
     function getRealJokeButton() {
         toggleChickenJoke(true);
-
     }
 
     useEffect(()=>{

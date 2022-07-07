@@ -34,22 +34,21 @@ The purpose of the web app is to make people happy, to make them smile and to fo
 To install the application on your local machine, navigate
 to https://github.com/EvadeJong/integrale-eindopdracht-frontend.
 Select the green 'code' button, and copy the SSH, HTTPS or Github CLI url.
-
 ![github](https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/Github.png?raw=true)
-
 Import the application in Webstorm via tab 'Git' --> Clone (or tab 'VCS' --> Get from version control).
 Use the copied url, and select a directory in which you would like to place the application.
 
 Once imported, install the node_modules by running the following commands in the terminal:
 npm install
-
+![github](https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/NpmInstall.png?raw=true)
 Once the install of node_modules is completed, run the following command in the terminal:
 npm run build
-
+![github](https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/NpmRunBuild.png?raw=true)
+To create an optimal production build
 You start the application by using:
 npm start
-
-Open http://localhost:3000 to view the page in the browser.
+![github](https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/NpmRunStart.png?raw=true)
+Open http://localhost:3000 to view the page in the browser. (Localhost can also run on a different port, if you configure it that way).
 
 ## 4. Testing
 
@@ -57,4 +56,5 @@ The unit tests are located in the project directory src/__test__.
 To run the tests, run the following command in the terminal:
 
 npm run test
+![github](https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/NpmRunTest.png?raw=true)
 
