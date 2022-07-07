@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 import Button from "../../button/Button";
@@ -11,7 +11,7 @@ import ErrorMessage from "../../errorMessage/ErrorMessage";
 import Label from "../../formComponents/Label";
 import ContentContainer from "../../contentContainer/ContentContainer";
 import InformationMessage from "../../informationMessage/InformationMessage";
-import {useHistory, useLocation} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 function RequestJokeForm() {
 
@@ -202,7 +202,7 @@ function RequestJokeForm() {
                             <>
                                 <ContentContainer
                                     subtitle="So you don't like our chicken jokes?"
-                                    content='Maybe we can find something else for you. Tell us what will make you laugh'
+                                    content='Maybe we can find something else for you. Tell us what will make you laugh. You can revisit the chicken jokes by clicking ons the bird icon above.'
                                 />
                                 <form className='requestJokeForm' onSubmit={handleSubmit(requestJokeRequest)}>
                                     {loading &&

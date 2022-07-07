@@ -1,18 +1,19 @@
 import React, {useState, useEffect} from 'react';
-import {useForm} from 'react-hook-form';
+import {useForm, Controller} from 'react-hook-form';
 import axios from 'axios';
-
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css'
 import Button from '../../button/Button';
 import './RegisterForm.css'
 import ErrorMessage from "../../errorMessage/ErrorMessage";
 import Label from "../../formComponents/Label";
 import {useHistory} from "react-router-dom";
 
+
 function RegisterForm() {
 
     const controller = new AbortController();
-
-    const {register, handleSubmit, formState: {errors}} = useForm({
+    const {register, handleSubmit, control, formState: {errors}} = useForm({
         mode: 'onChange',
     });
 
@@ -38,13 +39,16 @@ function RegisterForm() {
         toggleLoading(true);
 
         try {
+            const birthDateString = `${data.birthDate.getDate()}-${(data.birthDate.getMonth() + 1)}-${data.birthDate.getFullYear()}`;
+
             const result = await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signup', {
                 "username": data.registerUsername,
                 "email": data.registerEmail,
                 "password": data.registerPassword,
                 "roles": [
                     "user"
-                ]
+                ],
+                "info": birthDateString,
             })
 
             if (result.status === 200) {
@@ -146,6 +150,22 @@ function RegisterForm() {
                                 message={errors.registerEmail.message}
                             />
                         }
+                        <label htmlFor= 'register-birthday'>
+                            Date of birth:
+                        </label>
+                        <Controller
+                            name="birthDate"
+                            control={control}
+                            defaultValue={null}
+                            render={
+                                ({field}) =>
+                                    <DatePicker
+                                        onChange={(e)=>field.onChange(e)}
+                                        selected={field.value}
+                                        placeholderText='Select date of birth'
+                                    />
+                            }
+                        />
                         <label htmlFor="register-password">
                             Password:
                         </label>

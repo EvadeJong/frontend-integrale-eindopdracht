@@ -5,13 +5,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AuthContextProvider from "./context/AuthContext";
+import ChickenJokeSeenProvider from "./context/ChickenJokeSeenContext"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Router>
         <React.StrictMode>
             <AuthContextProvider>
-                <App/>
+                <ChickenJokeSeenProvider>
+                    <App/>
+                </ChickenJokeSeenProvider>
             </AuthContextProvider>
         </React.StrictMode>
     </Router>

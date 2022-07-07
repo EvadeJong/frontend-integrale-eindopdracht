@@ -49,7 +49,6 @@ function AuthContextProvider({ children }) {
         }
     }, []);
 
-
     async function getUserData(token, url) {
         try {
             const data = await axios.get('https://frontend-educational-backend.herokuapp.com/api/user', {

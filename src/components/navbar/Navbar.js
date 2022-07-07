@@ -2,15 +2,25 @@ import React, {useContext} from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
 import {AuthContext} from "../../context/AuthContext";
 import './Navbar.css'
+import {ChickenJokeSeenContext} from "../../context/ChickenJokeSeenContext";
 
 function Navbar() {
     const {isAuth, logout} = useContext(AuthContext);
     const history = useHistory();
+    const { isChickenJokeSeen, toggleChickenJoke } = useContext(ChickenJokeSeenContext);
 
+    function showChickenJokes(){
+        toggleChickenJoke(false);
+        window.location.reload();
+    }
     return (
                 <nav>
                     <ul>
-
+                        {isChickenJokeSeen &&
+<div onClick={showChickenJokes}>
+                                    <i className="fa-solid fa-kiwi-bird fa-lg" ></i>
+</div>
+                        }
                         {isAuth &&
                             <>
                                 <li key='requestJoke'>

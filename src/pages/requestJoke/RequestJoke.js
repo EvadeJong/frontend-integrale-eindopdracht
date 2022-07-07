@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import './RequestJoke.css'
 import Button from '../../components/button/Button';
 import Header from '../../components/header/Header';
@@ -6,20 +6,20 @@ import Footer from '../../components/footer/Footer';
 import {chickenJokesArray} from '../../assets/ChickenJokesArray';
 import RequestJokeForm from "../../components/forms/requestJoke/RequestJokeForm";
 import ContentContainer from "../../components/contentContainer/ContentContainer";
+import {ChickenJokeSeenContext} from '../../context/ChickenJokeSeenContext';
+
 
 function RequestJoke() {
 
-    //TODO isChickenButtonClicked in de context plaatsen zodat een gebruiker alleen de eerste keer door het menu gaat
-    //TODO in useEffect toetsten of de pagina al eerder bezocht is onMount
-    const [isChickenButtonClicked, setIsChickenButtonClicked] = useState(false);
     const [isRealJokeButtonClicked, setIsRealJokeButtonClicked] = useState(false);
     const [index, setIndex] = useState(0)
     const [chickenPunchline, setChickenPunchline] = useState('');
+    const [showWhy, setShowWhy] = useState(false);
+
+    const { toggleChickenJoke, isChickenJokeSeen } = useContext(ChickenJokeSeenContext);
 
     function getPunchlineButton() {
-        setIsChickenButtonClicked(true);
-
-
+        setShowWhy(true);
         if (index < chickenJokesArray.length - 1) {
             setChickenPunchline(chickenJokesArray[index]);
             setIndex(index + 1);
@@ -30,6 +30,7 @@ function RequestJoke() {
     }
 
     function getRealJokeButton() {
+        toggleChickenJoke(true);
         setIsRealJokeButtonClicked(true);
     }
 
@@ -48,7 +49,7 @@ function RequestJoke() {
             <main>
                 <section className="pageOuterContainer">
                     <div className="pageInnerContainer">
-                        { isChickenButtonClicked && !isRealJokeButtonClicked &&
+                        {!isChickenJokeSeen && showWhy && !isRealJokeButtonClicked &&
                             <>
                                 <ContentContainer
                                     subtitle= 'Why did the chicken cross the road?'
@@ -60,7 +61,7 @@ function RequestJoke() {
                                 </span>
                             </>
                         }
-                        {!isChickenButtonClicked &&
+                        {!isChickenJokeSeen && !showWhy &&
                             <>
                                 <ContentContainer
                                     title= 'How about a joke'
@@ -70,7 +71,7 @@ function RequestJoke() {
                             </>
 
                         }
-                        {isRealJokeButtonClicked &&
+                        {isChickenJokeSeen &&
                             <>
                                 <RequestJokeForm />
                             </>
