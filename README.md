@@ -4,8 +4,9 @@
 
 1. Introduction
 2. Issue and solution
-3. Starting the application
-4. Testing
+3. Starting the application 
+4. Using the application
+5. Testing
 
 ## 1. Introduction
 
@@ -35,34 +36,38 @@ To install the application on your local machine, navigate
 to https://github.com/EvadeJong/integrale-eindopdracht-frontend.
 Select the green 'code' button, and copy the SSH, HTTPS or Github CLI url.
 
-![github](https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/Github.png?raw=true )
+<img src="https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/Github.png" width="500" />
 Import the application in Webstorm via tab 'Git' --> Clone (or tab 'VCS' --> Get from version control).
 Use the copied url, and select a directory in which you would like to place the application.
 
 Once imported, install the node_modules by running the following commands in the terminal:
 npm install
 
-![github](https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/NpmInstall.png?raw=true)
+<img src="https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/NpmInstall.png width="300" />
 
 Once the install of node_modules is completed, run the following command in the terminal:
 npm run build
 
-![github](https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/NpmRunBuild.png?raw=true)
+<img src="https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/NpmRunBuild.png width="300" />
 
 To create an optimal production build
 You start the application by using:
 npm start
 
-![github](https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/NpmRunStart.png?raw=true)
+<img src="https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/NpmRunStart.png width="300" />
 
 Open http://localhost:3000 to view the page in the browser. (Localhost can also run on a different port, if you configure it that way).
 
-## 4. Testing
+## 4. Using the application
+On first visit, you can only visit the home, register and contact pages.
+Register using the register button on the page or the login link in the navbar.
+Once you have registered successfully, you are able to log in and use all functionality.
+## 5. Testing
 
 The unit tests are located in the project directory src/__test__.
 To run the tests, run the following command in the terminal:
 
 npm run test
 
-![github](https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/NpmRunTest.png?raw=true)
+<img src="https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/NpmRunTest.png width="300" />
 
