@@ -14,7 +14,7 @@ with the goal of demonstrating that I have sufficient skills in HTML, CSS, JavaS
 
 The project was set up with the npx command Create React App.
 
-<img src="https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/Gigglerpage.png" width="200" />
+<img src="https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/Gigglerpage.png" width="500" />
 
 ## 2. Description of the issue, and it's solution
 
