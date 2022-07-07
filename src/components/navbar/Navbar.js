@@ -35,7 +35,7 @@ function Navbar() {
                 }
                 {isChickenJokeSeen &&
                     <ul>
-                        <li key='toggleChickenJokes' className='toggleChickenJokes' onClick={showChickenJokes}>
+                        <li title='Show chickenjokes' key='toggleChickenJokes' className='toggleChickenJokes' onClick={showChickenJokes}>
                             <i className='fa-solid fa-kiwi-bird fa-lg'></i>
                         </li>
                     </ul>

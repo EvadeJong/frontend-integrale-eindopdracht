@@ -22,6 +22,7 @@ function Home() {
             <Header/>
             <main>
                 <section className="pageOuterContainer">
+                    <Icecream className='icecream' alt='icecream'/>
                     <div className="pageInnerContainer">
                         {isAuth ?
                         <ContentContainer
@@ -32,7 +33,9 @@ function Home() {
                             subcontent ='(Don’t worry, we won’t tell)'
                         />
                         :
+
                             <>
+
                                 <ContentContainer
                                     title= 'Welcome!'
                                     content='Giggles is an app that fetches funny (and really terrible) jokes to put a smile on
@@ -45,7 +48,9 @@ function Home() {
                                 <Button onClick={() => history.push('/login')} text={'Register'}/>
                             </>
                         }
+                        <Milkshake className='milkshake' alt='milkshake'/>
                     </div>
+
                 </section>
             </main>
             <Footer text='Contact us!'/>

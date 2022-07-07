@@ -60,8 +60,9 @@ Open http://localhost:3000 to view the page in the browser. (Localhost can also 
 
 ## 4. Using the application
 On first visit, you can only visit the home, register and contact pages.
-Register using the register button on the page or the login link in the navbar.
+There are no predefined accounts, instead register using the register button on the page or the login link in the navbar.
 Once you have registered successfully, you are able to log in and use all functionality.
+
 ## 5. Testing
 
 The unit tests are located in the project directory src/__test__.
