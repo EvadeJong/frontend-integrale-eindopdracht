@@ -161,7 +161,7 @@ function SubmitJokeForm() {
                     setJokeAboutIcon(xmarkIcon)
                     setShowJokeAboutInformation(true);
                 } else {
-                    setJokeAboutIcon(xmarkIcon)
+                    setJokeAboutIcon(infoIcon)
                     setShowJokeAboutInformation(false);
                 }
                 break
@@ -235,7 +235,8 @@ function SubmitJokeForm() {
                             >
                                 <JokeAboutSelector/>
                             </select>
-                           <i className={jokeAboutIcon} onClick={() => provideInfo('jokeAbout')}></i>
+                           <i className={jokeAboutIcon}
+                              onClick={() => provideInfo('jokeAbout')}></i>
                            {showJokeAboutInformation &&
                                <InformationMessage
                                    message='What should the joke be about?'
