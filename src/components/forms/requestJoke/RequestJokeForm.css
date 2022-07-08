@@ -12,6 +12,9 @@
     gap: 5px;
 }
 
+.getJokeFlagSelector {
+    width: 260px;
+}
 .requestJokeForm {
     display: flex;
     flex-direction: column;
