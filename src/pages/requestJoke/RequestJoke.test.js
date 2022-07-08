@@ -1,5 +1,4 @@
-
-import { render } from '@testing-library/react'; 
+import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 import RequestJoke from './RequestJoke';
@@ -8,7 +7,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 
 it(
-    '15. Als geregistreerde gebruiker onder de 18 jaar kan je enkel grappen ontvangen die beschouwd worden als geschikt voor alle leeftijden,',
+    '16. Als geregistreerde gebruiker onder de 18 jaar kan je enkel grappen ontvangen die beschouwd worden als geschikt voor alle leeftijden,',
     async() => {
         const testChickenJokeSeenContext = {
             isChickenJokeSeen: false
