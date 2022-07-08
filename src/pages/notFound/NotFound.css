@@ -1,5 +1,8 @@
-.page-not-found{
+.page-not-found {
     max-width: 400px;
     margin:3rem auto;
     display: block;
+}
+.pageNotFound {
+    padding-top: 300px;
 }

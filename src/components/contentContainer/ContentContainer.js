@@ -6,7 +6,7 @@ import {AuthContext} from '../../context/AuthContext';
 import './ContentContainer.css';
 
 
-function ContentContainer({title, subtitle, content, subcontent}) {
+function ContentContainer({title, secondtitle, subtitle, content, subcontent}) {
     const {isAuth, user: {username}} = useContext(AuthContext);
 
     return (
@@ -17,6 +17,9 @@ function ContentContainer({title, subtitle, content, subcontent}) {
                 }
                 {title && !isAuth &&
                     <h1 className='title'>{title}</h1>
+                }
+                { secondtitle &&
+                    <h1 className='secondtitle'>{secondtitle}</h1>
                 }
                 {subtitle &&
                     <h2 className='subtitle'>{subtitle}</h2>

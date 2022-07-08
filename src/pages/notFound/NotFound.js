@@ -24,7 +24,7 @@ function NotFound() {
                 <section className='pageOuterContainer'>
                     <div className='pageInnerContainer'>
                         <ContentContainer
-                            title='404 - Page not found'
+                            secondtitle='404 - Page not found'
                         />
                         <img className='page-not-found' src={Website} alt='404 - not found'/>
                         <Button type='button' text='Back to homepage' onClick={backToHome}/>
