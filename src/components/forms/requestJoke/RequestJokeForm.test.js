@@ -64,7 +64,7 @@ it('3. De webapp geeft enkel Engelstalige grappen terug', async () => {
 });
 
 it(
-    '12. Als geregistreerde gebruiker kan je een categorie voor de op te vragen grappen kiezen',
+    '13. Als geregistreerde gebruiker kan je een categorie voor de op te vragen grappen kiezen',
     async() => {
         render(
             <MemoryRouter>
@@ -78,7 +78,7 @@ it(
 )
 
 it(
-    '13. Als geregistreerde gebruiker kan je bepaalde categorieën uitsluiten als het gaat om op te vragen grappen (racistisch, seksistisch, religieus, politiek, niet geschikt voor werkomgeving, seksueel)',
+    '14. Als geregistreerde gebruiker kan je bepaalde categorieën uitsluiten als het gaat om op te vragen grappen (racistisch, seksistisch, religieus, politiek, niet geschikt voor werkomgeving, seksueel)',
     async() => {
         render(
             <MemoryRouter>
@@ -90,3 +90,17 @@ it(
         expect(screen.getByTestId('jokeFlagSelector').children.length).toBe(7);
     } 
 );
+
+it(
+    '15. Als geregistreerde gebruiker kan je het aantal te ontvangen grappen definiëren, met een minimum van 1 en een maximum van 5 grappen per request',
+    async() => {
+        render(
+            <MemoryRouter>
+                <AuthContextProvider>
+                    <RequestJokeForm/>
+                </AuthContextProvider>
+            </MemoryRouter>
+        );
+        expect(screen.getByTestId('jokeNumberSelector').children.length).toBe(4);
+    }
+)
