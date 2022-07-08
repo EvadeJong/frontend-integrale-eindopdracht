@@ -17,8 +17,8 @@ import JokeNumberSelector from '../../formComponents/JokeNumberSelector';
 import ErrorMessage from '../../errorMessage/ErrorMessage';
 import Label from '../../formComponents/Label';
 import ContentContainer from '../../contentContainer/ContentContainer';
-import InformationMessage from '../../informationMessage/InformationMessage';
 import Button from '../../button/Button';
+import InformationProvider, { FieldName } from '../../informationProvider/InformationProvider';
 
 function RequestJokeForm() {
 
@@ -136,52 +136,6 @@ function RequestJokeForm() {
         toggleLoading(false);
     }
 
-    function provideInfo(fieldname) {
-        switch (fieldname) {
-            case 'jokeAbout':
-                if (jokeAboutIcon === infoIcon) {
-                    setJokeAboutIcon(xmarkIcon)
-                    setShowJokeAboutInformation(true);
-                } else {
-                    setJokeAboutIcon(infoIcon)
-                    setShowJokeAboutInformation(false);
-                }
-                break
-            case 'jokeType':
-                if (jokeTypeIcon === infoIcon) {
-                    setJokeTypeIcon(xmarkIcon)
-                    setShowJokeTypeInformation(true);
-                } else {
-                    setJokeTypeIcon(infoIcon)
-                    setShowJokeTypeInformation(false);
-                }
-                break
-            case 'jokeFlag':
-                if (flagIcon === infoIcon) {
-                    setFlagIcon(xmarkIcon)
-                    setShowFlagInformation(true);
-                } else {
-                    setFlagIcon(infoIcon)
-                    setShowFlagInformation(false);
-                }
-                break
-            case 'nrOfJokes':
-                if (nrOfJokesIcon === infoIcon) {
-                    setNrOfJokesIcon(xmarkIcon)
-                    setShowNrOfJokesInformation(true);
-                } else {
-                    setNrOfJokesIcon(infoIcon)
-                    setShowNrOfJokesInformation(false);
-                }
-                break
-            default:
-                setShowJokeTypeInformation(false);
-                setShowJokeAboutInformation(false);
-                setShowFlagInformation(false);
-                setShowNrOfJokesInformation(false);
-        }
-    }
-
     function newRequest() {
         setAreMultipleJokes(false);
         setIsRequestSuccessful(false);
@@ -221,12 +175,7 @@ function RequestJokeForm() {
                                 >
                                     <JokeAboutSelector/>
                                 </select>
-                                        <i className={jokeAboutIcon} onClick={() => provideInfo('jokeAbout')}></i>
-                                        {showJokeAboutInformation &&
-                                            <InformationMessage
-                                                message='What should the joke be about?'
-                                            />
-                                        }
+                                <InformationProvider fieldname={FieldName.JokeAbout}/>
                             </span>
                                     <span className='error'>
                                 {errors.getJokeAboutSelector &&
@@ -244,13 +193,7 @@ function RequestJokeForm() {
                                 >
                                     <JokeFlagSelector/>
                                 </select>
-                                          <i className={flagIcon}
-                                             onClick={() => provideInfo('jokeFlag')}></i>
-                                        {showFlagInformation &&
-                                            <InformationMessage
-                                                message='What should it not be? (optional)'
-                                            />
-                                        }
+                                <InformationProvider fieldname={FieldName.JokeFlag}/>
                             </span>
                                     <span className='outerRequestJoke'>
                                 <Label htmlFor='getJokeTypeSelector' labelText='Joke type:'/>
@@ -262,13 +205,7 @@ function RequestJokeForm() {
                                 >
                                     <JokeTypeSelector/>
                                 </select>
-                                        <i className={jokeTypeIcon}
-                                           onClick={() => provideInfo('jokeType')}></i>
-                                        {showJokeTypeInformation &&
-                                            <InformationMessage
-                                                message='Select the type of the joke'
-                                            />
-                                        }
+                                <InformationProvider fieldname={FieldName.jokeType}/>
                                 </span>
                                     <span className='error'>
                                 {errors.getJokeTypeSelector &&
@@ -289,13 +226,7 @@ function RequestJokeForm() {
                                 >
                                     <JokeNumberSelector/>
                                 </select>
-                                        <i className={nrOfJokesIcon}
-                                           onClick={() => provideInfo('nrOfJokes')}></i>
-                                        {showNrOfJokesInformation &&
-                                            <InformationMessage
-                                                message='Select the number of the joke (1, 3 or 5)'
-                                            />
-                                        }
+                                <InformationProvider fieldname={FieldName.NumberOfJokes}/>
                             </span>
                                     <span className='error'>
                                 {errors.getNumberOfJokesSelector &&
