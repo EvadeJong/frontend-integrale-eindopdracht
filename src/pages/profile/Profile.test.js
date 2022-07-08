@@ -30,7 +30,7 @@ it('10. Als geregistreerde gebruiker kan je jouw profiel aanpassen', async() => 
     expect(screen.getByTestId('inputDoB')).toHaveAttribute('value', testContextData.user.info);
 });
 
-it('11. De geboorte datum op de profielpagina is niet aanpasbaar', async() => {
+it('12. De geboorte datum op de profielpagina is niet aanpasbaar', async() => {
     const testContextData = {
         user: {
             username: "expectedUsername",
