@@ -1,38 +1,43 @@
-import React, {useContext, useState, useEffect} from "react";
-import {useForm} from "react-hook-form";
-import axios from "axios";
-import {AuthContext} from "../../../context/AuthContext";
-import Button from "../../button/Button";
-import './LoginForm.css'
-import ErrorMessage from "../../errorMessage/ErrorMessage";
-import {useHistory} from "react-router-dom";
+//React imports
+import React, {useContext, useEffect, useState} from 'react';
+import {useForm} from 'react-hook-form';
+import {useHistory} from 'react-router-dom';
 
+//3rd party imports
+import axios from 'axios';
+
+//Context imports
+import {AuthContext} from '../../../context/AuthContext';
+
+//CSS imports
+import './LoginForm.css'
+
+//Component imports
+import ErrorMessage from '../../errorMessage/ErrorMessage';
+import Button from '../../button/Button';
 
 
 function LoginForm() {
-
-    const controller = new AbortController();
 
     const {register, handleSubmit, formState: {errors}} = useForm({
         mode: 'onChange',
     });
     const {login} = useContext(AuthContext);
+    const history = useHistory();
 
+    //fieldsettings
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, toggleLoading] = useState(false);
 
-    const history = useHistory();
 
-    useEffect(()=>{
-        return history.listen((location) => {
-            console.log(`You changed the page to: ${location.pathname}`)
-        })
+    useEffect(() => {
+        const controller = new AbortController();
 
-        return function cleanup(){
+        return function cleanup() {
             controller.abort();
         }
-    },[history]);
+    }, [history.location.pathname]);
 
     async function signInRequest(data) {
         toggleLoading(true);
@@ -45,8 +50,7 @@ function LoginForm() {
                 },
             )
             login(result.data.accessToken);
-        }
-        catch (e) {
+        } catch (e) {
             setIsError(true);
 
             switch (e.response.status) {
@@ -90,7 +94,7 @@ function LoginForm() {
                         <h2>Login</h2>
                     </legend>
                     {loading &&
-                        <ErrorMessage className='fieldLoadingMessage' message='Loading...' />
+                        <ErrorMessage className='fieldLoadingMessage' message='Loading...'/>
                     }
                     {isError ?
                         <span>

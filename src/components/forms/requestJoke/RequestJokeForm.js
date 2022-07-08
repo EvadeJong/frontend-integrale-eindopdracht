@@ -1,59 +1,62 @@
-import React, {useContext, useEffect, useState} from "react";
-import {useForm} from "react-hook-form";
-import axios from "axios";
-import Button from "../../button/Button";
+//React imports
+import React, {useEffect, useState} from 'react';
+import {useForm} from 'react-hook-form';
+import {useHistory} from 'react-router-dom';
+
+//3rd party imports
+import axios from 'axios';
+
+//CSS imports
 import './RequestJokeForm.css'
-import JokeFlagSelector from "../../formComponents/JokeFlagSelector";
-import JokeAboutSelector from "../../formComponents/JokeAboutSelector";
-import JokeTypeSelector from "../../formComponents/JokeTypeSelector";
-import JokeNumberSelector from "../../formComponents/JokeNumberSelector";
-import ErrorMessage from "../../errorMessage/ErrorMessage";
-import Label from "../../formComponents/Label";
-import ContentContainer from "../../contentContainer/ContentContainer";
-import InformationMessage from "../../informationMessage/InformationMessage";
-import {useHistory} from "react-router-dom";
+
+//Component imports
+import JokeFlagSelector from '../../formComponents/JokeFlagSelector';
+import JokeAboutSelector from '../../formComponents/JokeAboutSelector';
+import JokeTypeSelector from '../../formComponents/JokeTypeSelector';
+import JokeNumberSelector from '../../formComponents/JokeNumberSelector';
+import ErrorMessage from '../../errorMessage/ErrorMessage';
+import Label from '../../formComponents/Label';
+import ContentContainer from '../../contentContainer/ContentContainer';
+import InformationMessage from '../../informationMessage/InformationMessage';
+import Button from '../../button/Button';
 
 function RequestJokeForm() {
 
-    const controller = new AbortController();
-
     const {register, handleSubmit, formState: {errors}} = useForm({
-        mode: "onChange"
+        mode: 'onChange'
     });
-    const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
+    const history = useHistory();
 
+    //fieldsettings and icons
+    const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
     const [singleJoke, setSingleJoke] = useState('');
     const [isTwoPart, setIsTwoPart] = useState(false);
     const [twoPartSetup, setTwoPartSetup] = useState('')
     const [twoPartDelivery, setTwoPartDelivery] = useState('');
     const [areMultipleJokes, setAreMultipleJokes] = useState(false);
-
     const [singleJokeArray, setSingleJokeArray] = useState([]);
     const [twoPartJokeArray, setTwoPartJokeArray] = useState([]);
-
-    const [jokeAboutIcon, setJokeAboutIcon] = useState('fa-solid fa-circle-info');
-    const [jokeTypeIcon, setJokeTypeIcon] = useState('fa-solid fa-circle-info');
-    const [flagIcon, setFlagIcon] = useState('fa-solid fa-circle-info');
-    const [nrOfJokesIcon, setNrOfJokesIcon] = useState('fa-solid fa-circle-info');
+    const infoIcon = 'fa-solid fa-circle-info';
+    const xmarkIcon = 'fa-solid fa-circle-xmark';
+    const [jokeAboutIcon, setJokeAboutIcon] = useState(infoIcon);
+    const [jokeTypeIcon, setJokeTypeIcon] = useState(infoIcon);
+    const [flagIcon, setFlagIcon] = useState(infoIcon);
+    const [nrOfJokesIcon, setNrOfJokesIcon] = useState(infoIcon);
     const [showNrOfJokesInformation, setShowNrOfJokesInformation] = useState(false);
     const [showJokeTypeInformation, setShowJokeTypeInformation] = useState(false);
     const [showJokeAboutInformation, setShowJokeAboutInformation] = useState(false);
     const [showFlagInformation, setShowFlagInformation] = useState(false);
-
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, toggleLoading] = useState(false);
-    const history = useHistory();
 
-    useEffect(()=>{
-        return history.listen((location) => {
-            console.log(`You changed the page to: ${location.pathname}`)
-        })
+    useEffect(() => {
+        const controller = new AbortController();
 
-        return function cleanup(){
+        return function cleanup() {
             controller.abort();
         }
-    },[history]);
+    }, [history.location.pathname]);
 
     async function requestJokeRequest(data) {
         toggleLoading(true);
@@ -89,8 +92,7 @@ function RequestJokeForm() {
             }
 
             setIsRequestSuccessful(true);
-        }
-        catch (e) {
+        } catch (e) {
             setIsRequestSuccessful(false);
             setIsError(true);
 
@@ -131,45 +133,44 @@ function RequestJokeForm() {
                     setErrorMessage(e);
             }
         }
-
         toggleLoading(false);
     }
 
     function provideInfo(fieldname) {
         switch (fieldname) {
             case 'jokeAbout':
-                if (jokeAboutIcon === 'fa-solid fa-circle-info') {
-                    setJokeAboutIcon('fa-solid fa-circle-xmark')
+                if (jokeAboutIcon === infoIcon) {
+                    setJokeAboutIcon(xmarkIcon)
                     setShowJokeAboutInformation(true);
                 } else {
-                    setJokeAboutIcon('fa-solid fa-circle-info')
+                    setJokeAboutIcon(infoIcon)
                     setShowJokeAboutInformation(false);
                 }
                 break
             case 'jokeType':
-                if (jokeTypeIcon === 'fa-solid fa-circle-info') {
-                    setJokeTypeIcon('fa-solid fa-circle-xmark')
+                if (jokeTypeIcon === infoIcon) {
+                    setJokeTypeIcon(xmarkIcon)
                     setShowJokeTypeInformation(true);
                 } else {
-                    setJokeTypeIcon('fa-solid fa-circle-info')
+                    setJokeTypeIcon(infoIcon)
                     setShowJokeTypeInformation(false);
                 }
                 break
             case 'jokeFlag':
-                if (flagIcon === 'fa-solid fa-circle-info') {
-                    setFlagIcon('fa-solid fa-circle-xmark')
+                if (flagIcon === infoIcon) {
+                    setFlagIcon(xmarkIcon)
                     setShowFlagInformation(true);
                 } else {
-                    setFlagIcon('fa-solid fa-circle-info')
+                    setFlagIcon(infoIcon)
                     setShowFlagInformation(false);
                 }
                 break
             case 'nrOfJokes':
-                if (nrOfJokesIcon === 'fa-solid fa-circle-info') {
-                    setNrOfJokesIcon('fa-solid fa-circle-xmark')
+                if (nrOfJokesIcon === infoIcon) {
+                    setNrOfJokesIcon(xmarkIcon)
                     setShowNrOfJokesInformation(true);
                 } else {
-                    setNrOfJokesIcon('fa-solid fa-circle-info')
+                    setNrOfJokesIcon(infoIcon)
                     setShowNrOfJokesInformation(false);
                 }
                 break
@@ -189,8 +190,8 @@ function RequestJokeForm() {
 
     return (
         <main>
-            <section className="pageOuterContainer">
-                <span className="pageInnerContainer">
+            <section className='pageOuterContainer'>
+                <span className='pageInnerContainer'>
                     <span className='requestJokeContentContainer'>
                         {isError &&
                             <span>
@@ -202,22 +203,21 @@ function RequestJokeForm() {
                             <>
                                 <ContentContainer
                                     subtitle="So you don't like our chicken jokes?"
-                                    content='Maybe we can find something else for you. Tell us what will make you laugh. You can revisit the chicken jokes by clicking ons the bird icon above.'
+                                    content='Maybe we can find something else for you. Tell us what will make you laugh.
+                                             You can revisit the chicken jokes by clicking on the bird icon above.'
                                 />
                                 <form className='requestJokeForm' onSubmit={handleSubmit(requestJokeRequest)}>
                                     {loading &&
                                         <ErrorMessage className='fieldLoadingMessage' message='Loading...'/>
                                     }
-
                                     <span className='outerRequestJoke'>
-
                                 <Label htmlFor='getJokeAboutSelector' labelText='I want a joke about:'/>
                                 <select {...register('getJokeAboutSelector',
                                     {
-                                        required: "You must specify a subject",
+                                        required: 'You must specify a subject',
                                     }
                                 )}
-                                        data-testid="jokeAboutSelector"
+                                        data-testid='jokeAboutSelector'
                                 >
                                     <JokeAboutSelector/>
                                 </select>
@@ -238,7 +238,7 @@ function RequestJokeForm() {
                             </span>
                                     <span className='outerRequestJoke'>
                                 <Label htmlFor='getJokeFlagSelector' labelText='I do not want (optional):'/>
-                                <select {...register("getJokeFlagSelector")}>
+                                <select {...register('getJokeFlagSelector')}>
                                     <JokeFlagSelector/>
                                 </select>
                                           <i className={flagIcon}
@@ -251,11 +251,11 @@ function RequestJokeForm() {
                             </span>
                                     <span className='outerRequestJoke'>
                                 <Label htmlFor='getJokeTypeSelector' labelText='Joke type:'/>
-                                <select {...register("getJokeTypeSelector",
+                                <select {...register('getJokeTypeSelector',
                                     {
-                                        required: "You must specify a joke type",
+                                        required: 'You must specify a joke type',
                                     })}
-                                        data-testid="jokeTypeSelector"
+                                        data-testid='jokeTypeSelector'
                                 >
                                     <JokeTypeSelector/>
                                 </select>
@@ -280,9 +280,9 @@ function RequestJokeForm() {
                                 <select
                                     {...register('getNumberOfJokesSelector',
                                         {
-                                            required: "You must specify the number of jokes",
+                                            required: 'You must specify the number of jokes',
                                         })}
-                                    data-testid="jokeNumberSelector"
+                                    data-testid='jokeNumberSelector'
                                 >
                                     <JokeNumberSelector/>
                                 </select>
@@ -320,7 +320,6 @@ function RequestJokeForm() {
                                         ))}
                                     </ul>
                                 }
-
                                 {isTwoPart && !areMultipleJokes &&
                                     <ul className='jokesList'>
                                         <li>
@@ -329,7 +328,6 @@ function RequestJokeForm() {
                                         </li>
                                     </ul>
                                 }
-
                                 {isTwoPart && areMultipleJokes &&
                                     <ul className='jokesList'>
                                         {twoPartJokeArray.map((joke, key) => (

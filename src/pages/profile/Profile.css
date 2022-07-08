@@ -10,8 +10,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
+
 .buttonGroup {
     display: flex;
     gap: 50px;

@@ -1,4 +1,7 @@
-import React from "react";
+//React imports
+import React from 'react';
+
+//CSS imports
 import './Selectors.css';
 
 function JokeNumberSelector() {

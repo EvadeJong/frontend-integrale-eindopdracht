@@ -1,5 +1,8 @@
+//React imports
 import React, {useContext} from 'react';
-import {AuthContext} from "../../context/AuthContext";
+import {AuthContext} from '../../context/AuthContext';
+
+//CSS imports
 import './ContentContainer.css';
 
 
@@ -8,23 +11,23 @@ function ContentContainer({title, subtitle, content, subcontent}) {
 
     return (
         <>
-            <article className="contentContainer">
+            <article className='contentContainer'>
                 {title && isAuth &&
-                    <h1 className="title">{title} {username}</h1>
+                    <h1 className='title'>{title} {username}</h1>
                 }
                 {title && !isAuth &&
-                    <h1 className="title">{title}</h1>
+                    <h1 className='title'>{title}</h1>
                 }
                 {subtitle &&
-                    <h2 className="subtitle">{subtitle}</h2>
+                    <h2 className='subtitle'>{subtitle}</h2>
                 }
                 {content &&
-                    <p className="content">
+                    <p className='content'>
                         {content}
                     </p>
                 }
                 {subcontent &&
-                    <h4 className="subcontent">{subcontent}</h4>
+                    <em className='subcontent'>{subcontent}</em>
                 }
             </article>
         </>

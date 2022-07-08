@@ -1,9 +1,14 @@
+//React imports
 import React, {useEffect} from 'react';
+
+//CSS imports
 import './Login.css';
-import LoginForm from "../../components/forms/login/LoginForm";
-import Header from "../../components/header/Header";
-import RegisterForm from "../../components/forms/register/RegisterForm";
-import Footer from "../../components/footer/Footer";
+
+//Component imports
+import LoginForm from '../../components/forms/login/LoginForm';
+import Header from '../../components/header/Header';
+import RegisterForm from '../../components/forms/register/RegisterForm';
+import Footer from '../../components/footer/Footer';
 
 function Login() {
 

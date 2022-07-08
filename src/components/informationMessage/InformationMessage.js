@@ -1,7 +1,10 @@
+//React imports
 import React from 'react';
+
+//CSS imports
 import './InformationMessage.css';
 
-function InformationMessage({message, className}) {
+function InformationMessage({message}) {
 
     return (
 

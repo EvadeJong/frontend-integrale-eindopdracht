@@ -1,38 +1,40 @@
-import React, {useRef, useState, useEffect} from "react";
-import {useForm} from "react-hook-form";
-import axios from "axios";
-import Button from "../../button/Button";
-import ErrorMessage from "../../errorMessage/ErrorMessage";
-import Label from "../../formComponents/Label";
-import './UpdateForm.css';
-import {useHistory} from "react-router-dom";
+//React imports
+import React, {useEffect, useRef, useState} from 'react';
+import {useForm} from 'react-hook-form';
+import {useHistory} from 'react-router-dom';
 
+//3rd party imports
+import axios from 'axios';
+
+//CSS imports
+import './UpdateForm.css';
+
+//Component imports
+import Button from '../../button/Button';
+import ErrorMessage from '../../errorMessage/ErrorMessage';
+import Label from '../../formComponents/Label';
+import ContentContainer from '../../contentContainer/ContentContainer';
 
 function UpdatePasswordForm() {
 
-    const controller = new AbortController();
-
-    const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
-
+    const history = useHistory();
     const {register, handleSubmit, formState: {errors}, watch, reset} = useForm({});
     const password = useRef({});
+    password.current = watch('password', '');
 
+    //fieldsettings
+    const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, toggleLoading] = useState(false);
-    const history = useHistory();
 
-    password.current = watch('password', '');
+    useEffect(() => {
+        const controller = new AbortController();
 
-    useEffect(()=>{
-        return history.listen((location) => {
-            console.log(`You changed the page to: ${location.pathname}`)
-        })
-
-        return function cleanup(){
+        return function cleanup() {
             controller.abort();
         }
-    },[history]);
+    }, [history.location.pathname]);
 
     async function updatePasswordRequest(data) {
         toggleLoading(true);
@@ -41,7 +43,7 @@ function UpdatePasswordForm() {
         try {
             const token = localStorage.getItem('token');
             await axios.put(
-                'https://frontend-educational-backend.herokuapp.com/api/user',
+                "https://frontend-educational-backend.herokuapp.com/api/user",
                 {
                     "password": updatedPassword,
                     "repeatedPassword": repeatedUpdatedPassword
@@ -107,7 +109,9 @@ function UpdatePasswordForm() {
             }
             {isRequestSuccessful && !isError &&
                 <>
-                    <h3>Your info is successfully updated</h3>
+                    <ContentContainer
+                        content='Your info is successfully updated'
+                    />
                     <Button type='button' text='Back to homepage' onClick={backToHome}/>
                 </>
             }
@@ -121,13 +125,13 @@ function UpdatePasswordForm() {
 
                         <Label htmlFor='updatedPassword' labelText='Password:'/>
                         <input
-                            name="password"
-                            type="password"
+                            name='password'
+                            type='password'
                             {...register('password', {
-                                required: "You must specify a password",
+                                required: 'You must specify a password',
                                 minLength: {
                                     value: 8,
-                                    message: "Password must have 8 characters"
+                                    message: 'Password must have 8 characters'
                                 }
                             })}
                         />
@@ -143,11 +147,11 @@ function UpdatePasswordForm() {
                     <span className='outerProfileGroup'>
                         <Label htmlFor='profilePassword' labelText=' Repeat password:'/>
                         <input
-                            name="password_repeat"
-                            type="password"
+                            name='password_repeat'
+                            type='password'
                             {...register('password_repeat', {
                                 validate: value =>
-                                    value === password.current || "The passwords do not match"
+                                    value === password.current || 'The passwords do not match'
                             })}
                         />
                         <span>

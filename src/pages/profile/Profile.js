@@ -1,15 +1,22 @@
+//React imports
 import React, {useContext, useEffect, useState} from 'react';
-import Button from "../../components/button/Button";
-import {AuthContext} from "../../context/AuthContext";
-import Header from "../../components/header/Header";
-import Footer from "../../components/footer/Footer";
-import UpdatePasswordForm from "../../components/forms/updateProfile/UpdatePasswordForm";
-import UpdateEmailForm from "../../components/forms/updateProfile/UpdateEmailForm";
-import ContentContainer from "../../components/contentContainer/ContentContainer";
+
+//Context imports
+import {AuthContext} from '../../context/AuthContext';
+
+//Component imports
+import Header from '../../components/header/Header';
+import Footer from '../../components/footer/Footer';
+import UpdatePasswordForm from '../../components/forms/updateProfile/UpdatePasswordForm';
+import UpdateEmailForm from '../../components/forms/updateProfile/UpdateEmailForm';
+import ContentContainer from '../../components/contentContainer/ContentContainer';
+import Button from '../../components/button/Button';
 
 function Profile() {
 
     const {user: {username, email, info}} = useContext(AuthContext);
+
+    //fieldsettings and icons
     const [changeEmailRequest, toggleChangeEmailRequest] = useState(false);
     const [changePasswordRequest, toggleChangePasswordRequest] = useState(false);
 
@@ -27,7 +34,7 @@ function Profile() {
                             title='Hi'
                             subtitle='Change your personal data here'
                         />
-                            {changeEmailRequest === false && changePasswordRequest === false &&
+                        {changeEmailRequest === false && changePasswordRequest === false &&
                             <span className='currentProfileInfo'>
                                 <div className='outerProfileGroup'>
                                     <label htmlFor='profileUsername'>
@@ -77,9 +84,9 @@ function Profile() {
                                 </div>
                                 <span className='buttonGroup'>
                                     <Button type='button' text='Update password'
-                                        onClick={() => toggleChangePasswordRequest(!changePasswordRequest)} />
+                                            onClick={() => toggleChangePasswordRequest(!changePasswordRequest)}/>
                                      <Button type='button' text='Update email'
-                                        onClick={() => toggleChangeEmailRequest(!changeEmailRequest)} />
+                                             onClick={() => toggleChangeEmailRequest(!changeEmailRequest)}/>
                                 </span>
                             </span>
                         }
@@ -87,7 +94,6 @@ function Profile() {
                             <UpdatePasswordForm/>
                         }
                         {changeEmailRequest &&
-
                             <UpdateEmailForm/>
                         }
 

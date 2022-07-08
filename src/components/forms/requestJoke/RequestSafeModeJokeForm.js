@@ -1,36 +1,42 @@
+//React imports
 import React, {useEffect, useState} from 'react';
-import {useHistory} from "react-router-dom";
-import axios from "axios";
+import {useHistory} from 'react-router-dom';
+
+//3rd party imports
+import axios from 'axios';
+
+//CSS imports
 import './RequestJokeForm.css';
-import ErrorMessage from "../../errorMessage/ErrorMessage";
-import Button from "../../button/Button";
 
-function RequestSafeModeJokeForm(){
+//Component imports
+import ErrorMessage from '../../errorMessage/ErrorMessage';
+import Button from '../../button/Button';
 
+function RequestSafeModeJokeForm() {
+
+    const history = useHistory();
+
+    //fieldsettings and icons
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, toggleLoading] = useState(false);
-    const controller = new AbortController();
-    const history = useHistory();
     const [setup, setSetup] = useState('');
     const [delivery, setDelivery] = useState('');
     const [joke, setJoke] = useState('');
-
     const [showNewJoke, setShowNewJoke] = useState(false);
     const [isTwoPart, setIsTwoPart] = useState(false);
 
-    useEffect(()=>{
-        return history.listen((location) => {
-            console.log(`You changed the page to: ${location.pathname}`)
-        })
+    useEffect(() => {
+        const controller = new AbortController();
 
-        return function cleanup(){
+        return function cleanup() {
             controller.abort();
         }
-    },[history]);
+    }, [history.location.pathname]);
 
-    useEffect(()=>{
+    useEffect(() => {
         toggleLoading(true);
+
         async function getSafeJoke() {
             try {
                 const result = await axios.get(' https://v2.jokeapi.dev/joke/Any?safe-mode')
@@ -41,9 +47,9 @@ function RequestSafeModeJokeForm(){
                 } else {
                     setJoke(result.data.joke);
                     setIsTwoPart(false);
-                    }
-                } catch (e) {
-                    switch (e.response.status) {
+                }
+            } catch (e) {
+                switch (e.response.status) {
                     case 400:
                         setErrorMessage
                         ('The request you have sent to JokeAPI is formatted incorrectly and cannot be processed')
@@ -79,20 +85,21 @@ function RequestSafeModeJokeForm(){
                     default:
                         setErrorMessage(e);
                 }
-                }};
-                toggleLoading(false);
-                getSafeJoke();
-            },[showNewJoke])
+            }
+        };
+        toggleLoading(false);
+        getSafeJoke();
+    }, [showNewJoke])
 
     function newRequest() {
         setIsError(false);
         setShowNewJoke(!showNewJoke);
     }
 
-    return(
+    return (
         <main>
-            <section className="pageOuterContainer">
-                <span className="pageInnerContainer">
+            <section className='pageOuterContainer'>
+                <span className='pageInnerContainer'>
                     <span className='requestJokeContentContainer'>
                         {isError &&
                             <span>

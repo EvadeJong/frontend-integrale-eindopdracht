@@ -1,4 +1,7 @@
+//React imports
 import React from 'react';
+
+//CSS imports
 import './ErrorMessage.css';
 
 function ErrorMessage({message, className}) {

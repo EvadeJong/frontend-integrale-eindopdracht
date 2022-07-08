@@ -1,18 +1,25 @@
+//React imports
 import React, {createContext, useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import jwtDecode from "jwt-decode";
-import axios from "axios";
-import ErrorMessage from "../components/errorMessage/ErrorMessage";
 
+//3rd party imports
+import jwtDecode from 'jwt-decode';
+import axios from 'axios';
+
+//Component imports
+import ErrorMessage from '../components/errorMessage/ErrorMessage';
+
+//Context imports
 export const AuthContext = createContext({});
 
-function AuthContextProvider({ children }) {
-        const [isAuth, toggleIsAuth] = useState({
-            isAuth: false,
-            user: null,
-            status: 'pending',
-        });
-        const history = useHistory();
+
+function AuthContextProvider({children}) {
+    const [isAuth, toggleIsAuth] = useState({
+        isAuth: false,
+        user: null,
+        status: 'pending',
+    });
+    const history = useHistory();
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -51,10 +58,10 @@ function AuthContextProvider({ children }) {
 
     async function getUserData(token, url) {
         try {
-            const data = await axios.get('https://frontend-educational-backend.herokuapp.com/api/user', {
+            const data = await axios.get("https://frontend-educational-backend.herokuapp.com/api/user", {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
+                    "Authorization": `Bearer ${token}`,
                 }
             });
 
@@ -86,12 +93,12 @@ function AuthContextProvider({ children }) {
         }
     }
 
-    async function updateDateOfBirth(){
+    async function updateDateOfBirth(token) {
         try {
-            const token = localStorage.getItem('token');
+
             const birthDateString = localStorage.getItem('birthDate');
             const data = await axios.put(
-                'https://frontend-educational-backend.herokuapp.com/api/user',
+                "https://frontend-educational-backend.herokuapp.com/api/user",
                 {
                     "info": birthDateString,
                 },
@@ -111,9 +118,10 @@ function AuthContextProvider({ children }) {
             })
 
             localStorage.removeItem('birthDate');
-    }catch(e){
+        } catch (e) {
             console.log(e)
-        }}
+        }
+    }
 
     function jwtValidator(decodedToken) {
         const now = Date.now().valueOf() / 1000
@@ -128,7 +136,7 @@ function AuthContextProvider({ children }) {
     function login(token) {
         // token in de localstorage plaatsen
         localStorage.setItem('token', token);
-        updateDateOfBirth();
+        updateDateOfBirth(token);
         getUserData(token, './');
     }
 
@@ -157,8 +165,9 @@ function AuthContextProvider({ children }) {
     return (
         <AuthContext.Provider value={contextData}>
             {isAuth.status === 'done' && children}
-            {isAuth.status === 'pending' && <ErrorMessage className='fieldLoadingMessage' message='Loading...' />}
-            {isAuth.status === 'error' && <ErrorMessage className={'errorMessage'} message='An error has occurred, please refresh the page.'/>}
+            {isAuth.status === 'pending' && <ErrorMessage className='fieldLoadingMessage' message='Loading...'/>}
+            {isAuth.status === 'error' &&
+                <ErrorMessage className={'errorMessage'} message='An error has occurred, please refresh the page.'/>}
         </AuthContext.Provider>
     );
 }

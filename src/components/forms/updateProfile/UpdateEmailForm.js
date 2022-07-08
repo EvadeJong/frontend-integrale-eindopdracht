@@ -1,39 +1,45 @@
-import React, {useContext, useState, useEffect} from "react";
+//React imports
+import React, {useContext, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
+import {useHistory} from "react-router-dom";
+
+//3rd party imports
 import axios from "axios";
 import Button from "../../button/Button";
+
+//CSS imports
+import './UpdateForm.css';
+
+//Context imports
 import {AuthContext} from "../../../context/AuthContext";
+
+//Component imports
 import ErrorMessage from "../../errorMessage/ErrorMessage";
 import Label from "../../formComponents/Label";
-import './UpdateForm.css';
-import {useHistory} from "react-router-dom";
 import ContentContainer from "../../contentContainer/ContentContainer";
 
 function UpdateEmailForm() {
 
-    const controller = new AbortController();
+    const {register, handleSubmit, formState: {errors}, reset} = useForm({
+        mode: 'onChange',
+    });
+    const history = useHistory();
     const {user: {email}} = useContext(AuthContext);
 
+
+    //fieldsettings and icons
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, toggleLoading] = useState(false);
 
-    const {register, handleSubmit, formState: {errors}, reset} = useForm({
-        mode: 'onChange',
-    });
+    useEffect(() => {
+        const controller = new AbortController();
 
-    const history = useHistory();
-
-    useEffect(()=>{
-        return history.listen((location) => {
-            console.log(`You changed the page to: ${location.pathname}`)
-        })
-
-        return function cleanup(){
+        return function cleanup() {
             controller.abort();
         }
-    },[history]);
+    }, [history.location.pathname]);
 
     async function updateEmailRequest(data) {
         toggleLoading(true);
@@ -41,7 +47,7 @@ function UpdateEmailForm() {
         try {
             const token = localStorage.getItem('token');
             await axios.put(
-                'https://frontend-educational-backend.herokuapp.com/api/user',
+                "https://frontend-educational-backend.herokuapp.com/api/user",
                 {
                     "email": data.updatedEmail,
                 },
@@ -53,8 +59,7 @@ function UpdateEmailForm() {
                 }
             )
             setIsRequestSuccessful(true);
-        }
-        catch (e) {
+        } catch (e) {
             setIsError(true);
 
             switch (e.response.status) {
@@ -105,18 +110,18 @@ function UpdateEmailForm() {
                 </span>
             }
             {isRequestSuccessful && !isError &&
-               <>
-                   <ContentContainer
-                    content='Your info is successfully updated'
+                <>
+                    <ContentContainer
+                        content='Your info is successfully updated'
                     />
                     <Button type='button' text='Back to homepage' onClick={backToHome}/>
-               </>
-                   }
+                </>
+            }
             {!isRequestSuccessful && !isError &&
                 <form className='updatedProfileForm' onSubmit={handleSubmit(updateEmailRequest)}>
 
                     {loading &&
-                        <ErrorMessage className='fieldLoadingMessage' message='Loading...' />
+                        <ErrorMessage className='fieldLoadingMessage' message='Loading...'/>
                     }
 
                     <span className='outerProfileGroup'>

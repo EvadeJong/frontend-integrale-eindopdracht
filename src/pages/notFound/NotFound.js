@@ -1,8 +1,11 @@
-import ContentContainer from '../../components/contentContainer/ContentContainer';
-import Website from '../../assets/images/Website.png';
+//React imports
 import React, {useEffect} from 'react';
-import Button from "../../components/button/Button";
-import {useHistory} from "react-router-dom";
+import {useHistory} from 'react-router-dom';
+
+//asset imports
+import Website from '../../assets/images/Website.png';
+import Button from '../../components/button/Button';
+import ContentContainer from '../../components/contentContainer/ContentContainer';
 
 function NotFound() {
 
@@ -14,15 +17,16 @@ function NotFound() {
     function backToHome() {
         history.push('./');
     }
+
     return (
         <>
             <main>
-                <section className="pageOuterContainer">
-                    <div className="pageInnerContainer">
+                <section className='pageOuterContainer'>
+                    <div className='pageInnerContainer'>
                         <ContentContainer
                             title='404 - Page not found'
                         />
-                        <img className='page-not-found' src={Website} alt='404 - not found' />
+                        <img className='page-not-found' src={Website} alt='404 - not found'/>
                         <Button type='button' text='Back to homepage' onClick={backToHome}/>
                     </div>
                 </section>

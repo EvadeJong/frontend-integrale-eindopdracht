@@ -1,39 +1,41 @@
-import React, {useState, useEffect} from 'react';
-import {useForm, Controller} from 'react-hook-form';
-import axios from 'axios';
+//React imports
+import React, {useEffect, useState} from 'react';
+import {Controller, useForm} from 'react-hook-form';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css'
-import Button from '../../button/Button';
-import './RegisterForm.css'
-import ErrorMessage from "../../errorMessage/ErrorMessage";
-import Label from "../../formComponents/Label";
 import {useHistory} from "react-router-dom";
 
+//3rd party imports
+import axios from 'axios';
+
+//CSS imports
+import 'react-datepicker/dist/react-datepicker.css'
+import './RegisterForm.css'
+
+//Component imports
+import Button from '../../button/Button';
+import ErrorMessage from "../../errorMessage/ErrorMessage";
+import Label from "../../formComponents/Label";
 
 function RegisterForm() {
 
-    const controller = new AbortController();
     const {register, handleSubmit, control, formState: {errors}} = useForm({
         mode: 'onChange',
     });
+    const history = useHistory();
 
+    //fieldsettings
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
-
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, toggleLoading] = useState(false);
 
-    const history = useHistory();
+    useEffect(() => {
+        const controller = new AbortController();
 
-    useEffect(()=>{
-        return history.listen((location) => {
-            console.log(`You changed the page to: ${location.pathname}`)
-        })
-
-        return function cleanup(){
+        return function cleanup() {
             controller.abort();
         }
-    },[history]);
+    }, [history.location.pathname]);
 
     async function signUpRequest(data) {
         toggleLoading(true);
@@ -42,11 +44,11 @@ function RegisterForm() {
             const birthDateString = `${data.birthDate.getFullYear()}-${(data.birthDate.getMonth() + 1)}-${data.birthDate.getDate()}`;
 
             const result = await axios.post('https://frontend-educational-backend.herokuapp.com/api/auth/signup', {
-                "username": data.registerUsername,
-                "email": data.registerEmail,
-                "password": data.registerPassword,
-                "roles": [
-                    "user"
+                'username': data.registerUsername,
+                'email': data.registerEmail,
+                'password': data.registerPassword,
+                'roles': [
+                    'user'
                 ],
 
             })
@@ -56,8 +58,7 @@ function RegisterForm() {
                 setIsRequestSuccessful(true);
 
             }
-        }
-        catch (e) {
+        } catch (e) {
             setIsError(true);
 
             switch (e.response.status) {
@@ -100,7 +101,7 @@ function RegisterForm() {
                     <h2>Register</h2>
                 </legend>
                 {loading &&
-                    <ErrorMessage className='fieldLoadingMessage' message='Loading...' />
+                    <ErrorMessage className='fieldLoadingMessage' message='Loading...'/>
                 }
                 {isError &&
                     <div>
@@ -113,13 +114,13 @@ function RegisterForm() {
                 }
                 {!isError && !isRequestSuccessful &&
                     <>
-                        <Label htmlFor="registerUsername" labelText='Username:' />
+                        <Label htmlFor='registerUsername' labelText='Username:'/>
                         <input
-                            type="text"
-                            id="registerUsername"
-                            {...register("registerUsername",
+                            type='text'
+                            id='registerUsername'
+                            {...register('registerUsername',
                                 {
-                                    required: "You must specify a username",
+                                    required: 'You must specify a username',
                                 })
                             }
                         />
@@ -130,15 +131,15 @@ function RegisterForm() {
                             />
                         }
 
-                        <label htmlFor="registerEmail">
+                        <label htmlFor='registerEmail'>
                             Email:
                         </label>
                         <input
-                            type="email"
-                            id="registerEmail"
-                            {...register("registerEmail",
+                            type='email'
+                            id='registerEmail'
+                            {...register('registerEmail',
                                 {
-                                    required: "You must specify an email address",
+                                    required: 'You must specify an email address',
                                     pattern: {
                                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                                         message: 'Enter a valid e-mail address',
@@ -152,23 +153,23 @@ function RegisterForm() {
                                 message={errors.registerEmail.message}
                             />
                         }
-                        <label htmlFor= 'register-birthday'>
+                        <label htmlFor='register-birthday'>
                             Date of birth:
                         </label>
                         <Controller
-                            name="birthDate"
+                            name='birthDate'
                             control={control}
                             defaultValue={null}
                             render={
                                 ({field}) =>
                                     <DatePicker
-                                        onChange={(e)=>field.onChange(e)}
+                                        onChange={(e) => field.onChange(e)}
                                         selected={field.value}
                                         placeholderText='Select date of birth'
                                     />
                             }
                         />
-                        <label htmlFor="register-password">
+                        <label htmlFor='register-password'>
                             Password:
                         </label>
                         <input
@@ -176,10 +177,10 @@ function RegisterForm() {
                             id='registerPassword'
                             {...register('registerPassword',
                                 {
-                                    required: "You must specify a password",
+                                    required: 'You must specify a password',
                                     minLength: {
                                         value: 8,
-                                        message: "Password must have at least 8 characters"
+                                        message: 'Password must have at least 8 characters'
                                     }
                                 }
                             )}
@@ -190,7 +191,7 @@ function RegisterForm() {
                                 message={errors.registerPassword.message}
                             />
                         }
-                        <Button type="submit" text="Register"/>
+                        <Button type='submit' text='Register'/>
                     </>
                 }
             </fieldset>

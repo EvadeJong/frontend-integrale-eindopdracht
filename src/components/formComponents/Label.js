@@ -1,6 +1,8 @@
-import React from "react";
-import './Label.css';
+//React imports
+import React from 'react';
 
+//CSS imports
+import './Label.css';
 
 function Label({htmlFor, labelText}) {
     return (

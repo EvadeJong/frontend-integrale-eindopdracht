@@ -1,18 +1,19 @@
-import React, {createContext, useEffect, useState} from 'react'
+//React imports
+import React, {createContext, useEffect, useState} from 'react';
 
 export const ChickenJokeSeenContext = createContext({});
 
-function ChickenJokeSeenProvider({children}){
-    const [isChickenJokeSeen, setIsChickenJokeSeen] = useState(false)
+function ChickenJokeSeenProvider({children}) {
+    const [isChickenJokeSeen, setIsChickenJokeSeen] = useState(false);
 
-    useEffect(()=> {
+    useEffect(() => {
         const chickenSeen = localStorage.getItem('isChickenSeen');
         if (chickenSeen !== null || undefined) {
             setIsChickenJokeSeen(chickenSeen === 'true');
         }
     }, []);
 
-    function toggleChickenJokePage(data){
+    function toggleChickenJokePage(data) {
         setIsChickenJokeSeen(data);
         localStorage.setItem('isChickenSeen', data);
     }
@@ -22,7 +23,7 @@ function ChickenJokeSeenProvider({children}){
         isChickenJokeSeen: isChickenJokeSeen,
     }
 
-    return(
+    return (
         <ChickenJokeSeenContext.Provider value={chickenContextData}>
             {children}
         </ChickenJokeSeenContext.Provider>

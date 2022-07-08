@@ -1,6 +1,9 @@
+//React imports
 import React from 'react';
+import {Link} from 'react-router-dom';
+
+//CSS imports
 import './Footer.css';
-import {Link} from "react-router-dom";
 
 function Footer({text}) {
 

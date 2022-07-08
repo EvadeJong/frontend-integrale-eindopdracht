@@ -1,52 +1,55 @@
+//React imports
 import React, {useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
+import {useHistory} from 'react-router-dom';
+
+//3rd party imports
 import axios from 'axios';
-import Button from '../../button/Button';
+
+//CSS imports
 import './SubmitJokeForm.css'
+
+//Component imports
+import Button from '../../button/Button';
 import Label from '../../formComponents/Label';
 import JokeFlagSelector from '../../formComponents/JokeFlagSelector';
 import JokeAboutSelector from '../../formComponents/JokeAboutSelector';
 import JokeTypeSelector from '../../formComponents/JokeTypeSelector';
 import ErrorMessage from '../../errorMessage/ErrorMessage';
-import ContentContainer from "../../contentContainer/ContentContainer";
-import InformationMessage from "../../informationMessage/InformationMessage";
-import {useHistory} from "react-router-dom";
-
+import ContentContainer from '../../contentContainer/ContentContainer';
+import InformationMessage from '../../informationMessage/InformationMessage';
 
 function SubmitJokeForm() {
 
-    const controller = new AbortController();
-
     const {register, handleSubmit, formState: {errors}, reset} = useForm();
-    const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
+    const history = useHistory();
 
+    //fieldsettings and icons
+    const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
     const [isTwoPart, setIsTwoPart] = useState(false);
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, toggleLoading] = useState(false);
-
-    const [jokeAboutIcon, setJokeAboutIcon] = useState('fa-solid fa-circle-info');
-    const [jokeTypeIcon, setJokeTypeIcon] = useState('fa-solid fa-circle-info');
-    const [flagIcon, setFlagIcon] = useState('fa-solid fa-circle-info');
-    const [jokeFieldIcon, setJokeFieldIcon] = useState('fa-solid fa-circle-info');
-    const [punchlineFieldIcon, setPunchlineFieldIcon] = useState('fa-solid fa-circle-info');
+    const infoIcon = 'fa-solid fa-circle-info';
+    const xmarkIcon = 'fa-solid fa-circle-xmark';
+    const [jokeAboutIcon, setJokeAboutIcon] = useState(infoIcon);
+    const [jokeTypeIcon, setJokeTypeIcon] = useState(infoIcon);
+    const [flagIcon, setFlagIcon] = useState(infoIcon);
+    const [jokeFieldIcon, setJokeFieldIcon] = useState(infoIcon);
+    const [punchlineFieldIcon, setPunchlineFieldIcon] = useState(infoIcon);
     const [showPunchlineFieldInformation, setShowPunchlineFieldInformation] = useState(false);
     const [showJokeFieldInformation, setShowJokeFieldInformation] = useState(false);
     const [showJokeTypeInformation, setShowJokeTypeInformation] = useState(false);
     const [showJokeAboutInformation, setShowJokeAboutInformation] = useState(false);
     const [showFlagInformation, setShowFlagInformation] = useState(false);
 
-    const history = useHistory();
+    useEffect(() => {
+        const controller = new AbortController();
 
-    useEffect(()=>{
-        return history.listen((location) => {
-            console.log(`You changed the page to: ${location.pathname}`)
-        })
-
-        return function cleanup(){
+        return function cleanup() {
             controller.abort();
         }
-    },[history, ]);
+    }, [history.location.pathname]);
 
     async function submitJokeRequest(data) {
         toggleLoading(true);
@@ -63,7 +66,7 @@ function SubmitJokeForm() {
                 setIsTwoPart(true);
 
                 await axios.post(
-                    'https://v2.jokeapi.dev/submit',
+                    "https://v2.jokeapi.dev/submit",
                     {
                         "formatVersion": 3,
                         "category": category,
@@ -74,15 +77,15 @@ function SubmitJokeForm() {
                         "lang": "en"
                     }, {
                         headers: {
-                            "Content-Type": 'application/json',
+                            "Content-Type": "application/json",
                         }
                     }
                 )
             } else {
                 setIsTwoPart(false);
-                console.log(category, flag, jokeType, joke, delivery );
+                console.log(category, flag, jokeType, joke, delivery);
                 await axios.post(
-                    'https://v2.jokeapi.dev/submit',
+                    "https://v2.jokeapi.dev/submit",
                     {
                         "formatVersion": 3,
                         "category": category,
@@ -94,7 +97,7 @@ function SubmitJokeForm() {
                         "lang": "en"
                     }, {
                         headers: {
-                            "Content-Type": 'application/json',
+                            "Content-Type": "application/json",
                         }
                     }
                 )
@@ -154,47 +157,47 @@ function SubmitJokeForm() {
     function provideInfo(fieldname) {
         switch (fieldname) {
             case 'jokeAbout':
-                if (jokeAboutIcon === 'fa-solid fa-circle-info') {
-                    setJokeAboutIcon('fa-solid fa-circle-xmark')
+                if (jokeAboutIcon === infoIcon) {
+                    setJokeAboutIcon(xmarkIcon)
                     setShowJokeAboutInformation(true);
                 } else {
-                    setJokeAboutIcon('fa-solid fa-circle-info')
+                    setJokeAboutIcon(xmarkIcon)
                     setShowJokeAboutInformation(false);
                 }
                 break
             case 'jokeType':
-                if (jokeTypeIcon === 'fa-solid fa-circle-info') {
-                    setJokeTypeIcon('fa-solid fa-circle-xmark')
+                if (jokeTypeIcon === infoIcon) {
+                    setJokeTypeIcon(xmarkIcon)
                     setShowJokeTypeInformation(true);
                 } else {
-                    setJokeTypeIcon('fa-solid fa-circle-info')
+                    setJokeTypeIcon(infoIcon)
                     setShowJokeTypeInformation(false);
                 }
                 break
             case 'jokeFlag':
-                if (flagIcon === 'fa-solid fa-circle-info') {
-                    setFlagIcon('fa-solid fa-circle-xmark')
+                if (flagIcon === infoIcon) {
+                    setFlagIcon(xmarkIcon)
                     setShowFlagInformation(true);
                 } else {
-                    setFlagIcon('fa-solid fa-circle-info')
+                    setFlagIcon(infoIcon)
                     setShowFlagInformation(false);
                 }
                 break
             case 'jokeField':
-                if(jokeFieldIcon === 'fa-solid fa-circle-info'){
-                    setJokeFieldIcon('fa-solid fa-circle-xmark')
+                if (jokeFieldIcon === infoIcon) {
+                    setJokeFieldIcon(xmarkIcon)
                     setShowJokeFieldInformation(true);
-                }else{
-                    setJokeFieldIcon('fa-solid fa-circle-info')
+                } else {
+                    setJokeFieldIcon(infoIcon)
                     setShowJokeFieldInformation(false);
                 }
                 break
             case 'punchlineField':
-                if(punchlineFieldIcon === 'fa-solid fa-circle-info'){
-                    setPunchlineFieldIcon('fa-solid fa-circle-xmark')
+                if (punchlineFieldIcon === infoIcon) {
+                    setPunchlineFieldIcon(xmarkIcon)
                     setShowPunchlineFieldInformation(true);
-                }else{
-                    setPunchlineFieldIcon('fa-solid fa-circle-info')
+                } else {
+                    setPunchlineFieldIcon(infoIcon)
                     setShowPunchlineFieldInformation(false);
                 }
                 break
@@ -239,7 +242,7 @@ function SubmitJokeForm() {
                                />
                            }
                         </span>
-                       <span className='error'>
+                        <span className='error'>
                             {errors.jokeAboutSelector &&
                                 <ErrorMessage
                                     className={'fieldErrorMessageLight'}
@@ -247,26 +250,26 @@ function SubmitJokeForm() {
                                 />
                             }
                         </span>
-                       <span className='outerSubmitJoke'>
+                        <span className='outerSubmitJoke'>
                             <Label htmlFor='jokeTypeSelector' labelText='And consists of:'/>
                             <select {...register('jokeTypeSelector',
                                 {
-                                    required: "You must specify a joke type",
+                                    required: 'You must specify a joke type',
                                 })}
 
-                                    data-testid="jokeTypeSelector"
+                                    data-testid='jokeTypeSelector'
                             >
                                 <JokeTypeSelector/>
                             </select>
                            <i className={jokeTypeIcon}
                               onClick={() => provideInfo('jokeType')}></i>
-                           {showJokeTypeInformation &&
-                               <InformationMessage
-                                   message='Select the type of the joke'
-                               />
-                           }
+                            {showJokeTypeInformation &&
+                                <InformationMessage
+                                    message='Select the type of the joke'
+                                />
+                            }
                         </span>
-                       <span className='error'>
+                        <span className='error'>
                             {errors.jokeTypeSelector &&
                                 <ErrorMessage
                                     className={'fieldErrorMessageLight'}
@@ -274,35 +277,35 @@ function SubmitJokeForm() {
                                 />
                             }
                         </span>
-                       <span className='outerSubmitJoke'>
+                        <span className='outerSubmitJoke'>
                             <Label htmlFor='jokeFlagSelector' labelText='Flag (optional):'/>
                             <select {...register('jokeFlagSelector')}>
                                 <JokeFlagSelector/>
                             </select>
                            <i className={flagIcon}
                               onClick={() => provideInfo('jokeFlag')}></i>
-                           {showFlagInformation &&
-                               <InformationMessage
-                                   message='What should it not be? (optional)'
-                               />
-                           }
+                            {showFlagInformation &&
+                                <InformationMessage
+                                    message='What should it not be? (optional)'
+                                />
+                            }
                         </span>
-                       <span className='outerSubmitJoke'>
+                        <span className='outerSubmitJoke'>
                        <Label htmlFor='textfieldJoke' labelText='The actual joke is:'/>
                             <textarea className='submitjoketextfield'
                                       id='submitjoketextfield'
-                                      spellCheck="true"
-                                      lang="en"
-                                      {...register("submitjoketextfield",
+                                      spellCheck='true'
+                                      lang='en'
+                                      {...register('submitjoketextfield',
                                           {
-                                              required: "Joke can not be empty",
+                                              required: 'Joke can not be empty',
                                               minLength: {
                                                   value: 5,
-                                                  message: "A joke must have at least 5 characters"
+                                                  message: 'A joke must have at least 5 characters'
                                               }
                                           },
                                       )
-                                    }>
+                                      }>
                           </textarea>
                             <i className={jokeFieldIcon}
                                onClick={() => provideInfo('jokeField')}></i>
@@ -312,7 +315,7 @@ function SubmitJokeForm() {
                                 />
                             }
                         </span>
-                       <span className='error'>
+                        <span className='error'>
                             {errors.submitjoketextfield &&
                                 <ErrorMessage
                                     className={'fieldErrorMessageLight'}
@@ -327,14 +330,14 @@ function SubmitJokeForm() {
 
                                 <textarea className='submitjoketextfield'
                                           id='submitdeliverytextfield'
-                                          spellCheck="true"
-                                          lang="en"
-                                          {...register("submitdeliverytextfield",
+                                          spellCheck='true'
+                                          lang='en'
+                                          {...register('submitdeliverytextfield',
                                               {
-                                                  required: "Message can not be empty",
+                                                  required: 'Message can not be empty',
                                                   minLength: {
                                                       value: 5,
-                                                      message: "A punchline must have at least 5 characters"
+                                                      message: 'A punchline must have at least 5 characters'
                                                   }
                                               },
                                           )}>
@@ -360,11 +363,11 @@ function SubmitJokeForm() {
                         <Button type='submit' text='Submit Joke'/>
                     </form>
                 </>
-             }
+            }
             {isRequestSuccessful &&
                 <>
-                  <ContentContainer
-                    subtitle='Thank you for submitting your joke!'
+                    <ContentContainer
+                        subtitle='Thank you for submitting your joke!'
                     />
                     <Button type='submit' text='I want to submit another joke' onClick={newRequest}/>
                 </>

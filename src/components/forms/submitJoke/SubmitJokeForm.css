@@ -1,6 +1,7 @@
 .jokerHeadline {
     margin-bottom: 50px
 }
+
 .submitJokeForm {
     display: flex;
     flex-direction: column;
@@ -22,7 +23,8 @@
     gap: 10px;
 }
 
-.submitjoketextfield, .submitdeliverytextfield {
+.submitjoketextfield,
+.submitdeliverytextfield {
     min-width: 260px;
     margin-top: 20px;
     border-radius: 4px;
@@ -40,7 +42,7 @@
     padding: 20px;
 }
 
-.error{
+.error {
     align-self: flex-start;
     margin-left: 46%;
 }

@@ -1,10 +1,8 @@
-import React from 'react';
-
-function AgeCalculator(info){
+function AgeCalculator(info) {
 
     const current = new Date();
     const birthDate = new Date(info);
-    if(isNaN(birthDate)) {
+    if (isNaN(birthDate)) {
         return true;
     } else {
         const ageInSeconds = current - birthDate;
