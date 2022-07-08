@@ -45,6 +45,7 @@ function Profile() {
                                         id='username'
                                         defaultValue={username}
                                         disabled
+                                        data-testid="inputUsername"
                                     />
                                 </div>
                                 <div className='outerProfileGroup'>
@@ -56,6 +57,7 @@ function Profile() {
                                         id='email'
                                         defaultValue={email}
                                         disabled
+                                        data-testid="inputEmail"
                                     />
                                 </div>
                                 <span className='currentProfileInfo'>
@@ -68,6 +70,7 @@ function Profile() {
                                         id='dob'
                                         defaultValue={info}
                                         disabled
+                                        data-testid="inputDoB"
                                     />
                                 </div>
                                 </span>

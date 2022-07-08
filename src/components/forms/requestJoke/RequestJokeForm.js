@@ -238,7 +238,10 @@ function RequestJokeForm() {
                             </span>
                                     <span className='outerRequestJoke'>
                                 <Label htmlFor='getJokeFlagSelector' labelText='I do not want (optional):'/>
-                                <select {...register('getJokeFlagSelector')}>
+                                <select 
+                                    {...register('getJokeFlagSelector')}
+                                    data-testid="jokeFlagSelector"
+                                q>
                                     <JokeFlagSelector/>
                                 </select>
                                           <i className={flagIcon}
