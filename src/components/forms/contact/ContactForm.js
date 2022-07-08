@@ -14,7 +14,7 @@ import Button from '../../button/Button';
 import Label from '../../formComponents/Label';
 import ErrorMessage from '../../errorMessage/ErrorMessage';
 import ContentContainer from '../../contentContainer/ContentContainer';
-import InformationMessage from '../../informationMessage/InformationMessage';
+import InformationProvider, { FieldName } from '../../informationProvider/InformationProvider';
 
 function ContactForm() {
 
@@ -48,42 +48,6 @@ function ContactForm() {
         console.log(data.contactEmail);
         console.log(data.contactMessage);
         setIsRequestSuccessful(true);
-    }
-
-    function provideInfo(fieldname) {
-        switch (fieldname) {
-            case 'email':
-                if (emailIcon === infoIcon) {
-                    setEmailIcon(xmarkIcon);
-                    setShowEmailInformation(true);
-                } else {
-                    setEmailIcon(infoIcon);
-                    setShowEmailInformation(false);
-                }
-                break
-            case 'username':
-                if (usernameIcon === infoIcon) {
-                    setUsernameIcon(xmarkIcon);
-                    setShowUsernameInformation(true);
-                } else {
-                    setUsernameIcon(infoIcon);
-                    setShowUsernameInformation(false);
-                }
-                break
-            case 'messageField':
-                if (textfieldIcon === infoIcon) {
-                    setTextfieldIcon(xmarkIcon);
-                    setShowTextfieldInformation(true);
-                } else {
-                    setTextfieldIcon(infoIcon);
-                    setShowTextfieldInformation(false);
-                }
-                break
-            default:
-                setShowUsernameInformation(false);
-                setShowEmailInformation(false);
-                setShowTextfieldInformation(false);
-        }
     }
 
     function backToHome() {
@@ -120,12 +84,7 @@ function ContactForm() {
                                     })
                                 }
                             />
-                            <i className={usernameIcon} onClick={() => provideInfo('username')}></i>
-                            {showUsernameInformation &&
-                                <InformationMessage
-                                    message='Please provide us with your name'
-                                />
-                            }
+                            <InformationProvider fieldname={FieldName.Username}/>
                         </div>
                         {errors.contactname &&
                             <ErrorMessage
@@ -151,12 +110,7 @@ function ContactForm() {
                                     }
                                 )}
                             />
-                            <i className={emailIcon} onClick={() => provideInfo('email')}></i>
-                            {showEmailInformation &&
-                                <InformationMessage
-                                    message='Please provide us with your email'
-                                />
-                            }
+                            <InformationProvider fieldname={FieldName.Email}/>
                         </div>
                         {errors.contactemail &&
                             <ErrorMessage
@@ -166,7 +120,7 @@ function ContactForm() {
                         }
                         <Label htmlFor='contactMessage' labelText='Message:'/>
                         <div className='icon'>
-                    <textarea className='contactMessage'
+                        <textarea className='contactMessage'
                               id='contactMessage'
                               spellCheck="true"
                               lang="en"
@@ -179,17 +133,10 @@ function ContactForm() {
                                       }
                                   },
                               )}
-                    >
-
-                       </textarea>
-                            <i className={textfieldIcon} onClick={() => provideInfo('messageField')}></i>
-                            {showTextfieldInformation &&
-                                <InformationMessage
-                                    message='Please typ out your joke in this field'
-                                />
-                            }
+                        >
+                        </textarea>
+                        <InformationProvider fieldname={FieldName.MessageField}/>
                         </div>
-
                         {errors.contactMessage &&
                             <ErrorMessage
                                 className={'fieldErrorMessageLight'}
