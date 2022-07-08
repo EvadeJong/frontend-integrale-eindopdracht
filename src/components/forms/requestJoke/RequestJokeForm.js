@@ -241,7 +241,7 @@ function RequestJokeForm() {
                                 <select 
                                     {...register('getJokeFlagSelector')}
                                     data-testid="jokeFlagSelector"
-                                q>
+                                >
                                     <JokeFlagSelector/>
                                 </select>
                                           <i className={flagIcon}
