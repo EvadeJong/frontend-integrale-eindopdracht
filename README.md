@@ -72,3 +72,4 @@ npm run test
 
 <img src="https://github.com/EvadeJong/frontend-integrale-eindopdracht/blob/main/src/assets/images/NpmRunTest.png" width="600" />
 
+A directory will be created showing the code coverage results, using the lcov reporter.

@@ -36,16 +36,6 @@ function RequestJokeForm() {
     const [areMultipleJokes, setAreMultipleJokes] = useState(false);
     const [singleJokeArray, setSingleJokeArray] = useState([]);
     const [twoPartJokeArray, setTwoPartJokeArray] = useState([]);
-    const infoIcon = 'fa-solid fa-circle-info';
-    const xmarkIcon = 'fa-solid fa-circle-xmark';
-    const [jokeAboutIcon, setJokeAboutIcon] = useState(infoIcon);
-    const [jokeTypeIcon, setJokeTypeIcon] = useState(infoIcon);
-    const [flagIcon, setFlagIcon] = useState(infoIcon);
-    const [nrOfJokesIcon, setNrOfJokesIcon] = useState(infoIcon);
-    const [showNrOfJokesInformation, setShowNrOfJokesInformation] = useState(false);
-    const [showJokeTypeInformation, setShowJokeTypeInformation] = useState(false);
-    const [showJokeAboutInformation, setShowJokeAboutInformation] = useState(false);
-    const [showFlagInformation, setShowFlagInformation] = useState(false);
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, toggleLoading] = useState(false);
@@ -205,7 +195,7 @@ function RequestJokeForm() {
                                 >
                                     <JokeTypeSelector/>
                                 </select>
-                                <InformationProvider fieldname={FieldName.jokeType}/>
+                                <InformationProvider fieldname={FieldName.JokeType}/>
                                 </span>
                                     <span className='error'>
                                 {errors.getJokeTypeSelector &&

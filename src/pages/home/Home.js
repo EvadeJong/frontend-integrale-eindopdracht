@@ -1,6 +1,5 @@
 //React imports
 import React, {useContext, useEffect} from 'react';
-import {ReactComponent as Icecream} from '../../assets/images/Icecream.svg';
 import {ReactComponent as Milkshake} from '../../assets/images/Milkshake.svg';
 import {useHistory} from 'react-router-dom';
 
@@ -30,7 +29,6 @@ function Home() {
             <Header/>
             <main>
                 <section className='pageOuterContainer'>
-                    <Icecream className='icecream' alt='icecream'/>
                     <div className='pageInnerContainer'>
                         {isAuth ?
                             <ContentContainer

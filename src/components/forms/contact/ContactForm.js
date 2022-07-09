@@ -24,15 +24,6 @@ function ContactForm() {
 
     //fieldsettings and icons
     const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
-    const infoIcon = 'fa-solid fa-circle-info';
-    const xmarkIcon = 'fa-solid fa-circle-xmark';
-    const [textfieldIcon, setTextfieldIcon] = useState(infoIcon);
-    const [emailIcon, setEmailIcon] = useState(infoIcon);
-    const [usernameIcon, setUsernameIcon] = useState(infoIcon);
-    const [showUsernameInformation, setShowUsernameInformation] = useState(false);
-    const [showTextfieldInformation, setShowTextfieldInformation] = useState(false);
-    const [showEmailInformation, setShowEmailInformation] = useState(false);
-
 
     useEffect(() => {
         const controller = new AbortController();
@@ -135,7 +126,7 @@ function ContactForm() {
                               )}
                         >
                         </textarea>
-                        <InformationProvider fieldname={FieldName.MessageField}/>
+                        <InformationProvider fieldname={FieldName.MessageField} fieldMessage='Please typ out your message in this field'/>
                         </div>
                         {errors.contactMessage &&
                             <ErrorMessage

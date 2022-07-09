@@ -183,8 +183,10 @@ function SubmitJokeForm() {
                                 {
                                     required: 'You must specify a joke type',
                                 })}
-
-                                    data-testid='jokeTypeSelector'
+                                onChange={(e) => {
+                                    setIsTwoPart(e.target.value === "twopart");
+                                }}
+                                data-testid='jokeTypeSelector'
                             >
                                 <JokeTypeSelector/>
                             </select>
@@ -200,7 +202,7 @@ function SubmitJokeForm() {
                         </span>
                         <span className='outerSubmitJoke'>
                             <Label htmlFor='jokeFlagSelector' labelText='Flag (optional):'/>
-                            <select {...register('jokeFlagSelector')}>
+                            <select {...register('jokeFlagSelector')} data-testid="jokeFlagSelector">
                                 <JokeFlagSelector/>
                             </select>
                             <InformationProvider fieldname={FieldName.JokeFlag}/>

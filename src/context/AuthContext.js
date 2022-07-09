@@ -119,7 +119,7 @@ function AuthContextProvider({children}) {
 
             localStorage.removeItem('birthDate');
         } catch (e) {
-            console.log(e)
+            console.error('Birthdate is not updated, please contact administrator');
         }
     }
 
@@ -136,8 +136,11 @@ function AuthContextProvider({children}) {
     function login(token) {
         // token in de localstorage plaatsen
         localStorage.setItem('token', token);
-        updateDateOfBirth(token);
-        getUserData(token, './');
+        updateDateOfBirth(token).then(
+            () => {
+                getUserData(token, './');
+            }
+        );
     }
 
     function logout() {

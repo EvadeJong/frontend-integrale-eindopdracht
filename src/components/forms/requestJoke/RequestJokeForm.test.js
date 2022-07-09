@@ -1,12 +1,10 @@
 import { act, cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
-import * as axios from "axios";
+import axios from "axios";
 
 import RequestJokeForm from "./RequestJokeForm";
 import AuthContextProvider from "../../../context/AuthContext";
-
-jest.mock("axios");
 
 afterEach(() => {
     cleanup();
@@ -33,7 +31,7 @@ it('3. De webapp geeft enkel Engelstalige grappen terug', async () => {
             "lang": "en"
         }
     };
-    axios.get.mockImplementationOnce(() => Promise.resolve(axiosResponse));
+    axios.get = jest.fn().mockResolvedValue(axiosResponse);
     render(
         <MemoryRouter>
             <AuthContextProvider>
