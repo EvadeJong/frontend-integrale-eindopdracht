@@ -64,8 +64,7 @@ There are no predefined accounts, instead register using the register button on 
 Once you have registered successfully, you are able to log in and use all functionality.
 
 ## 5. Testing
-The unit tests are located in the project directories of components that are tested.
-E.g. the App.test.js file.
+The unit tests are located in the project directories of components that are tested (e.g. the App.test.js file).
 To run the tests, run the following command in the terminal:
 
 npm run test
